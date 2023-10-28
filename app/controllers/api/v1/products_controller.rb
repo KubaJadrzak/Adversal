@@ -3,9 +3,7 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.order(created_at: :desc)
-
-    render json: @products
+    @products = Product.all
   end
 
   # GET /products/1
@@ -46,6 +44,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description)
+      params.require(:product).permit(:title, :price, :description, :category_id)
     end
 end

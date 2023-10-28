@@ -10,10 +10,20 @@ Product.destroy_all
 
 # Create 20 posts
 
+3.times do
+    Category.create(
+        name: Faker::Lorem.sentence(word_count: 1)
+    )
+end
+
 20.times do
+
+
+
     Product.create(
         title: Faker::Lorem.sentence(word_count: 3),
         price: Faker::Commerce.price,
+        category_id: Faker::Number.between(from: 1, to: 3),
         description: Faker::Lorem.sentence(word_count: 10)
     )
 end
