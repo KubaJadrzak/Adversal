@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
-function useProducts() {
-    const [products, setProducts] = useState([])
+function useProduct() {
+    const { id } = useParams()
+    const [product, setProduct] = useState([])
     const [, setLoading] = useState(true)
     const [, setError] = useState(null)
 
     useEffect(() => {
-        async function loadProducts(){
+        async function loadProduct(){
             try {
-                const response = await fetch('http://localhost:3000/api/v1/products');
+                const response = await fetch(`http://localhost:3000/api/v1/products/${id}`);
                 if (response.ok) {
                     const json = await response.json();
-                    setProducts(json);
+                    setProduct(json);
                 } else {
                     throw response;
                 }
@@ -22,10 +24,10 @@ function useProducts() {
                 setLoading(false)
             }
         }
-        loadProducts();
+        loadProduct();
     }, [])
 
-    return products
+    return product
 }
 
-export default useProducts
+export default useProduct

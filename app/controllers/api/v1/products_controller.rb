@@ -7,8 +7,7 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   # GET /products/1
-  def show
-    render json: @product
+  def show;
   end
 
   # POST /products

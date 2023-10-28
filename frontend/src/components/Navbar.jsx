@@ -5,7 +5,6 @@ function Navbar() {
     return (
         <nav>
             <Link to="/">Product List </Link>
-            <Link to="/new">New Post</Link>
         </nav>
     )
 }
