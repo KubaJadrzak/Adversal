@@ -1,18 +1,26 @@
 import React from "react"
 import useProducts from "../api/useProducts"
 import ProductsListElement from "../components/ProductsListElement"
-import './ProductsList.css'
+import { useNavigate } from "react-router-dom"
+import {Box, Button, Card} from '@mui/material'
 
 function ProductsList() {
     const products = useProducts()
+    const navigate = useNavigate()
+
+    if (!products || products.length === 0) return (
+        <div></div>
+    )
+
     return (
-        <div className='products-container'>
+        <Box className='products-container'>
             {products.map((product) => (
-                <div key={product.id} className='product-container'>
+                <Card key={product.id} className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
                     {ProductsListElement(product)}
-                </div>
+                </Card>
+
             ))}
-        </div>
+        </Box>
     )
 }
 
