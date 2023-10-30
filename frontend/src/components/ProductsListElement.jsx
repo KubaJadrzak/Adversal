@@ -1,5 +1,7 @@
 import React from "react"
-import {Container, Typography} from '@mui/material'
+import {Box, Container, Typography} from '@mui/material'
+
+import "./ProductsListElement.css"
 
 function ProductsListElement(product) {
 
@@ -9,10 +11,12 @@ function ProductsListElement(product) {
 
     return (
         <Container>
-            <Typography>{product.title}</Typography>
-            <Typography>price: {product.price}</Typography>
-            <Typography>description: {product.description}</Typography>
-            <Typography>category: {product.category.name}</Typography>
+            <Box className='product-header'>
+                <Typography variant='h6'>{product.title}</Typography>
+                <Typography>${product.price}</Typography>
+            </Box>
+            <Typography className='product-description'>{product.description}</Typography>
+
         </Container>
     )
 }

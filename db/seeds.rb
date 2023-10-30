@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Product.destroy_all
+Category.destroy_all
 
 # Create 20 posts
 
@@ -16,7 +17,7 @@ Product.destroy_all
     )
 end
 
-20.times do
+40.times do
 
 
 
@@ -24,6 +25,6 @@ end
         title: Faker::Lorem.sentence(word_count: 3),
         price: Faker::Commerce.price,
         category_id: Faker::Number.between(from: 1, to: 3),
-        description: Faker::Lorem.sentence(word_count: 10)
+        description: Faker::Lorem.sentence(word_count: 100)
     )
 end

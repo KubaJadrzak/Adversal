@@ -1,17 +1,20 @@
 import { BrowserRouter as Router } from "react-router-dom"
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar"
 import AppRoutes from "./routes/AppRoutes"
-import { Box } from "@mui/material";
+import StyledEngineProvider from '@mui/material/StyledEngineProvider'
+import { Box, StepLabel } from "@mui/material"
 import './App.css';
 
 function App() {
     return (
-      <Router>
-        <Box className="app">
-          <Navbar/>
-          <AppRoutes />
-        </Box>
-      </Router>
+      <StyledEngineProvider injectFirst>
+        <Router>
+          <Box className="app">
+            <Navbar/>
+            <AppRoutes />
+          </Box>
+        </Router>
+      </StyledEngineProvider>
   )
 }
 

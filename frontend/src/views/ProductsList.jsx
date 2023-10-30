@@ -3,6 +3,7 @@ import useProducts from "../api/useProducts"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
 import {Box, Button, Card} from '@mui/material'
+import "./ProductsList.css"
 
 function ProductsList() {
     const products = useProducts()

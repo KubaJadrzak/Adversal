@@ -1,0 +1,13 @@
+.product-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.product-description{
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+}
