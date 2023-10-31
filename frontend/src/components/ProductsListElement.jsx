@@ -1,9 +1,10 @@
 import React from "react"
-import {Box, Container, Typography} from '@mui/material'
+import {Box, Container, Typography, Button} from '@mui/material'
 
 import "./ProductsListElement.css"
 
-function ProductsListElement(product) {
+function ProductsListElement(product, navigate) {
+
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -15,7 +16,9 @@ function ProductsListElement(product) {
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
             </Box>
+
             <Typography className='product-description'>{product.description}</Typography>
+            <Button variant='contained' className='product-button' onClick={() => {navigate(`/cart`)}}>Add to card</Button>
 
         </Container>
     )

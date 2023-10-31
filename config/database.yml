@@ -1,6 +1,5 @@
 # PostgreSQL database
 
-
 default: &default
   adapter: postgresql
   encoding: unicode
