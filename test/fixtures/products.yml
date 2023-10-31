@@ -4,8 +4,10 @@ one:
   title: MyText
   price: 9.99
   description: MyText
+  category: one
 
 two:
-  title: MyText
+  title: MyText2
   price: 9.99
-  description: MyText
+  description: MyText2
+  category: two
