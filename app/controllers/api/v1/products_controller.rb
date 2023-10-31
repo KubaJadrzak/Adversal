@@ -7,7 +7,7 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   # GET /products/1
-  def show;
+  def show
   end
 
   # POST /products
@@ -43,6 +43,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id)
+      params.require(:product).permit(:title, :price, :description, :category_id, :user_id)
     end
 end
