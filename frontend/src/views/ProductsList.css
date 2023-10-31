@@ -5,10 +5,16 @@
 }
 .product-container{
     width: 400px;
+    height: 200px;
     margin: 10px;
     padding: 10px;
 }
 .product-container:hover{
     cursor: pointer;
     background-color: whitesmoke;
+}
+.product-button{
+    position: relative;
+    bottom: 60px;
+    left: 40px;
 }

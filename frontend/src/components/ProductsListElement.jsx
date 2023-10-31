@@ -3,7 +3,7 @@ import {Box, Container, Typography, Button} from '@mui/material'
 
 import "./ProductsListElement.css"
 
-function ProductsListElement(product, navigate) {
+function ProductsListElement(product) {
 
 
     if (!product || product.length === 0) return (
@@ -16,10 +16,7 @@ function ProductsListElement(product, navigate) {
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
             </Box>
-
             <Typography className='product-description'>{product.description}</Typography>
-            <Button variant='contained' className='product-button' onClick={() => {navigate(`/cart`)}}>Add to card</Button>
-
         </Container>
     )
 }
