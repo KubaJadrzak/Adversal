@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from 'react-router-dom';
 
-function useProduct() {
-    const { id } = useParams()
-    const [product, setProduct] = useState([])
+function useUser() {
+    const [user, setUser] = useState([])
     const [, setLoading] = useState(true)
     const [, setError] = useState(null)
 
     useEffect(() => {
-        async function loadProduct(){
+        async function loadUser(){
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/products/${id}`);
+                const response = await fetch('http://localhost:3000/api/v1/users/1');
                 if (response.ok) {
                     const json = await response.json();
-                    setProduct(json);
+                    setUser(json);
                 } else {
                     throw response;
                 }
@@ -24,10 +22,10 @@ function useProduct() {
                 setLoading(false)
             }
         }
-        loadProduct();
+        loadUser();
     }, [])
 
-    return product
+    return user
 }
 
-export default useProduct
+export default useUser
