@@ -1,2 +1,2 @@
-json.extract! cart, :id, :created_at, :updated_at
-json.url cart_url(cart, format: :json)
+json.extract! cart, :id, :user_id
+json.url api_v1_cart_url(cart, format: :json)

@@ -7,8 +7,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-
-
 3.times do
 
     User.create(
@@ -19,7 +17,22 @@
     Category.create(
         name: Faker::Lorem.sentence(word_count: 1)
     )
+
+
 end
+
+Cart.create(
+    user_id: 1
+)
+
+Cart.create(
+    user_id: 2
+)
+
+Cart.create(
+    user_id: 3
+)
+
 
 40.times do
 

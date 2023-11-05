@@ -1,1 +1,1 @@
-json.array! @carts, partial: "carts/cart", as: :cart
+json.array! @carts, partial: "api/v1/carts/cart", as: :cart
