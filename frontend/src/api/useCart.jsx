@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
-function useProducts() {
-    const [products, setProducts] = useState([])
+function useCart() {
+    const [cart, setCart] = useState([])
     const [, setLoading] = useState(true)
     const [, setError] = useState(null)
 
     useEffect(() => {
-        async function loadProducts(){
+        async function loadCart(){
             try {
-                const response = await fetch('http://localhost:3000/api/v1/products');
+                const response = await fetch('http://localhost:3000/api/v1/carts/1');
                 if (response.ok) {
                     const json = await response.json();
-                    setProducts(json);
+                    setCart(json);
                 } else {
                     throw response;
                 }
@@ -22,10 +22,10 @@ function useProducts() {
                 setLoading(false)
             }
         }
-        loadProducts();
+        loadCart();
     }, [])
 
-    return products
+    return cart
 }
 
-export default useProducts
+export default useCart

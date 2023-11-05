@@ -20,7 +20,7 @@ function ProductsList() {
                     <Card  className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
                         {ProductsListElement(product)}
                     </Card>
-                    <Button variant='contained' className='product-button' onClick={() => {navigate(`/cart`)}}>Add to card</Button>
+                    <Button variant='contained' className='product-button' onClick={() => {navigate(`/cart`)}}>Add to cart</Button>
                 </Box>
 
             ))}
