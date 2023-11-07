@@ -1,14 +1,30 @@
-import React from "react"
-import useCart from "../api/useCart"
+import React, { useEffect, useState } from "react"
+import { fetchCart } from "../api/cartApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
 import {Box, Card} from '@mui/material'
 
 function Cart() {
-    const cart = useCart()
     const navigate = useNavigate()
+    const [cart, setCart] = useState([])
+    const [, setLoading] = useState(true)
+    const [, setError] = useState(null)
 
-    if (!cart || cart.length === 0) return (
+    useEffect(() => {
+        async function loadData(){
+          try {
+              const data = await fetchCart(1)
+              setCart(data)
+              setLoading(false)
+          } catch (e) {
+              setError(e)
+              setLoading(false)
+          }
+        }
+        loadData()
+      }, [])
+
+      if (!cart || cart.length === 0) return (
         <div></div>
     )
 

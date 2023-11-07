@@ -1,17 +1,29 @@
-import React from "react"
-import useProducts from "../api/useProducts"
+import React, { useEffect, useState } from "react"
+import { fetchAllProducts } from "../api/productApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
 import {Box, Card, Button} from '@mui/material'
 import "./ProductsList.css"
 
 function ProductsList() {
-    const products = useProducts()
+    const [products, setProducts] = useState([])
+    const [, setLoading] = useState(true)
+    const [, setError] = useState(null)
     const navigate = useNavigate()
 
-    if (!products || products.length === 0) return (
-        <div></div>
-    )
+    useEffect(() => {
+      async function loadData(){
+        try {
+            const data = await fetchAllProducts()
+            setProducts(data)
+            setLoading(false)
+        } catch (e) {
+            setError(e)
+            setLoading(false)
+        }
+      }
+      loadData()
+    }, [])
 
     return (
         <Box className='products-container'>
