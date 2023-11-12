@@ -14,7 +14,10 @@ function ProductsList() {
     useEffect(() => {
       async function loadData(){
         try {
-            const data = await fetchAllProducts()
+            const params = new URLSearchParams({
+                with_user: "true",
+            })
+            const data = await fetchAllProducts(params)
             setProducts(data)
             setLoading(false)
         } catch (e) {

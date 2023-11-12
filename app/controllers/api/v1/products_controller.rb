@@ -4,6 +4,9 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
+    if params[:with_user].to_s == "true"
+      render :show_with_user
+    end
   end
 
   # GET /products/1
@@ -43,6 +46,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id, :user_id)
+      params.require(:product).permit(:title, :price, :description, :category_id, :user_id, :with_user)
     end
 end

@@ -1,13 +1,13 @@
-export async function fetchAllProducts() {
-    const response = await fetch('http://localhost:3000/api/v1/products')
+export async function fetchAllProducts(params) {
+    const response = await fetch(`http://localhost:3000/api/v1/products?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
     return response.json()
 }
 
-export async function deleteProduct(id) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}`, {
+export async function deleteProduct(id, params) {
+    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`, {
         method: "DELETE",
     })
     if (!response.ok) {
@@ -21,10 +21,12 @@ export async function deleteProduct(id) {
     }
 }
 
-export async function fetchProduct(id) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}`)
+export async function fetchProduct(id, params) {
+    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
     return response.json()
 }
+
+

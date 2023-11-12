@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"
 import { Box, AppBar, Toolbar, IconButton} from "@mui/material";
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +13,9 @@ function Navbar() {
             <Toolbar>
               <IconButton onClick={() => {navigate(`/catalog`)}}>
                 <FontAwesomeIcon icon={faUser} />
+              </IconButton>
+              <IconButton onClick={() => {navigate(`/`)}}>
+                <FontAwesomeIcon icon={faHome} />
               </IconButton>
             </Toolbar>
           </AppBar>

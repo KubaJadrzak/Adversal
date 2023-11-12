@@ -1,7 +1,13 @@
+.product-conteiner{
+    display: flex;
+    flex-direction: column;
+}
+
 .product-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
 }
 
 .product-description{
@@ -10,4 +16,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
+}
+
+.product-user{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-end;
 }

@@ -5,11 +5,15 @@ class Api::V1::UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    if params[:with_products].to_s == "true"
+      render :show_with_products
+    end
   end
 
   # POST /users
@@ -48,6 +52,19 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email)
+      params.require(:user).permit(:name, :email, :with_products)
     end
+
+    def find_and_set_query_parameters(request)
+      if !request.query_parameters.any?
+          request.query_parameters.each do |scope, value|
+              @plants = @plants.presence || @user.plants
+              @plants = @plants.select do |plant|
+                  plant.send("#{scope}").to_s == value
+              end
+          end
+      else
+          @plants = @user.plants
+      end
+  end
 end

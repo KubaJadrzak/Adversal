@@ -6,15 +6,19 @@ import { Box } from "@mui/material"
 import './App.css';
 
 function App() {
-    return (
-      <StyledEngineProvider injectFirst>
-        <Router>
-          <Box className="app">
-            <Navbar/>
-            <AppRoutes />
-          </Box>
-        </Router>
-      </StyledEngineProvider>
+  if(!localStorage.getItem('id')){
+    localStorage.setItem("id", 1)
+
+  }
+  return (
+    <StyledEngineProvider injectFirst>
+      <Router>
+        <Box className="app">
+          <Navbar/>
+          <AppRoutes />
+        </Box>
+      </Router>
+    </StyledEngineProvider>
   )
 }
 

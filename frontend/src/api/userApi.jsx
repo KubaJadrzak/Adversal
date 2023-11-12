@@ -21,8 +21,8 @@ export async function deleteUser(id) {
     }
 }
 
-export async function fetchUser(id) {
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}`)
+export async function fetchUser(id, params) {
+    const response = await fetch(`http://localhost:3000/api/v1/users/${id}?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }

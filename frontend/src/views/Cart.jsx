@@ -13,7 +13,7 @@ function Cart() {
     useEffect(() => {
         async function loadData(){
           try {
-              const data = await fetchCart(1)
+              const data = await fetchCart(localStorage.getItem('id'))
               setCart(data)
               setLoading(false)
           } catch (e) {

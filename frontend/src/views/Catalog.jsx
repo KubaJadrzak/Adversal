@@ -14,7 +14,10 @@ function Catalog() {
     useEffect(() => {
       async function loadData(){
         try {
-            const data = await fetchUser(1)
+            const params = new URLSearchParams({
+                with_products: "true",
+              })
+            const data = await fetchUser(localStorage.getItem('id'), params)
             setUser(data)
             setLoading(false)
         } catch (e) {
