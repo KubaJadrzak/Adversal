@@ -54,17 +54,4 @@ class Api::V1::UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :with_products)
     end
-
-    def find_and_set_query_parameters(request)
-      if !request.query_parameters.any?
-          request.query_parameters.each do |scope, value|
-              @plants = @plants.presence || @user.plants
-              @plants = @plants.select do |plant|
-                  plant.send("#{scope}").to_s == value
-              end
-          end
-      else
-          @plants = @user.plants
-      end
-  end
 end
