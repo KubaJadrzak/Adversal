@@ -32,10 +32,9 @@ function ProductsList() {
         <Box className='products-container'>
             {products.map((product) => (
                 <Box key={product.id}>
-                    <Card  className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
-                        {ProductsListElement(product)}
+                    <Card  className='product-container'>
+                        {ProductsListElement(product, navigate)}
                     </Card>
-                    <Button variant='contained' className='product-button' onClick={() => {navigate(`/cart`)}}>Add to cart</Button>
                 </Box>
 
             ))}

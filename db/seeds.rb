@@ -20,7 +20,7 @@
     )
 end
 
-40.times do |x|
+10.times do |x|
     Product.create(
         title: Faker::Lorem.sentence(word_count: 3),
         price: Faker::Commerce.price,

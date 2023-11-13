@@ -1,4 +1,4 @@
-.product-conteiner{
+.product-container{
     display: flex;
     flex-direction: column;
 }
@@ -18,9 +18,10 @@
     display: -webkit-box;
 }
 
-.product-user{
+.product-footer{
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 5px;
 }

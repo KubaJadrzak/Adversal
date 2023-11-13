@@ -1,21 +1,17 @@
 .products-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 460px);
+    grid-gap: 1rem;
+    justify-content: space-around;
+
 }
 .product-container{
     display: flex;
-    width: 500px;
-    height: 170px;
-    margin: 10px;
-    padding: 10px;
+    width: 440px;
+    height: 190px;
+    margin: 10px
 }
 .product-container:hover{
     cursor: pointer;
     background-color: whitesmoke;
-}
-.product-button{
-    position: relative;
-    bottom: 60px;
-    left: 40px;
 }
