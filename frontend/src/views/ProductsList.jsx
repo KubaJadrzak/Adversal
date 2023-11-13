@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { fetchAllProducts } from "../api/productApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box, Card, Button} from '@mui/material'
+import {Box} from '@mui/material'
 import "./ProductsList.css"
 
 function ProductsList() {
@@ -29,12 +29,10 @@ function ProductsList() {
     }, [])
 
     return (
-        <Box className='products-container'>
+        <Box className='products-list-container'>
             {products.map((product) => (
                 <Box key={product.id}>
-                    <Card  className='product-container'>
-                        {ProductsListElement(product, navigate)}
-                    </Card>
+                    {ProductsListElement(product, navigate)}
                 </Box>
 
             ))}

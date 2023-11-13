@@ -1,16 +1,25 @@
-.product-container{
+.product-list-element-container{
     display: flex;
     flex-direction: column;
+    width: 400px;
+    height: 170px;
+    margin: 10px;
+    padding: 20px
 }
 
-.product-header{
+.product-list-element-container:hover{
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+.product-list-element-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.product-description{
+.product-list-element-description{
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -18,10 +27,10 @@
     display: -webkit-box;
 }
 
-.product-footer{
+.product-list-element-footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 5px;
+    margin-top: 10px;
 }

@@ -8,7 +8,6 @@ class Api::V1::CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
-    render json: @category
   end
 
   # POST /categories
@@ -44,6 +43,6 @@ class Api::V1::CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:id)
     end
 end

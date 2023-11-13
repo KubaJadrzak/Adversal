@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { fetchCart } from "../api/cartApi"
-import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box, Card} from '@mui/material'
+import {Card, Box} from '@mui/material'
+import CartListElement from "../components/CartListElement"
+import "./Cart.css"
 
 function Cart() {
     const navigate = useNavigate()
@@ -29,16 +30,13 @@ function Cart() {
     )
 
     return (
-        <Box className='products-container'>
+        <Card className='cart-container'>
             {cart.products.map((product) => (
-                <Box key={product.id}>
-                    <Card  className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
-                        {ProductsListElement(product)}
-                    </Card>
+                <Box key={product.id} className='cart-list' >
+                    {CartListElement(product, navigate)}
                 </Box>
-
             ))}
-        </Box>
+        </Card>
     )
 }
 

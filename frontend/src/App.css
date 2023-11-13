@@ -1,4 +1,6 @@
 #root {
   width: 100%;
   margin-top: 70px;
+  background-color: aliceblue;
+  min-height: 92vh;
 }

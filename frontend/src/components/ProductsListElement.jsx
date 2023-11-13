@@ -1,5 +1,5 @@
 import React from "react"
-import {Box, Container, Typography, Button} from '@mui/material'
+import {Box, Card, Typography, Button} from '@mui/material'
 
 import "./ProductsListElement.css"
 
@@ -16,21 +16,21 @@ function ProductsListElement(product, navigate) {
       }
 
     return (
-        <Container className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
-            <Box className='product-header'>
+        <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
+            <Box className='product-list-element-header'>
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
             </Box>
-            <Typography className='product-description'>{product.description}</Typography>
+            <Typography className='product-list-element-description'>{product.description}</Typography>
             {product.user &&
-            <Box className='product-footer'>
+            <Box className='product-list-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
                 <Box>
                     <Typography>{product.user.name}</Typography>
                 </Box>
              </Box>
             }
-        </Container>
+        </Card>
     )
 }
 

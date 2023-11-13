@@ -3,7 +3,8 @@ import { useState, useEffect } from "react"
 import { fetchUser } from "../api/userApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box, Card} from '@mui/material'
+import {Box} from '@mui/material'
+import "./Catalog.css"
 
 function Catalog() {
     const [user, setUser] = useState([])
@@ -33,12 +34,10 @@ function Catalog() {
     )
 
     return (
-        <Box className='products-container'>
+        <Box className='catalog-products-container'>
             {user.products.map((product) => (
                 <Box key={product.id}>
-                    <Card  className='product-container' onClick={() => {navigate(`/product/${product.id}`)}}>
-                        {ProductsListElement(product)}
-                    </Card>
+                    {ProductsListElement(product, navigate)}
                 </Box>
 
             ))}

@@ -43,11 +43,11 @@ class Api::V1::CartsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
-      @cart = Cart.find(params[:id])
+      @cart = Cart.find_by_user_id(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def cart_params
-      params.fetch(:cart, {})
+        params.require(:id)
     end
 end
