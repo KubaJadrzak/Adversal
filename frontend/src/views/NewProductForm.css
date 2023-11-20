@@ -1,0 +1,18 @@
+.new-product-form-container{
+    width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    min-height: 500px;
+}
+.new-product-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+.new-product-form-element{
+    margin: 10px;
+    width: 80%;
+}

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { fetchUser } from "../api/userApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box} from '@mui/material'
+import {Box, Button} from '@mui/material'
 import "./Catalog.css"
 
 function Catalog() {
@@ -34,13 +34,18 @@ function Catalog() {
     )
 
     return (
-        <Box className='catalog-products-container'>
-            {user.products.map((product) => (
-                <Box key={product.id}>
-                    {ProductsListElement(product, navigate)}
-                </Box>
+        <Box>
+            <Box className='catalog-new-product-button'>
+                <Button variant="contained" onClick={() => {navigate(`/newproduct`)}} >Create new product</Button>
+            </Box>
+            <Box className='catalog-products-container'>
+                {user.products.map((product) => (
+                    <Box key={product.id}>
+                        {ProductsListElement(product, navigate)}
+                    </Box>
 
-            ))}
+                ))}
+            </Box>
         </Box>
     )
 }

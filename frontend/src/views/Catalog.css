@@ -1,3 +1,7 @@
+.catalog-new-product-button{
+    margin: 10px 20px 10px 20px;
+}
+
 .catalog-products-container{
     display: grid;
     grid-template-columns: repeat(auto-fill, 460px);
