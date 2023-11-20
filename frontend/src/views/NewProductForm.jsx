@@ -50,7 +50,7 @@ function NewProductForm() {
 
         if (response.ok) {
             const { id } = await response.json()
-            navigate(`/products/${id}`)
+            navigate(`/product/${id}`)
         } else {
             console.log("An error occurred.")
         }
