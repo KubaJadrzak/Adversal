@@ -13,9 +13,8 @@
 #
 class Product < ApplicationRecord
     validates :category_id, presence: true
-    validates :user_id, presence: true
+    validates :seller_id, presence: true
     belongs_to :category
-    belongs_to :user
-    has_many :cart_products
-    has_many :carts, through: :cart_products
+    belongs_to :seller, class_name: :User, foreign_key: :seller_id
+    has_many :users, through: :cart_products
 end

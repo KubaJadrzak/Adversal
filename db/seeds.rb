@@ -15,9 +15,6 @@
     Category.create(
         name: Faker::Lorem.sentence(word_count: 1)
     )
-    Cart.create(
-        user_id: x+1
-    )
 end
 
 10.times do |x|
@@ -25,11 +22,7 @@ end
         title: Faker::Lorem.sentence(word_count: 3),
         price: Faker::Commerce.price,
         category_id: Faker::Number.between(from: 1, to: 3),
-        user_id: Faker::Number.between(from: 1, to: 3),
+        seller_id: Faker::Number.between(from: 1, to: 3),
         description: Faker::Lorem.sentence(word_count: 100)
-    )
-    CartProduct.create(
-        product_id: x+1,
-        cart_id: Faker::Number.between(from: 1, to: 3),
     )
 end

@@ -1,4 +1,4 @@
-class Api::V1::CartProductsController < ApplicationController
+class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show update destroy ]
 
   # GET /cart_products
@@ -48,6 +48,6 @@ class Api::V1::CartProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_product_params
-      params.require(:product).permit(:user_id, :product_id)
+      params.fetch(:cart_product, {})
     end
 end

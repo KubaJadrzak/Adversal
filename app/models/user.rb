@@ -10,6 +10,5 @@
 #
 class User < ApplicationRecord
     validates :email, presence: true, uniqueness: true
-    has_many :products, dependent: :destroy
-    has_one :cart, dependent: :destroy
+    has_many :products, foreign_key: :seller_id, inverse_of: :user, dependent: :destroy
 end

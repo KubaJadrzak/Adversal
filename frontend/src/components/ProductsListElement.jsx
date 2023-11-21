@@ -22,11 +22,11 @@ function ProductsListElement(product, navigate) {
                 <Typography>${product.price}</Typography>
             </Box>
             <Typography className='product-list-element-description'>{product.description}</Typography>
-            {product.user &&
+            {product.seller &&
             <Box className='product-list-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
                 <Box>
-                    <Typography>{product.user.name}</Typography>
+                    <Typography>{product.seller.name}</Typography>
                 </Box>
              </Box>
             }
