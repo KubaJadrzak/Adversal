@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { fetchCart } from "../api/cartApi"
+import { fetchUser } from "../api/userApi"
 import { useNavigate } from "react-router-dom"
 import {Card, Box} from '@mui/material'
 import CartListElement from "../components/CartListElement"
@@ -7,15 +7,18 @@ import "./Cart.css"
 
 function Cart() {
     const navigate = useNavigate()
-    const [cart, setCart] = useState([])
+    const [user, setUser] = useState([])
     const [, setLoading] = useState(true)
     const [, setError] = useState(null)
 
     useEffect(() => {
         async function loadData(){
           try {
-              const data = await fetchCart(localStorage.getItem('id'))
-              setCart(data)
+              const params = new URLSearchParams({
+                with_carted_products: "true",
+              })
+              const data = await fetchUser(localStorage.getItem('id'), params)
+              setUser(data)
               setLoading(false)
           } catch (e) {
               setError(e)
@@ -25,15 +28,15 @@ function Cart() {
         loadData()
       }, [])
 
-      if (!cart || cart.length === 0) return (
+      if (!user || user.length === 0) return (
         <div></div>
     )
 
     return (
         <Card className='cart-container'>
-            {cart.products.map((product) => (
-                <Box key={product.id} className='cart-list' >
-                    {CartListElement(product, navigate)}
+            {user.carted_products.map((carted_product) => (
+                <Box key={carted_product.id} className='cart-list' >
+                    {CartListElement(carted_product, navigate)}
                 </Box>
             ))}
         </Card>

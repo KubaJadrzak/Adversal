@@ -16,7 +16,7 @@ function Catalog() {
       async function loadData(){
         try {
             const params = new URLSearchParams({
-                with_products: "true",
+                with_listed_products: "true",
               })
             const data = await fetchUser(localStorage.getItem('id'), params)
             setUser(data)
@@ -39,9 +39,9 @@ function Catalog() {
                 <Button variant="contained" onClick={() => {navigate(`/newproduct`)}} >Create new product</Button>
             </Box>
             <Box className='catalog-products-container'>
-                {user.products.map((product) => (
-                    <Box key={product.id}>
-                        {ProductsListElement(product, navigate)}
+                {user.listed_products.map((listed_product) => (
+                    <Box key={listed_product.id}>
+                        {ProductsListElement(listed_product, navigate)}
                     </Box>
 
                 ))}

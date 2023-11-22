@@ -37,8 +37,8 @@ function NewProductForm() {
 
     const handleCreateNewProduct = async (e) => {
         e.preventDefault()
-        const user_id = localStorage.getItem('id')
-        const data = { title, price, description, category_id, user_id }
+        const seller_id = localStorage.getItem('id')
+        const data = { title, price, description, category_id, seller_id }
 
         const response = await fetch('http://localhost:3000/api/v1/products', {
             method: "POST",
@@ -83,7 +83,7 @@ function NewProductForm() {
                     onChange={e => setCategoryId(e.target.value)}
                 >
                     {categories.map((category) => (
-                        <MenuItem key={category.name} value={category.id}>
+                        <MenuItem key={category.id} value={category.id}>
                             {category.name}
                         </MenuItem>
                     ))}

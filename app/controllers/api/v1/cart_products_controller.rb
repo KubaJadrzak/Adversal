@@ -1,4 +1,4 @@
-class CartProductsController < ApplicationController
+class Api::V1::CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show update destroy ]
 
   # GET /cart_products
@@ -18,7 +18,7 @@ class CartProductsController < ApplicationController
     @cart_product = CartProduct.new(cart_product_params)
 
     if @cart_product.save
-      render :show, status: :created, location: @cart_product
+      render :show, status: :created, location: api_v1_cart_products_url(@cart_product)
     else
       render json: @cart_product.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class CartProductsController < ApplicationController
   # PATCH/PUT /cart_products/1.json
   def update
     if @cart_product.update(cart_product_params)
-      render :show, status: :ok, location: @cart_product
+      render :show, status: :ok, location: api_v1_cart_products_url(@cart_product)
     else
       render json: @cart_product.errors, status: :unprocessable_entity
     end
@@ -48,6 +48,6 @@ class CartProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_product_params
-      params.fetch(:cart_product, {})
+      params.fetch(:cart_product, {}).permit(:buyer_id, :carted_product_id)
     end
 end

@@ -10,10 +10,27 @@ function ProductsListElement(product, navigate) {
         <div></div>
     )
 
-    const handleAddToCart = (e) => {
-        e.stopPropagation();
-        navigate(`/cart`)
-      }
+    const handleAddToCart = async (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        const buyer_id = localStorage.getItem('id')
+        const carted_product_id = product.id
+        const data = { buyer_id, carted_product_id }
+
+        const response = await fetch('http://localhost:3000/api/v1/cart_products', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        if (response.ok) {
+            navigate(`/cart`)
+        } else {
+            console.log("An error occurred.")
+        }
+    }
 
     return (
         <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
