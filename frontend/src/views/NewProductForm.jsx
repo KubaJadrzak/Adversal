@@ -37,8 +37,7 @@ function NewProductForm() {
 
     const handleCreateNewProduct = async (e) => {
         e.preventDefault()
-        const seller_id = localStorage.getItem('id')
-        const data = { title, price, description, category_id, seller_id }
+        const data = { title, price, description, category_id }
 
         const response = await fetch('http://localhost:3000/api/v1/products', {
             method: "POST",

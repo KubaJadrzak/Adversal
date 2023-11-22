@@ -13,9 +13,8 @@ function ProductsListElement(product, navigate) {
     const handleAddToCart = async (e) => {
         e.stopPropagation()
         e.preventDefault()
-        const buyer_id = localStorage.getItem('id')
         const carted_product_id = product.id
-        const data = { buyer_id, carted_product_id }
+        const data = { carted_product_id }
 
         const response = await fetch('http://localhost:3000/api/v1/cart_products', {
             method: "POST",
