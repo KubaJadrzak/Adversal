@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {List, ListItemButton, Divider, Typography, IconButton, Box} from '@mui/material'
 import "./CartListElement.css"
 
-function CartListElement (cartProduct, navigate) {
+function CartListElement ({cartProduct, navigate, onDeleteCartProduct}) {
 
     if (!cartProduct || cartProduct.lenght === 0) return (
         <div></div>
@@ -16,8 +16,9 @@ function CartListElement (cartProduct, navigate) {
         e.preventDefault()
         try {
             deleteCartProduct(cartProduct.id)
+            onDeleteCartProduct(cartProduct.id)
         } catch (e) {
-            console.error("Failed to delete the product:")
+            console.error("Failed to delete the product:", e)
         }
     }
 

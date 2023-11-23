@@ -4,7 +4,7 @@ import { createCartProduct } from "../api/cartProductApi"
 
 import "./ProductsListElement.css"
 
-function ProductsListElement(product, navigate) {
+function ProductsListElement({product, navigate, onAddToCart}) {
 
 
     if (!product || product.length === 0) return (
@@ -18,7 +18,7 @@ function ProductsListElement(product, navigate) {
         const data = { carted_product_id }
         try {
             const response = await createCartProduct(data)
-            navigate(`/cart`)
+            onAddToCart(product.id)
         } catch (e) {
             console.error("Failed to create a post: ", e)
         }

@@ -25,6 +25,14 @@ function Cart() {
         loadData()
       }, [])
 
+    const onDeleteCartProduct = (id) => {
+        const index = cartProducts.findIndex(cartProduct => {
+            return cartProduct.id === id
+        })
+        cartProducts.splice(index, 1)
+        setCartProducts([...cartProducts])
+    }
+
       if (!cartProducts || cartProducts.length === 0) return (
         <div></div>
     )
@@ -33,7 +41,7 @@ function Cart() {
         <Card className='cart-container'>
             {cartProducts.map((cartProduct) => (
                 <Box key={cartProduct.id} className='cart-list' >
-                    {CartListElement(cartProduct, navigate)}
+                    <CartListElement cartProduct={cartProduct} navigate={navigate} onDeleteCartProduct={onDeleteCartProduct}/>
                 </Box>
             ))}
         </Card>

@@ -41,7 +41,7 @@ function Catalog() {
             <Box className='catalog-products-container'>
                 {user.listed_products.map((listed_product) => (
                     <Box key={listed_product.id}>
-                        {ProductsListElement(listed_product, navigate)}
+                        <ProductsListElement product={listed_product} navigate={navigate}/>
                     </Box>
 
                 ))}

@@ -43,7 +43,7 @@ function NewProductForm() {
             const response = await createProduct(data)
             navigate(`/product/${response.id}`)
         } catch (e) {
-            console.error("Failed to create a post: ", e)
+            console.error("Failed to create a product: ", e)
         }
     }
 

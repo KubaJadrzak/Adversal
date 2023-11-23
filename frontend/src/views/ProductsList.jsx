@@ -28,11 +28,19 @@ function ProductsList() {
       loadData()
     }, [])
 
+    const onAddToCart = (id) => {
+        const index = products.findIndex(product => {
+            return product.id === id
+        })
+        products.splice(index, 1)
+        setProducts([...products])
+    }
+
     return (
         <Box className='products-list-container'>
             {products.map((product) => (
                 <Box key={product.id}>
-                    {ProductsListElement(product, navigate)}
+                    <ProductsListElement product={product} navigate={navigate} onAddToCart={onAddToCart}/>
                 </Box>
 
             ))}
