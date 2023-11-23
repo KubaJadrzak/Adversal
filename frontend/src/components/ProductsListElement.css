@@ -32,5 +32,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 10px;
+    justify-self: flex-end;
+    margin-top: auto;
+}
+
+.product-list-element-button{
+    width: 40%;
 }

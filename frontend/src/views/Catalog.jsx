@@ -33,6 +33,15 @@ function Catalog() {
         <div></div>
     )
 
+    const onDeleteProduct = (id) => {
+        const index = user.listed_products.findIndex(listed_product => {
+            return listed_product.id === id
+        })
+        user.listed_products.splice(index, 1)
+        setUser({...user})
+    }
+
+
     return (
         <Box>
             <Box className='catalog-new-product-button'>
@@ -41,7 +50,7 @@ function Catalog() {
             <Box className='catalog-products-container'>
                 {user.listed_products.map((listed_product) => (
                     <Box key={listed_product.id}>
-                        <ProductsListElement product={listed_product} navigate={navigate}/>
+                        <ProductsListElement product={listed_product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
                     </Box>
 
                 ))}

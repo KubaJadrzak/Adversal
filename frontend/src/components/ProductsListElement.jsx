@@ -1,10 +1,11 @@
 import React from "react"
 import {Box, Card, Typography, Button} from '@mui/material'
 import { createCartProduct } from "../api/cartProductApi"
+import { deleteProduct } from "../api/productApi"
 
 import "./ProductsListElement.css"
 
-function ProductsListElement({product, navigate, onAddToCart}) {
+function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) {
 
 
     if (!product || product.length === 0) return (
@@ -24,6 +25,17 @@ function ProductsListElement({product, navigate, onAddToCart}) {
         }
     }
 
+    const handleDeleteProduct = async (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        try {
+            deleteProduct(product.id)
+            onDeleteProduct(product.id)
+        } catch (e) {
+            console.error("Failed to delete the product:", e)
+        }
+    }
+
     return (
         <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
             <Box className='product-list-element-header'>
@@ -31,13 +43,21 @@ function ProductsListElement({product, navigate, onAddToCart}) {
                 <Typography>${product.price}</Typography>
             </Box>
             <Typography className='product-list-element-description'>{product.description}</Typography>
-            {product.seller &&
+            {product.seller ?
             <Box className='product-list-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
                 <Box>
                     <Typography>{product.seller.name}</Typography>
                 </Box>
-             </Box>
+            </Box> :
+            <Box className='product-list-element-footer'>
+                <Button variant='contained' className='product-list-element-button'>
+                    Edit
+                </Button>
+                <Button variant='contained' className='product-list-element-button' onClick={handleDeleteProduct}>
+                    Delete
+                </Button>
+            </Box>
             }
         </Card>
     )
