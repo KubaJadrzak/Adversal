@@ -3,7 +3,7 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
+    @products = Product.without_carted_products
     if params[:with_user].to_s == "true"
       render :show_with_user
     end
@@ -16,7 +16,6 @@ class Api::V1::ProductsController < ApplicationController
   # POST /products
   def create
     @product = Product.new(product_params)
-
     if @product.save
       render json: @product, status: :created, location: api_v1_products_url(@product)
     else
@@ -46,6 +45,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id, :user_id, :with_user)
+      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_user)
     end
 end

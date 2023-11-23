@@ -1,19 +1,28 @@
 import React from "react"
 import {Box, Card, Typography, Button} from '@mui/material'
+import { createCartProduct } from "../api/cartProductApi"
 
 import "./ProductsListElement.css"
 
-function ProductsListElement(product, navigate) {
+function ProductsListElement({product, navigate, onAddToCart}) {
 
 
     if (!product || product.length === 0) return (
         <div></div>
     )
 
-    const handleAddToCart = (e) => {
-        e.stopPropagation();
-        navigate(`/cart`)
-      }
+    const handleAddToCart = async (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        const carted_product_id = product.id
+        const data = { carted_product_id }
+        try {
+            const response = await createCartProduct(data)
+            onAddToCart(product.id)
+        } catch (e) {
+            console.error("Failed to create a post: ", e)
+        }
+    }
 
     return (
         <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
@@ -22,11 +31,11 @@ function ProductsListElement(product, navigate) {
                 <Typography>${product.price}</Typography>
             </Box>
             <Typography className='product-list-element-description'>{product.description}</Typography>
-            {product.user &&
+            {product.seller &&
             <Box className='product-list-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
                 <Box>
-                    <Typography>{product.user.name}</Typography>
+                    <Typography>{product.seller.name}</Typography>
                 </Box>
              </Box>
             }

@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { fetchAllCategories } from "../api/categoryApi"
+import { createProduct } from "../api/productApi"
 import { Card, Button, TextField, MenuItem, FormControl} from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import './NewProductForm.css'
@@ -37,22 +38,12 @@ function NewProductForm() {
 
     const handleCreateNewProduct = async (e) => {
         e.preventDefault()
-        const user_id = localStorage.getItem('id')
-        const data = { title, price, description, category_id, user_id }
-
-        const response = await fetch('http://localhost:3000/api/v1/products', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        if (response.ok) {
-            const { id } = await response.json()
-            navigate(`/products/${id}`)
-        } else {
-            console.log("An error occurred.")
+        const data = { title, price, description, category_id }
+        try {
+            const response = await createProduct(data)
+            navigate(`/product/${response.id}`)
+        } catch (e) {
+            console.error("Failed to create a product: ", e)
         }
     }
 
@@ -83,7 +74,7 @@ function NewProductForm() {
                     onChange={e => setCategoryId(e.target.value)}
                 >
                     {categories.map((category) => (
-                        <MenuItem key={category.name} value={category.id}>
+                        <MenuItem key={category.id} value={category.id}>
                             {category.name}
                         </MenuItem>
                     ))}

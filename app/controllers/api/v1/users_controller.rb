@@ -10,8 +10,8 @@ class Api::V1::UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    if params[:with_products].to_s == "true"
-      render :show_with_products
+    if params[:with_listed_products].to_s == "true"
+      render :show_with_listed_products
     end
   end
 
@@ -51,6 +51,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :with_products)
+      params.require(:user).permit(:name, :email, :with_listed_products, :with_carted_products)
     end
 end
