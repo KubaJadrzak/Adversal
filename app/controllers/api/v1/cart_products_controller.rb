@@ -4,7 +4,7 @@ class Api::V1::CartProductsController < ApplicationController
   # GET /cart_products
   # GET /cart_products.json
   def index
-    @cart_products = CartProduct.all
+    @cart_products = CartProduct.current_user_cart
   end
 
   # GET /cart_products/1

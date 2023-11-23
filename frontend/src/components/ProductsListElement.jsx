@@ -1,5 +1,6 @@
 import React from "react"
 import {Box, Card, Typography, Button} from '@mui/material'
+import { createCartProduct } from "../api/cartProductApi"
 
 import "./ProductsListElement.css"
 
@@ -15,19 +16,11 @@ function ProductsListElement(product, navigate) {
         e.preventDefault()
         const carted_product_id = product.id
         const data = { carted_product_id }
-
-        const response = await fetch('http://localhost:3000/api/v1/cart_products', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        if (response.ok) {
+        try {
+            const response = await createCartProduct(data)
             navigate(`/cart`)
-        } else {
-            console.log("An error occurred.")
+        } catch (e) {
+            console.error("Failed to create a post: ", e)
         }
     }
 

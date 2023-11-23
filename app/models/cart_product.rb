@@ -12,4 +12,6 @@ class CartProduct < ApplicationRecord
     validates :carted_product_id, uniqueness: { scope: :buyer_id }
     belongs_to :user, foreign_key: :buyer_id, default: -> { Current.user }
     belongs_to :product, foreign_key: :carted_product_id
+
+    scope :current_user_cart, -> {where(buyer_id: Current.user)}
 end

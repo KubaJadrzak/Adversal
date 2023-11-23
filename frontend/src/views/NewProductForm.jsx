@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { fetchAllCategories } from "../api/categoryApi"
+import { createProduct } from "../api/productApi"
 import { Card, Button, TextField, MenuItem, FormControl} from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import './NewProductForm.css'
@@ -38,20 +39,11 @@ function NewProductForm() {
     const handleCreateNewProduct = async (e) => {
         e.preventDefault()
         const data = { title, price, description, category_id }
-
-        const response = await fetch('http://localhost:3000/api/v1/products', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        if (response.ok) {
-            const { id } = await response.json()
-            navigate(`/product/${id}`)
-        } else {
-            console.log("An error occurred.")
+        try {
+            const response = await createProduct(data)
+            navigate(`/product/${response.id}`)
+        } catch (e) {
+            console.error("Failed to create a post: ", e)
         }
     }
 

@@ -13,9 +13,6 @@ class Api::V1::UsersController < ApplicationController
     if params[:with_listed_products].to_s == "true"
       render :show_with_listed_products
     end
-    if params[:with_carted_products].to_s == "true"
-      render :show_with_carted_products
-    end
   end
 
   # POST /users

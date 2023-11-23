@@ -1,13 +1,13 @@
-export async function fetchAllUsers() {
-    const response = await fetch('http://localhost:3000/api/v1/users')
+export async function fetchCartProducts(params) {
+    const response = await fetch(`http://localhost:3000/api/v1/cart_products?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
     return response.json()
 }
 
-export async function createUser(data){
-    const response = await fetch('http://localhost:3000/api/v1/users', {
+export async function createCartProduct(data){
+    const response = await fetch('http://localhost:3000/api/v1/cart_products', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -21,8 +21,8 @@ export async function createUser(data){
     return response.json()
 }
 
-export async function deleteUser(id) {
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
+export async function deleteCartProduct(id, params) {
+    const response = await fetch(`http://localhost:3000/api/v1/cart_products/${id}?${params}`, {
         method: "DELETE",
     })
     if (!response.ok) {
@@ -31,13 +31,12 @@ export async function deleteUser(id) {
 
     if (response.status === 204){
         return null
-    } else {
-        return response.json()
     }
+    return response.json()
 }
 
-export async function fetchUser(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}?${params}`)
+export async function fetchCartProduct(id, params) {
+    const response = await fetch(`http://localhost:3000/api/v1/cart_products/${id}?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
