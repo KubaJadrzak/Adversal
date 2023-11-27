@@ -36,6 +36,11 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
         }
     }
 
+    const handleEditProduct = async (e) => {
+        e.stopPropagation()
+        navigate(`/product/${product.id}/edit`)
+    }
+
     return (
         <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
             <Box className='product-list-element-header'>
@@ -51,7 +56,7 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
                 </Box>
             </Box> :
             <Box className='product-list-element-footer'>
-                <Button variant='contained' className='product-list-element-button'>
+                <Button variant='contained' className='product-list-element-button' onClick={handleEditProduct}>
                     Edit
                 </Button>
                 <Button variant='contained' className='product-list-element-button' onClick={handleDeleteProduct}>

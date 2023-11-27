@@ -36,6 +36,23 @@ export async function deleteUser(id) {
     }
 }
 
+export async function updateUser(id, data) {
+    const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.json();
+}
+
+
 export async function fetchUser(id, params) {
     const response = await fetch(`http://localhost:3000/api/v1/users/${id}?${params}`)
     if (!response.ok) {

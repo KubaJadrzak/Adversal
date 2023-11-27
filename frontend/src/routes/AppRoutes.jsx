@@ -5,7 +5,8 @@ import ProductsList from '../views/ProductsList'
 import Product from '../views/Product'
 import Cart from "../views/Cart";
 import Catalog from "../views/Catalog";
-import NewProductForm from "../views/NewProductForm";
+import AddProduct from '../forms/products/AddProduct'
+import EditProduct from '../forms/products/EditProduct'
 
 function AppRoutes(){
     return(
@@ -14,7 +15,8 @@ function AppRoutes(){
             <Route path="product/:id" element={<Product/>}/>
             <Route path="cart" element={<Cart/>}/>
             <Route path="catalog" element={<Catalog/>}/>
-            <Route path="newproduct" element={<NewProductForm/>}/>
+            <Route path="/product/add" element={<AddProduct/>}/>
+            <Route path="/product/:id/edit" element={<EditProduct/>}/>
         </Routes>
     )
 }

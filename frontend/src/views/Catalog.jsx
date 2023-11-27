@@ -45,7 +45,7 @@ function Catalog() {
     return (
         <Box>
             <Box className='catalog-new-product-button'>
-                <Button variant="contained" onClick={() => {navigate(`/newproduct`)}} >Create new product</Button>
+                <Button variant="contained" onClick={() => {navigate(`/product/add`)}} >Create new product</Button>
             </Box>
             <Box className='catalog-products-container'>
                 {user.listed_products.map((listed_product) => (

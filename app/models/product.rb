@@ -17,7 +17,7 @@ class Product < ApplicationRecord
     validates :seller_id, presence: true
     belongs_to :category
     belongs_to :seller, class_name: :User, inverse_of: :listed_products, foreign_key: :seller_id, default: -> { Current.user }
-    has_many :cart_products, foreign_key: :carted_product_id
+    has_many :cart_products, foreign_key: :carted_product_id, dependent: :destroy
     has_many :buyers, through: :cart_products, source: :user
 
     scope :without_carted_products, -> {where.not(id: includes(:cart_products).where(cart_products: {buyer_id: Current.user} ).select(:carted_product_id))}
