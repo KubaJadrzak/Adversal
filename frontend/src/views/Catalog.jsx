@@ -8,8 +8,6 @@ import "./Catalog.css"
 
 function Catalog() {
     const [user, setUser] = useState([])
-    const [, setLoading] = useState(true)
-    const [, setError] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -20,10 +18,8 @@ function Catalog() {
               })
             const data = await fetchUser(localStorage.getItem('id'), params)
             setUser(data)
-            setLoading(false)
         } catch (e) {
-            setError(e)
-            setLoading(false)
+            console.error("Failed to load user: ", e)
         }
       }
       loadData()

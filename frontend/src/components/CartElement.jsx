@@ -3,9 +3,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { deleteCartProduct } from "../api/cartProductApi"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {List, ListItemButton, Divider, Typography, IconButton, Box} from '@mui/material'
-import "./CartListElement.css"
+import "./CartElement.css"
 
-function CartListElement ({cartProduct, navigate, onDeleteCartProduct}) {
+function CartElement ({cartProduct, navigate, onDeleteCartProduct}) {
 
     if (!cartProduct || cartProduct.lenght === 0) return (
         <div></div>
@@ -40,4 +40,4 @@ function CartListElement ({cartProduct, navigate, onDeleteCartProduct}) {
     )
 }
 
-export default CartListElement
+export default CartElement

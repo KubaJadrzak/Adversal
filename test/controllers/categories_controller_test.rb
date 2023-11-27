@@ -12,7 +12,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create category" do
     assert_difference("Category.count") do
-      post api_v1_categories_url, params: { category: { name: "MyString3" } }, as: :json
+      post api_v1_categories_url, params: { category: { name: "clothes" } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update category" do
-    patch api_v1_category_url(@category), params: { category: { name: @category.name } }, as: :json
+    patch api_v1_category_url(@category), params: { category: { name: 'shoes' } }, as: :json
     assert_response :success
   end
 

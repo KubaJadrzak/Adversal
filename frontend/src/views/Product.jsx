@@ -7,18 +7,14 @@ import {Container, Typography} from '@mui/material'
 function Product() {
     const { id } = useParams()
     const [product, setProduct] = useState([])
-    const [, setLoading] = useState(true)
-    const [, setError] = useState(null)
 
     useEffect(() => {
       async function loadData(){
         try {
             const data = await fetchProduct(id)
             setProduct(data)
-            setLoading(false)
         } catch (e) {
-            setError(e)
-            setLoading(false)
+            console.error("Failed to load: ", e)
         }
       }
       loadData()

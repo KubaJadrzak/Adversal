@@ -18,7 +18,7 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
         const carted_product_id = product.id
         const data = { carted_product_id }
         try {
-            const response = await createCartProduct(data)
+            await createCartProduct(data)
             onAddToCart(product.id)
         } catch (e) {
             console.error("Failed to create a post: ", e)
@@ -36,11 +36,6 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
         }
     }
 
-    const handleEditProduct = async (e) => {
-        e.stopPropagation()
-        navigate(`/product/${product.id}/edit`)
-    }
-
     return (
         <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
             <Box className='product-list-element-header'>
@@ -56,7 +51,13 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
                 </Box>
             </Box> :
             <Box className='product-list-element-footer'>
-                <Button variant='contained' className='product-list-element-button' onClick={handleEditProduct}>
+                <Button
+                    variant='contained'
+                    className='product-list-element-button'
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        navigate(`/product/${product.id}/edit`)
+                    }}>
                     Edit
                 </Button>
                 <Button variant='contained' className='product-list-element-button' onClick={handleDeleteProduct}>

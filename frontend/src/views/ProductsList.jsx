@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react"
 import { fetchAllProducts } from "../api/productApi"
 import ProductsListElement from "../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 import "./ProductsList.css"
 
 function ProductsList() {
     const [products, setProducts] = useState([])
-    const [, setLoading] = useState(true)
-    const [, setError] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -19,10 +17,8 @@ function ProductsList() {
             })
             const data = await fetchAllProducts(params)
             setProducts(data)
-            setLoading(false)
         } catch (e) {
-            setError(e)
-            setLoading(false)
+            console.error("Failed to load products: ", e)
         }
       }
       loadData()

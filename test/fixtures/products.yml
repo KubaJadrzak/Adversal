@@ -13,13 +13,29 @@
 #
 
 one:
-  title: MyText
-  price: 9.99
-  description: MyText
+  title: Computer
+  price: 399.99
+  description: Good computer
   category: one
+  seller: one
 
 two:
-  title: MyText2
-  price: 9.99
-  description: MyText2
+  title: Sofa
+  price: 999.99
+  description: Good sofa
   category: two
+  seller: two
+
+three:
+  title: Monitor
+  price: 199.99
+  description: Good monitor
+  category: one
+  seller: three
+
+four:
+  title: Wardrobe
+  price: 499.99
+  description: Good wardrobe
+  category: two
+  seller: four

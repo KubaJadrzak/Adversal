@@ -11,8 +11,6 @@ function EditProduct() {
     const {id} = useParams()
     const [categories, setCategories] = useState([])
     const [product, setProduct] = useState([])
-    const [, setLoading] = useState(true)
-    const [, setError] = useState(null)
 
     const navigate = useNavigate()
 
@@ -23,10 +21,8 @@ function EditProduct() {
             const product = await fetchProduct(id)
             setCategories(categories)
             setProduct(product)
-            setLoading(false)
         } catch (e) {
-            setError(e)
-            setLoading(false)
+            console.error("Failed to load: ", e)
         }
       }
       loadData()
@@ -43,7 +39,7 @@ function EditProduct() {
             await updateProduct(id, updatedData)
             navigate(`/catalog`)
         } catch (e) {
-            console.error("Failed to create a product: ", e)
+            console.error("Failed to update a product: ", e)
         }
     }
 

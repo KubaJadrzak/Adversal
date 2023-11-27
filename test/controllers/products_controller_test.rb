@@ -12,7 +12,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create product" do
     assert_difference("Product.count") do
-      post api_v1_products_url, params: { product: { title: "MyText3", description: "MyText3", price: 9.99, category_id: @product.category.id} }, as: :json
+      post api_v1_products_url, params: { product: { title: "Keyboard", description: "Good keyboard", price: 19.99, category_id: @product.category.id, seller_id: @product.seller_id} }, as: :json
     end
 
     assert_response :created
@@ -30,7 +30,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy product" do
     assert_difference("Product.count", -1) do
-      delete api_v1_product_url(@product), as: :json
+      delete api_v1_product_url(@product), as: :jso
     end
 
     assert_response :no_content

@@ -13,10 +13,10 @@ function AddProduct() {
     useEffect(() => {
         const loadData = async () => {
             try {
-              const data = await fetchAllCategories();
-              setCategories(data);
+                const data = await fetchAllCategories();
+                setCategories(data);
             } catch (e) {
-              console.error("Failed to load categories: ", e);
+                console.error("Failed to load: ", e)
             }
           };
           loadData();

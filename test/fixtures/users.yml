@@ -10,9 +10,17 @@
 #
 
 one:
-  name: MyString
-  email: MyString
+  name: Kuba Jądrzak
+  email: kuba.jadrzak@gmail.com
 
 two:
-  name: MyString
-  email: MyString
+  name: Mateusz Drewniak
+  email: mateusz.drewniak@gmail.com
+
+three:
+  name: Michał Zaporski
+  email: michal.zaporski@gmail.com
+
+four:
+  name: Michał Zmudziński
+  email: michal.zmudzinski@gmail.com

@@ -9,9 +9,8 @@
 #
 
 one:
-  name: MyString
-
+  name: electronics
 two:
-  name: MyString2
+  name: furniture
 
 
