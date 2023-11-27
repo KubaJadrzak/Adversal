@@ -51,7 +51,7 @@ function AddProduct() {
 
     return (
         <Box>
-            <ProductForm data={data} handleSubmit={handleSubmit}/>
+            <ProductForm message={"Create New Product"} data={data} handleSubmit={handleSubmit}/>
         </Box>
     )
 }

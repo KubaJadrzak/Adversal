@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Card, Button, TextField, MenuItem} from '@mui/material'
 import './ProductForm.css'
 
-function ProductForm({data, handleSubmit}) {
+function ProductForm({message, data, handleSubmit}) {
     const [title, setTitle] = useState(data.title)
     const [price, setPrice] = useState(data.price)
     const [category_id, setCategoryId] = useState(data.category_id)
@@ -55,7 +55,7 @@ function ProductForm({data, handleSubmit}) {
                     minRows={6}
                     onChange={e => setDescription(e.target.value)}
                 ></TextField>
-                <Button variant="contained" type="submit">Create new product</Button>
+                <Button variant="contained" type="submit">{message}</Button>
             </form>
         </Card>
     )

@@ -61,7 +61,7 @@ function EditProduct() {
 
     return (
         <Box>
-            <ProductForm data={data} handleSubmit={handleSubmit}/>
+            <ProductForm message={"Edit Product"} data={data} handleSubmit={handleSubmit}/>
         </Box>
     )
 }
