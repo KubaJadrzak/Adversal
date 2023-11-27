@@ -2,7 +2,8 @@ import React from "react"
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
-import {Container, Typography} from '@mui/material'
+import {Container, Typography, Card } from '@mui/material'
+import './Product.css'
 
 function Product() {
     const { id } = useParams()
@@ -11,10 +12,13 @@ function Product() {
     useEffect(() => {
       async function loadData(){
         try {
-            const data = await fetchProduct(id)
+            const params = new URLSearchParams({
+                with_seller: "true",
+            })
+            const data = await fetchProduct(id, params)
             setProduct(data)
         } catch (e) {
-            console.error("Failed to load: ", e)
+            console.error("Failed to load product: ", e)
         }
       }
       loadData()
@@ -25,11 +29,15 @@ function Product() {
     )
 
     return (
-        <Container>
-            <Typography>{product.title}</Typography>
-            <Typography>price: {product.price}</Typography>
-            <Typography>description: {product.description}</Typography>
-            <Typography>category: {product.category.name}</Typography>
+        <Container className="product-container">
+            <Card className="product-card">
+                <Typography variant='h4' className="product-title">{product.title}</Typography>
+                <Container className='product-price-seller'>
+                    <Typography variant='h6' className="product-price">${product.price}</Typography>
+                    <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
+                </Container>
+                <Typography className="product-description">{product.description}</Typography>
+            </Card>
         </Container>
     )
 }

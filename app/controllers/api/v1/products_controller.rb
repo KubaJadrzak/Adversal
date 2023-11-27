@@ -4,13 +4,16 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.without_carted_products
-    if params[:with_user].to_s == "true"
-      render :show_with_user
+    if params[:with_seller].to_s == "true"
+      render :index_with_seller
     end
   end
 
   # GET /products/1
   def show
+    if params[:with_seller].to_s == "true"
+      render :show_with_seller
+    end
   end
 
   # POST /products
@@ -45,6 +48,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_user)
+      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_seller)
     end
 end

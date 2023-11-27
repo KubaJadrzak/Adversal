@@ -13,7 +13,7 @@ function ProductsList() {
       async function loadData(){
         try {
             const params = new URLSearchParams({
-                with_user: "true",
+                with_seller: "true",
             })
             const data = await fetchAllProducts(params)
             setProducts(data)
