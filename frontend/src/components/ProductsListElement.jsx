@@ -42,6 +42,21 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
             </Box>
+                <Box className="product-list-element-image-container">
+                    {product.image ?
+                        <Box
+                            className="product-list-element-image"
+                            component='img'
+                            alt="img"
+                            src={"http://localhost:3000" + product.image}
+                        /> :
+                        <Box
+                        >
+                            <Typography variant='overline'>no image available</Typography>
+                        </Box>
+
+                    }
+                </Box>
             <Typography className='product-list-element-description'>{product.description}</Typography>
             {product.seller ?
             <Box className='product-list-element-footer'>

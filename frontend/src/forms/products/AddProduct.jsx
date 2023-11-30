@@ -22,12 +22,13 @@ function AddProduct() {
           loadData();
         }, []);
 
-    const handleSubmit = async ({title, price, category_id, description}) => {
+    const handleSubmit = async ({title, price, category_id, description, image}) => {
         const data = {
             title,
             price,
             category_id,
-            description
+            description,
+            image: image[0]
         }
         try {
             const response = await createProduct(data)
@@ -46,12 +47,13 @@ function AddProduct() {
         price: '',
         category_id: '',
         description: '',
+        image: '',
         categories
     }
 
     return (
         <Box>
-            <ProductForm message={"Create New Product"} data={data} handleSubmit={handleSubmit}/>
+            <ProductForm uploadMessage={"Upload Image"} buttonMessage={"Create New Product"} data={data} handleSubmit={handleSubmit}/>
         </Box>
     )
 }

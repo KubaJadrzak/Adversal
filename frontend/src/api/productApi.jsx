@@ -7,12 +7,20 @@ export async function fetchAllProducts(params) {
 }
 
 export async function createProduct(data){
+    const formData = new FormData()
+
+  // Append each key-value pair to formData
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'image') {
+            formData.append(`product[${key}]`, value)
+        }
+        if(key == 'image' && value){
+            formData.append(`product[${key}]`, value)
+        }
+        })
     const response = await fetch('http://localhost:3000/api/v1/products', {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
 
     if (!response.ok) {
@@ -37,12 +45,20 @@ export async function deleteProduct(id, params) {
 }
 
 export async function updateProduct(id, data) {
+    const formData = new FormData()
+
+    // Append each key-value pair to formData
+      Object.entries(data).forEach(([key, value]) => {
+          if (key !== 'image') {
+              formData.append(`product[${key}]`, value)
+          }
+          if(key == 'image' && value){
+              formData.append(`product[${key}]`, value)
+          }
+          })
     const response = await fetch(`http://localhost:3000/api/v1/products/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData
     });
 
     if (!response.ok) {

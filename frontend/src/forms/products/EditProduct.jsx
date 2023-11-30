@@ -28,12 +28,13 @@ function EditProduct() {
       loadData()
     }, [])
 
-    const handleSubmit = async ({title, price, category_id, description}) => {
+    const handleSubmit = async ({title, price, category_id, description, image}) => {
         const updatedData = {
             title,
             price,
             category_id,
-            description
+            description,
+            image: image[0]
         }
         try {
             await updateProduct(id, updatedData)
@@ -52,12 +53,13 @@ function EditProduct() {
         price: product.price,
         category_id: product.category.id,
         description: product.description,
+        image: product.image,
         categories
     }
 
     return (
         <Box>
-            <ProductForm message={"Edit Product"} data={data} handleSubmit={handleSubmit}/>
+            <ProductForm uploadMessage={'Change Image'} buttonMessage={"Edit Product"} data={data} handleSubmit={handleSubmit}/>
         </Box>
     )
 }
