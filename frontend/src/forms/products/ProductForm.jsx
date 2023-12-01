@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { styled } from '@mui/material/styles'
-import { Card, Button, TextField, MenuItem, Box, Typography } from '@mui/material'
+import { Card, Button, TextField, MenuItem, Box, ImageList, ImageListItem, Typography } from '@mui/material'
 import './ProductForm.css'
 
 function ProductForm({uploadMessage, buttonMessage, data, handleSubmit}) {
@@ -9,7 +9,7 @@ function ProductForm({uploadMessage, buttonMessage, data, handleSubmit}) {
     const [price, setPrice] = useState(data.price)
     const [category_id, setCategoryId] = useState(data.category_id)
     const [description, setDescription] = useState(data.description)
-    const [image, setImage] = useState(data.image)
+    const [images, setImages] = useState([])
 
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -27,7 +27,7 @@ function ProductForm({uploadMessage, buttonMessage, data, handleSubmit}) {
         <Card className='product-form-container'>
             <form className="product-form" onSubmit={(e) => {
                 e.preventDefault()
-                handleSubmit({title, price, category_id, description, image})}}>
+                handleSubmit({title, price, category_id, description, images})}}>
                 <TextField
                     required
                     className="product-form-element"
@@ -69,30 +69,35 @@ function ProductForm({uploadMessage, buttonMessage, data, handleSubmit}) {
                     minRows={6}
                     onChange={e => setDescription(e.target.value)}
                 ></TextField>
-                {(data.image && image === data.image)  &&
-                    <Box className='product-form-image-container'>
+                <Box className='product-form-image-container'>
+                    {(data.images && data.images.length !== 0) &&
+                        data.images.map((image, index) => (
                         <Box
-                            className='product-form-image'
-                            component='img'
-                            alt="img"
-                            src={"http://localhost:3000" + data.image}
+                            key={index}
+                            component="img"
+                            className="product-form-image"
+                            src={"http://localhost:3000" + image}
+                            loading="lazy"
                         />
-                    </Box>
-
-                }
-                {image !== data.image  &&
-                    <Box className='product-form-image-container'>
+                        ))
+                    }
+                </Box>
+                <Box className='product-form-image-container'>
+                    {images.length !== 0 &&
+                        Array.from(images).map((image, index) => (
                         <Box
-                            className='product-form-image'
-                            component='img'
-                            alt="img"
-                            src={URL.createObjectURL(image[0])}
+                            key={index}
+                            component="img"
+                            className="product-form-image"
+                            src={URL.createObjectURL(image)}
+                            loading="lazy"
                         />
-                    </Box>
-                }
+                        ))
+                    }
+                </Box>
                 <Button component="label" variant="contained" className='product-form-upload'>
-                    {uploadMessage}
-                    <VisuallyHiddenInput type="file" onChange={e => setImage(e.target.files)}/>
+                    Upload Image
+                    <VisuallyHiddenInput type="file" onChange={e => setImages(e.target.files)} multiple/>
                 </Button>
                 <Button variant="contained" type="submit">{buttonMessage}</Button>
             </form>

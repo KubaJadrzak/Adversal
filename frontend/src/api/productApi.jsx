@@ -7,17 +7,18 @@ export async function fetchAllProducts(params) {
 }
 
 export async function createProduct(data){
-    const formData = new FormData()
 
-  // Append each key-value pair to formData
+    const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'image') {
+        if (key !== 'images') {
             formData.append(`product[${key}]`, value)
         }
-        if(key == 'image' && value){
-            formData.append(`product[${key}]`, value)
-        }
-        })
+    })
+    for (let i=0; i < data.images.length; i++) {
+        formData.append(`product[images][]`, data.images[i])
+    }
+
+
     const response = await fetch('http://localhost:3000/api/v1/products', {
         method: "POST",
         body: formData
@@ -45,17 +46,17 @@ export async function deleteProduct(id, params) {
 }
 
 export async function updateProduct(id, data) {
-    const formData = new FormData()
 
-    // Append each key-value pair to formData
-      Object.entries(data).forEach(([key, value]) => {
-          if (key !== 'image') {
-              formData.append(`product[${key}]`, value)
-          }
-          if(key == 'image' && value){
-              formData.append(`product[${key}]`, value)
-          }
-          })
+    const formData = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'images') {
+            formData.append(`product[${key}]`, value)
+        }
+    })
+    for (let i=0; i < data.images.length; i++) {
+        formData.append(`product[images][]`, data.images[i])
+    }
+
     const response = await fetch(`http://localhost:3000/api/v1/products/${id}`, {
         method: "PUT",
         body: formData

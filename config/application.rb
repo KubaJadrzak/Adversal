@@ -23,5 +23,6 @@ module AdvertisingMobileApp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.active_storage.replace_on_assign_to_many = false
   end
 end

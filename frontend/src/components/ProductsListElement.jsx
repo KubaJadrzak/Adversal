@@ -1,5 +1,5 @@
 import React from "react"
-import {Box, Card, Typography, Button} from '@mui/material'
+import {Box, Card, Typography, Button, ImageList, ImageListItem} from '@mui/material'
 import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
 
@@ -43,15 +43,18 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
                 <Typography>${product.price}</Typography>
             </Box>
                 <Box className="product-list-element-image-container">
-                    {product.image ?
-                        <Box
-                            className="product-list-element-image"
-                            component='img'
-                            alt="img"
-                            src={"http://localhost:3000" + product.image}
-                        /> :
-                        <Box
-                        >
+                    {product.images ?
+                        <ImageList cols={2} className="product-list-element-image-list">
+                            {product.images.map((image, index) => (
+                                <ImageListItem key={index} >
+                                    <img
+                                    src={"http://localhost:3000" + image}
+                                    loading="lazy"
+                                    />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>:
+                        <Box>
                             <Typography variant='overline'>no image available</Typography>
                         </Box>
 

@@ -29,7 +29,12 @@ class Api::V1::ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
-    if @product.update(product_params)
+    if product_params[:images].present?
+      # Append new images to the existing ones
+      @product.images.attach(product_params[:images])
+    end
+
+    if @product.update(product_params.except(:images))
       render json: @product
     else
       render json: @product.errors, status: :unprocessable_entity
@@ -49,6 +54,6 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_seller, :image)
+      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_seller, images: [])
     end
 end

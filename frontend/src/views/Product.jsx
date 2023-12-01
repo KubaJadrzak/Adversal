@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
-import {Container, Typography, Card, Box} from '@mui/material'
+import {Container, Typography, Card, Box, ImageList, ImageListItem} from '@mui/material'
 import './Product.css'
 
 function Product() {
@@ -37,15 +37,18 @@ function Product() {
                     <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
                 </Container>
                 <Box className="product-image-container">
-                    {product.image ?
-                        <Box
-                            className="product-image"
-                            component='img'
-                            alt="img"
-                            src={"http://localhost:3000" + product.image}
-                        /> :
-                        <Box
-                        >
+                    {product.images ?
+                        <ImageList cols={2} className="product-image-list">
+                            {product.images.map((image, index) => (
+                                <ImageListItem key={index} className='product-image'>
+                                    <img
+                                    src={"http://localhost:3000" + image}
+                                    loading="lazy"
+                                    />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>:
+                        <Box>
                             <Typography variant='overline'>no image available</Typography>
                         </Box>
 
