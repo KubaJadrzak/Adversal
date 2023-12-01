@@ -46,6 +46,18 @@ class Api::V1::ProductsController < ApplicationController
     @product.destroy
   end
 
+  def delete_image
+    @product = Product.find(params[:id])
+    index_to_delete = params[:index].to_i
+    # Check if the image at the specified index exists and is not nil
+    if @product.images[index_to_delete].present?
+      # Delete the Active Storage attachment at the specified index
+      @product.images[index_to_delete].purge
+      render json: { message: 'Image deleted successfully' }, status: :ok
+    else
+      render json: { error: 'Invalid image index' }, status: :unprocessable_entity
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

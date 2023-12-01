@@ -22,13 +22,13 @@ function AddProduct() {
           loadData();
         }, []);
 
-    const handleSubmit = async ({title, price, category_id, description, images}) => {
+    const handleSubmit = async ({title, price, category_id, description, newImages}) => {
         const data = {
             title,
             price,
             category_id,
             description,
-            images
+            images: newImages
         }
         try {
             const response = await createProduct(data)

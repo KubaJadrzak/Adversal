@@ -48,7 +48,7 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} >
                                     <img
-                                    src={"http://localhost:3000" + image}
+                                    src={"http://localhost:3000" + image.url}
                                     loading="lazy"
                                     />
                                 </ImageListItem>

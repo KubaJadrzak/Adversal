@@ -77,4 +77,12 @@ export async function fetchProduct(id, params) {
     return response.json()
 }
 
+export async function deleteProductImage(id, image_id) {
+
+    await fetch(`http://localhost:3000/api/v1/products/${id}/delete_image/${image_id}`, {
+        method: "DELETE",
+      });
+
+}
+
 

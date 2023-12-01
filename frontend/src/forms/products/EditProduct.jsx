@@ -28,13 +28,13 @@ function EditProduct() {
       loadData()
     }, [])
 
-    const handleSubmit = async ({title, price, category_id, description, images}) => {
+    const handleSubmit = async ({title, price, category_id, description, newImages}) => {
         const updatedData = {
             title,
             price,
             category_id,
             description,
-            images
+            images: newImages
         }
         try {
             await updateProduct(id, updatedData)
@@ -49,6 +49,7 @@ function EditProduct() {
     )
 
     const data = {
+        id: product.id,
         title: product.title,
         price: product.price,
         category_id: product.category.id,

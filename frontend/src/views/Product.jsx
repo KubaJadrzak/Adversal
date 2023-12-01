@@ -42,7 +42,7 @@ function Product() {
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} className='product-image'>
                                     <img
-                                    src={"http://localhost:3000" + image}
+                                    src={"http://localhost:3000" + image.url}
                                     loading="lazy"
                                     />
                                 </ImageListItem>
