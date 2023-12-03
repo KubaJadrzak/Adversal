@@ -1,13 +1,17 @@
 import React from "react"
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
-import {Container, Typography, Card, Box, ImageList, ImageListItem} from '@mui/material'
+import { createCartProduct } from "../api/cartProductApi";
+import {Container, Typography, Card, Box, ImageList, ImageListItem, Button} from '@mui/material'
 import './Product.css'
 
 function Product() {
     const { id } = useParams()
     const [product, setProduct] = useState([])
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
       async function loadData(){
@@ -22,7 +26,20 @@ function Product() {
         }
       }
       loadData()
-    }, [])
+    }, [id])
+
+    const handleAddToCart = async (e) => {
+        const carted_product_id = product.id
+        const data = { carted_product_id }
+        try {
+            await createCartProduct(data)
+            navigate('/cart')
+        } catch (e) {
+            console.error("Failed to create a post: ", e)
+        }
+    }
+
+    const isFromCart = location.pathname.includes('/cart');
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -55,6 +72,11 @@ function Product() {
                     }
                 </Box>
                 <Typography className="product-description">{product.description}</Typography>
+                {!isFromCart && (
+                    <Button className='product-button' variant='contained' onClick={handleAddToCart}>
+                        Add to cart
+                    </Button>
+                )}
             </Card>
         </Container>
     )

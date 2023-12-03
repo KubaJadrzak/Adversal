@@ -33,3 +33,11 @@
     height: 90%;
     object-fit: contain;
 }
+
+.product-description{
+    margin-bottom: 20px;
+}
+
+.product-button{
+    width: 30%;
+}

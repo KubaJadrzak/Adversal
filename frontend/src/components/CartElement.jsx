@@ -25,7 +25,7 @@ function CartElement ({cartProduct, navigate, onDeleteCartProduct}) {
     return (
         <Box>
             <List className='cart-list'>
-                <ListItemButton className='cart-list-item' onClick={() => {navigate(`/product/${cartProduct.product.id}`)}}>
+                <ListItemButton className='cart-list-item' onClick={() => {navigate(`product/${cartProduct.product.id}`)}}>
                     <Typography>{cartProduct.product.title}</Typography>
                     <Box className='cart-list-item-properties'>
                         <Typography className='cart-list-item-price'>${cartProduct.product.price}</Typography>

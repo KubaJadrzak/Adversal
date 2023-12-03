@@ -12,11 +12,14 @@ function AppRoutes(){
     return(
         <Routes>
             <Route path="/" element={<ProductsList/>} />
+
             <Route path="product/:id" element={<Product/>}/>
-            <Route path="cart" element={<Cart/>}/>
-            <Route path="catalog" element={<Catalog/>}/>
             <Route path="/product/add" element={<AddProduct/>}/>
             <Route path="/product/:id/edit" element={<EditProduct/>}/>
+            <Route path="cart" element={<Cart/>}/>
+
+            <Route path="cart/product/:id" element={<Product/>}/>
+            <Route path="catalog" element={<Catalog/>}/>
         </Routes>
     )
 }
