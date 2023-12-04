@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
 import { createCartProduct } from "../api/cartProductApi";
@@ -11,7 +11,6 @@ function Product() {
     const { id } = useParams()
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
       async function loadData(){

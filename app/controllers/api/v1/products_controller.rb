@@ -3,17 +3,20 @@ class Api::V1::ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.without_carted_products
-    if params[:with_seller].to_s == "true"
-      render :index_with_seller
+    @products = Product.all
+    if params[:only_listed_products].to_s == "true"
+      @products = @products.only_listed_products
+    end
+    if params[:without_carted_products].to_s == "true"
+      @products = @products.without_carted_products
+    end
+    if params[:without_listed_products].to_s == "true"
+      @products= @products.without_listed_products
     end
   end
 
   # GET /products/1
   def show
-    if params[:with_seller].to_s == "true"
-      render :show_with_seller
-    end
   end
 
   # POST /products
@@ -30,7 +33,6 @@ class Api::V1::ProductsController < ApplicationController
   # PATCH/PUT /products/1
   def update
     if product_params[:images].present?
-      # Append new images to the existing ones
       @product.images.attach(product_params[:images])
     end
 
@@ -58,6 +60,8 @@ class Api::V1::ProductsController < ApplicationController
       render json: { error: 'Invalid image index' }, status: :unprocessable_entity
     end
   end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -66,6 +70,10 @@ class Api::V1::ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :price, :description, :category_id, :seller_id, :with_seller, images: [])
+      params.require(:product).permit(
+        :title, :price, :description, :category_id,
+        :seller_id, :with_seller, :only_listed_products,
+        :without_listed_products, images: []
+      )
     end
 end

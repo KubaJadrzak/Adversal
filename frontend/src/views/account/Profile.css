@@ -1,0 +1,36 @@
+.profile-cart{
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    min-height: 500px;
+}
+
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    margin: 80px;
+    align-items: center;
+}
+
+.profile-container > * {
+    margin: 10px;
+}
+
+.profile-avatar{
+    width: 150px;
+    height: 150px;
+}
+
+
+.profile-list{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-list-element{
+    padding: 5px;
+}

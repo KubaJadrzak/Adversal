@@ -14,5 +14,6 @@ class User < ApplicationRecord
     has_many :listed_products, class_name: :Product, inverse_of: :seller, foreign_key: :seller_id, dependent: :destroy
     has_many :cart_products, foreign_key: :buyer_id, dependent: :destroy
     has_many :carted_products, through: :cart_products, source: :product
+    has_one_attached :image
 
 end

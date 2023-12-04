@@ -1,0 +1,23 @@
+.account-cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    min-height: 500px;
+}
+
+.account-list{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-list-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}

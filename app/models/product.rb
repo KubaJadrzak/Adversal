@@ -22,5 +22,7 @@ class Product < ApplicationRecord
     has_many_attached :images
 
     scope :without_carted_products, -> {where.not(id: includes(:cart_products).where(cart_products: {buyer_id: Current.user} ).select(:carted_product_id))}
+    scope :only_listed_products, -> { where(seller_id: Current.user) }
+    scope :without_listed_products, -> { where.not(seller_id: Current.user) }
 
 end

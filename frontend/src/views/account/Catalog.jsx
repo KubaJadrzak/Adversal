@@ -1,52 +1,54 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { fetchUser } from "../api/userApi"
-import ProductsListElement from "../components/ProductsListElement"
+import { fetchAllProducts } from "../../api/productApi"
+import ProductsListElement from "../../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
 import {Box, Button} from '@mui/material'
 import "./Catalog.css"
 
 function Catalog() {
-    const [user, setUser] = useState([])
+    const [products, setProducts] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
       async function loadData(){
         try {
             const params = new URLSearchParams({
-                with_listed_products: "true",
+                only_listed_products: "true",
               })
-            const data = await fetchUser(localStorage.getItem('id'), params)
-            setUser(data)
+            const data = await fetchAllProducts(params)
+            setProducts(data)
         } catch (e) {
-            console.error("Failed to load user: ", e)
+            console.error("Failed to load product: ", e)
         }
       }
       loadData()
     }, [])
 
-    if (!user || user.length === 0) return (
+    if (!products) return (
         <div></div>
     )
 
     const onDeleteProduct = (id) => {
-        const index = user.listed_products.findIndex(listed_product => {
-            return listed_product.id === id
+        const index = products.findIndex(product => {
+            return product.id === id
         })
-        user.listed_products.splice(index, 1)
+        products.splice(index, 1)
         setUser({...user})
     }
 
 
     return (
         <Box>
+            <Box className='catalog-sidebar'>
+            </Box>
             <Box className='catalog-new-product-button'>
                 <Button variant="contained" onClick={() => {navigate(`/product/add`)}} >Create new product</Button>
             </Box>
             <Box className='catalog-products-container'>
-                {user.listed_products.map((listed_product) => (
-                    <Box key={listed_product.id}>
-                        <ProductsListElement product={listed_product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
+                {products.map((product) => (
+                    <Box key={product.id}>
+                        <ProductsListElement product={product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
                     </Box>
 
                 ))}

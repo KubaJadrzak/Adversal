@@ -1,68 +1,72 @@
-import React from "react"
-import { useState, useEffect } from "react"
-import { fetchAllCategories } from "../../api/categoryApi"
-import { updateProduct, fetchProduct } from "../../api/productApi"
-import ProductForm from "./ProductForm"
-import { Box } from '@mui/material'
-import { useNavigate, useParams } from "react-router-dom"
-import './ProductForm.css'
+import React, { useState, useEffect } from "react";
+import { Box } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchAllCategories } from "../../api/categoryApi";
+import { updateProduct, fetchProduct } from "../../api/productApi";
+import ProductForm from "./ProductForm";
+import "./ProductForm.css";
 
 function EditProduct() {
-    const {id} = useParams()
-    const [categories, setCategories] = useState([])
-    const [product, setProduct] = useState([])
+  const { id } = useParams();
+  const [categories, setCategories] = useState([]);
+  const [product, setProduct] = useState({});
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    useEffect(() => {
-      async function loadData(){
-        try {
-            const categories = await fetchAllCategories()
-            const product = await fetchProduct(id)
-            setCategories(categories)
-            setProduct(product)
-        } catch (e) {
-            console.error("Failed to load: ", e)
-        }
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const categoriesData = await fetchAllCategories();
+        const productData = await fetchProduct(id);
+        setCategories(categoriesData);
+        setProduct(productData);
+      } catch (error) {
+        console.error("Failed to load: ", error);
+        // Handle error feedback to the user
       }
-      loadData()
-    }, [])
-
-    const handleSubmit = async ({title, price, category_id, description, newImages}) => {
-        const updatedData = {
-            title,
-            price,
-            category_id,
-            description,
-            images: newImages
-        }
-        try {
-            await updateProduct(id, updatedData)
-            navigate(`/catalog`)
-        } catch (e) {
-            console.error("Failed to update a product: ", e)
-        }
     }
 
-    if ((!categories || categories.length === 0) || (!product || product.length === 0)) return (
-        <div></div>
-    )
+    loadData();
+  }, [id]);
 
-    const data = {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        category_id: product.category.id,
-        description: product.description,
-        images: product.images,
-        categories
+  const handleSubmit = async ({ title, price, category_id, description, newImages }) => {
+    const updatedData = {
+      title,
+      price,
+      category_id,
+      description,
+      images: newImages,
+    };
+
+    try {
+      await updateProduct(id, updatedData);
+      navigate(`/account/catalog`);
+    } catch (error) {
+      console.error("Failed to update a product: ", error);
+      // Handle error feedback to the user
     }
+  };
 
-    return (
-        <Box>
-            <ProductForm buttonMessage={"Edit Product"} data={data} handleSubmit={handleSubmit}/>
-        </Box>
-    )
+  if (!categories.length || !product.id) {
+    return <div>Loading...</div>; // or any other loading state
+  }
+
+  const { id: productId, title, price, category, description, images } = product;
+
+  const data = {
+    id: productId,
+    title,
+    price,
+    category_id: category.id,
+    description,
+    images,
+    categories,
+  };
+
+  return (
+    <Box>
+      <ProductForm buttonMessage={"Edit Product"} data={data} handleSubmit={handleSubmit} />
+    </Box>
+  );
 }
 
-export default EditProduct
+export default EditProduct;

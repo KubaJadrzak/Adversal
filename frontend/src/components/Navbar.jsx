@@ -11,7 +11,7 @@ function Navbar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
           <Toolbar sx={{ justifyContent: 'flex-end' }}>
-            <IconButton onClick={() => {navigate(`/catalog`)}}>
+            <IconButton onClick={() => {navigate(`/account`)}}>
               <FontAwesomeIcon icon={faUser} />
             </IconButton>
             <IconButton onClick={() => {navigate(`/`)}}>

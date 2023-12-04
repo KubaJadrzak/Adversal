@@ -1,5 +1,6 @@
 json.extract! product, :id, :title, :description, :price
 json.category product.category, partial: "api/v1/categories/category", as: :category
+json.seller product.seller, partial: "api/v1/users/user", as: :user
 if product.images.attached?
     json.images product.images.each_with_index.map { |image, index|
       {
@@ -8,7 +9,3 @@ if product.images.attached?
       }
     }
   end
-
-if defined?(with_seller)
-    json.seller product.seller, partial: "api/v1/users/user", as: :user
-end

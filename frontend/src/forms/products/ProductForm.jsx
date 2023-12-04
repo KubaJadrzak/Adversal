@@ -26,24 +26,17 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
       })
 
     const handleDeleteNewImage = (index) => {
-        // Create a copy of the current images array
         const updatedImages = [...newImages];
 
-        // Remove the image at the specified index
         updatedImages.splice(index, 1);
 
-        // Update the state with the new array
         setNewImages(updatedImages);
     };
 
     const handleDeleteImage = async ({index}) => {
-        // Create a copy of the current images array
         const updatedImages = [...images];
 
-        // Remove the image at the specified index
         updatedImages.splice(index, 1);
-
-        // Update the state with the new array
         setImages(updatedImages);
 
         deleteProductImage(data.id, index)
@@ -51,7 +44,6 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
     };
 
     const handleUploadNewImages = (e) => {
-        // Concatenate the new images with the current newImages array
         setNewImages((prevImages) => [...prevImages, ...e.target.files]);
         };
 
@@ -65,12 +57,14 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
                     required
                     className="product-form-element"
                     id="title"
-                    label="Name"
+                    label="Title"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                 ></TextField>
                 <TextField
                     required
+                    autoComplete="off"
+                    type="number"
                     className="product-form-element"
                     id="price"
                     label="Price"

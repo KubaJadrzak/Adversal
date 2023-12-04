@@ -7,12 +7,22 @@ export async function fetchAllUsers() {
 }
 
 export async function createUser(data){
+
+    const formData = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'image') {
+            formData.append(`user[${key}]`, value);
+        }
+    });
+
+    // Append image data (assuming 'image' is the key for the image)
+    if (data.image) {
+        formData.append('user[image]', data.image);
+    }
+
     const response = await fetch('http://localhost:3000/api/v1/users', {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
 
     if (!response.ok) {
@@ -37,12 +47,23 @@ export async function deleteUser(id) {
 }
 
 export async function updateUser(id, data) {
+
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'image') {
+            formData.append(`user[${key}]`, value);
+        }
+    });
+
+    // Append image data (assuming 'image' is the key for the image)
+    if (data.image) {
+        formData.append('user[image]', data.image);
+    }
+
     const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData
     });
 
     if (!response.ok) {
