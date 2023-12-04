@@ -18,7 +18,15 @@
     margin: 10px;
 }
 
-.form-avatar{
+.user-form-avatar-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-form-avatar{
     width: 150px;
     height: 150px;
+    margin-bottom: 10px;
 }

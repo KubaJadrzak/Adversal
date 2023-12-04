@@ -30,12 +30,12 @@ function Catalog() {
     )
 
     const onDeleteProduct = (id) => {
-        const index = products.findIndex(product => {
-            return product.id === id
-        })
-        products.splice(index, 1)
-        setUser({...user})
-    }
+        // Create a new array with the item removed
+        const updatedProducts = products.filter((product) => product.id !== id);
+        
+        // Update the state with the new array
+        setProducts(updatedProducts);
+      }
 
 
     return (
@@ -46,12 +46,13 @@ function Catalog() {
                 <Button variant="contained" onClick={() => {navigate(`/product/add`)}} >Create new product</Button>
             </Box>
             <Box className='catalog-products-container'>
-                {products.map((product) => (
+                {products.length > 0 &&
+                    products.map((product) => (
                     <Box key={product.id}>
                         <ProductsListElement product={product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
                     </Box>
-
-                ))}
+                    ))
+                    }
             </Box>
         </Box>
     )

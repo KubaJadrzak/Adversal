@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
 import { createCartProduct } from "../api/cartProductApi";
@@ -11,6 +11,7 @@ function Product() {
     const { id } = useParams()
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
       async function loadData(){
@@ -38,7 +39,8 @@ function Product() {
         }
     }
 
-    const isFromCart = location.pathname.includes('/cart');
+    const isFromCart = location.pathname.includes('/cart')
+    const isFromCatalog = location.pathname.includes('/account/catalog')
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -71,11 +73,11 @@ function Product() {
                     }
                 </Box>
                 <Typography className="product-description">{product.description}</Typography>
-                {!isFromCart && (
+                {!isFromCatalog && !isFromCart &&
                     <Button className='product-button' variant='contained' onClick={handleAddToCart}>
                         Add to cart
                     </Button>
-                )}
+                }
             </Card>
         </Container>
     )

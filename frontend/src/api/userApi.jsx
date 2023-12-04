@@ -81,3 +81,11 @@ export async function fetchUser(id, params) {
     }
     return response.json()
 }
+
+export async function deleteUserImage(id) {
+
+    await fetch(`http://localhost:3000/api/v1/users/${id}/delete_image`, {
+        method: "DELETE",
+      });
+
+}

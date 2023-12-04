@@ -25,7 +25,7 @@ function Profile() {
     return (
         <Card className='profile-cart'>
             <Box className='profile-container'>
-                <Avatar className='form-avatar' src={"http://localhost:3000" + user.image}/>
+                <Avatar className='profile-avatar' src={"http://localhost:3000" + user.image}/>
                 <List className='profile-list'>
                     <Typography className='profile-list-element'>{user.name}</Typography>
                     <Typography className='profile-list-element'>{user.email}</Typography>

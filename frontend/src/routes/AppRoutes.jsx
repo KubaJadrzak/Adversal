@@ -22,6 +22,7 @@ function AppRoutes(){
 
             <Route path="/account" element={<Account/>}/>
             <Route path="/account/catalog" element={<Catalog/>}/>
+            <Route path="/account/catalog/product/:id" element={<Product/>}/>
             <Route path="/account/profile" element={<Profile/>}/>
             <Route path="/account/profile/edit" element={<EditUser/>}/>
 

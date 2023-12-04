@@ -32,7 +32,7 @@ function AddProduct() {
         }
         try {
             const response = await createProduct(data)
-            navigate(`/product/${response.id}`)
+            navigate(`/account/catalog`)
         } catch (e) {
             console.error("Failed to create a product: ", e)
         }

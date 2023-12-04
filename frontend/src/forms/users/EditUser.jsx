@@ -22,11 +22,11 @@ function EditUser() {
       loadData()
     }, [])
 
-    const handleSubmit = async ({name, email, image}) => {
+    const handleSubmit = async ({name, email, newImage}) => {
         const updatedData = {
             name,
             email,
-            image
+            image: newImage
         }
         try {
             await updateUser(id, updatedData)
