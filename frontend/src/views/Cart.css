@@ -1,6 +1,16 @@
 .cart-container{
+    display: flex;
+    flex-direction: column;
     width: 1000px;
     margin: auto;
-    margin-top: 100px;
+    margin-bottom: 40px;
+    margin-top: 40px;
     min-height: 500px;
+}
+
+.cart-button{
+    margin: 20px;
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
 }

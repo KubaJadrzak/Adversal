@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: {format: :json}  do
     namespace :v1 do
+      resources :orders
       resources :cart_products
       resources :products do
         delete 'delete_image/:index', to: 'products#delete_image', on: :member, as: :delete_image

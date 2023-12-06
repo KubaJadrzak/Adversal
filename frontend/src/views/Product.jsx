@@ -16,10 +16,7 @@ function Product() {
     useEffect(() => {
       async function loadData(){
         try {
-            const params = new URLSearchParams({
-                with_seller: "true",
-            })
-            const data = await fetchProduct(id, params)
+            const data = await fetchProduct(id)
             setProduct(data)
         } catch (e) {
             console.error("Failed to load product: ", e)
@@ -60,7 +57,7 @@ function Product() {
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} className='product-image'>
                                     <img
-                                    src={"http://localhost:3000" + image.url}
+                                    src={"http://localhost:3000" + image}
                                     loading="lazy"
                                     />
                                 </ImageListItem>

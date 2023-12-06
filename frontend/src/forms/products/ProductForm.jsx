@@ -103,7 +103,7 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
                             <Box
                                 component="img"
                                 className="product-form-image"
-                                src={"http://localhost:3000" + image.url}
+                                src={"http://localhost:3000" + image}
                                 loading="lazy"
                             />
                             <Button onClick={() => handleDeleteImage({index})}>delete</Button>

@@ -15,7 +15,6 @@ export async function createUser(data){
         }
     });
 
-    // Append image data (assuming 'image' is the key for the image)
     if (data.image) {
         formData.append('user[image]', data.image);
     }
@@ -56,7 +55,6 @@ export async function updateUser(id, data) {
         }
     });
 
-    // Append image data (assuming 'image' is the key for the image)
     if (data.image) {
         formData.append('user[image]', data.image);
     }

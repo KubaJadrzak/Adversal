@@ -10,6 +10,7 @@ import EditProduct from '../forms/products/EditProduct'
 import Account from '../views/account/Account'
 import Profile from '../views/account/Profile'
 import EditUser from '../forms/users/EditUser'
+import PersonalOrders from "../views/account/PersonalOrders";
 
 function AppRoutes(){
     return(
@@ -25,6 +26,7 @@ function AppRoutes(){
             <Route path="/account/catalog/product/:id" element={<Product/>}/>
             <Route path="/account/profile" element={<Profile/>}/>
             <Route path="/account/profile/edit" element={<EditUser/>}/>
+            <Route path="/account/personalorders" element={<PersonalOrders/>}/>
 
             <Route path="cart" element={<Cart/>}/>
             <Route path="cart/product/:id" element={<Product/>}/>
