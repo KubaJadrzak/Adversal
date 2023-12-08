@@ -20,7 +20,7 @@
 end
 
 
-100.times do |x|
+30.times do |x|
 
     Product.create(
         title: Faker::Lorem.sentence(word_count: 3),
@@ -32,11 +32,11 @@ end
 
 end
 
-100.times do |x|
+30.times do |x|
 
     CartProduct.create(
         buyer_id: Faker::Number.between(from: 1, to: 3),
-        carted_product_id: Faker::Number.between(from: 1, to: 100)
+        carted_product_id: Faker::Number.between(from: 1, to: 30)
     )
 
 end

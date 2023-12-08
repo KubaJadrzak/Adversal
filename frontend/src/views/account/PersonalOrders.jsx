@@ -1,13 +1,13 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { fetchAllOrders } from "../../api/orderApi"
-import ProductsListElement from "../../components/ProductsListElement"
 import { useNavigate } from "react-router-dom"
-import {Box, Button} from '@mui/material'
+import {Box, Button, Typography, Card, ListItemButton, List, Divider} from '@mui/material'
 import "./PersonalOrders.css"
 
 function PersonalOrders() {
     const [orders, setOrders] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function loadData(){
@@ -24,11 +24,28 @@ function PersonalOrders() {
         loadData()
       }, [])
 
+      if (!orders || orders.length === 0) return (
+        <div></div>
+    )
+
+
 
     return (
-        <Box>
-
-        </Box>
+        <Card className='personal-orders-container'>
+            {orders.map((order) => (
+                <Box key={order.id} className='personal-orders-list' >
+                    <List className='personal-orders-list'>
+                        <ListItemButton className='personal-orders-item' onClick={() => navigate(`${order.id}`)}>
+                            <Typography className='personal-orders-number'>NUMBER: {order.number}</Typography>
+                            <Typography className='personal-orders-title'>{order.product.title}</Typography>
+                            <Typography className='personal-orders-status'>STATUS: {order.status}</Typography>
+                            <Typography className='personal-orders-price'>PRICE: ${order.product.price}</Typography>
+                        </ListItemButton>
+                    </List>
+                    <Divider />
+                </Box>
+            ))}
+        </Card>
     )
 }
 

@@ -16,6 +16,8 @@ class Product < ApplicationRecord
 
     validates :category_id, presence: true
     validates :seller_id, presence: true
+
+
     belongs_to :order, optional: true
     belongs_to :category
     belongs_to :seller, class_name: :User, inverse_of: :listed_products, foreign_key: :seller_id, default: -> { Current.user }

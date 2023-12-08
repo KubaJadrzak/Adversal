@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { fetchCartProducts } from "../api/cartProductApi"
 import { useNavigate } from "react-router-dom"
-import { Card, Box, Button } from '@mui/material'
+import { Card, Box, Button, Typography } from '@mui/material'
 import CartElement from "../components/CartElement"
-import { createOrder } from "../api/orderApi"
 import "./Cart.css"
 
 function Cart() {
@@ -22,35 +21,24 @@ function Cart() {
         loadData()
       }, [])
 
+    if (!cartProducts || cartProducts.length === 0) return (
+        <div></div>
+    )
+
     const onDeleteCartProduct = (id) => {
         const index = cartProducts.findIndex(cartProduct => {
             return cartProduct.id === id
         })
         cartProducts.splice(index, 1)
         setCartProducts([...cartProducts])
-    }
-
-      if (!cartProducts || cartProducts.length === 0) return (
-        <div></div>
-    )
-
-    const handleCreateOrder = async () => {
-        try {
-          // Extract product IDs from cartProducts
-          const product_ids = cartProducts.map((cartProduct) => cartProduct.product.id);
-          const buyer_id = localStorage.getItem('id')
-
-          const data = {
-            buyer_id,
-            product_ids
-          }
-          // Create an order with the array of product IDs
-          await createOrder(data)
-          navigate('/account/personalorders')
-        } catch (e) {
-          console.error("Failed to create an order: ", e);
-        }
+      }
+      const calculateTotalPrice = () => {
+        const total = cartProducts.reduce((sum, cartProduct) => sum + parseFloat(cartProduct.product.price), 0);
+        return total.toFixed(2); // Format as a string with two decimal places
       };
+
+
+
     return (
         <Card className='cart-container'>
             {cartProducts.map((cartProduct) => (
@@ -58,7 +46,8 @@ function Cart() {
                     <CartElement cartProduct={cartProduct} navigate={navigate} onDeleteCartProduct={onDeleteCartProduct}/>
                 </Box>
             ))}
-            <Button className='cart-button' variant='contained' onClick={handleCreateOrder}>Order</Button>
+            <Typography className='cart-price'>Total Price: ${calculateTotalPrice()}</Typography>
+            <Button className='cart-button' variant='contained' onClick={() => navigate('/order/add')}>Order</Button>
         </Card>
     )
 }

@@ -11,6 +11,8 @@ import Account from '../views/account/Account'
 import Profile from '../views/account/Profile'
 import EditUser from '../forms/users/EditUser'
 import PersonalOrders from "../views/account/PersonalOrders";
+import PersonalOrder from "../views/account/PersonalOrder";
+import AddOrder from "../forms/orders/AddOrder";
 
 function AppRoutes(){
     return(
@@ -27,9 +29,12 @@ function AppRoutes(){
             <Route path="/account/profile" element={<Profile/>}/>
             <Route path="/account/profile/edit" element={<EditUser/>}/>
             <Route path="/account/personalorders" element={<PersonalOrders/>}/>
+            <Route path="/account/personalorders/:id" element={<PersonalOrder/>}/>
 
             <Route path="cart" element={<Cart/>}/>
             <Route path="cart/product/:id" element={<Product/>}/>
+
+            <Route path="/order/add" element={<AddOrder/>}/>
 
         </Routes>
     )

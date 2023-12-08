@@ -14,4 +14,5 @@ class CartProduct < ApplicationRecord
     belongs_to :product, foreign_key: :carted_product_id
 
     scope :current_user_cart, -> {where(buyer_id: Current.user)}
+
 end

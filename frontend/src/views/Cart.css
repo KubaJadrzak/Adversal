@@ -14,3 +14,8 @@
     align-self: flex-end;
     justify-self: flex-end;
 }
+
+.cart-price{
+    align-self: flex-end;
+    margin: 20px 20px 0px 20px;
+}
