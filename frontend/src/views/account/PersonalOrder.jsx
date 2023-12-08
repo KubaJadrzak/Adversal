@@ -1,5 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { fetchOrder } from "../../api/orderApi"
 import { useParams } from 'react-router-dom';
 import {Box, Typography, Card, ImageList, ImageListItem, Divider} from '@mui/material'
@@ -8,6 +9,7 @@ import "./PersonalOrder.css"
 function PersonalOrder() {
     const { id } = useParams()
     const [order, setOrder] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function loadData(){
@@ -29,7 +31,7 @@ function PersonalOrder() {
 
     return (
         <Box className='personal-order-container'>
-            <Card className='personal-order-product-card'>
+            <Card className='personal-order-product-card' onClick={() => navigate(`product/${order.product.id}`)}>
             <Box className='personal-order-product-header'>
                 <Typography variant='h6'>{order.product.title}</Typography>
                 <Typography>${order.product.price}</Typography>

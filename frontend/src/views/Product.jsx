@@ -37,7 +37,7 @@ function Product() {
     }
 
     const isFromCart = location.pathname.includes('/cart')
-    const isFromCatalog = location.pathname.includes('/account/catalog')
+    const isFromAccount = location.pathname.includes('account')
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -70,7 +70,7 @@ function Product() {
                     }
                 </Box>
                 <Typography className="product-description">{product.description}</Typography>
-                {!isFromCatalog && !isFromCart &&
+                {!isFromCart && !isFromAccount &&
                     <Button className='product-button' variant='contained' onClick={handleAddToCart}>
                         Add to cart
                     </Button>

@@ -30,6 +30,7 @@ function AppRoutes(){
             <Route path="/account/profile/edit" element={<EditUser/>}/>
             <Route path="/account/personalorders" element={<PersonalOrders/>}/>
             <Route path="/account/personalorders/:id" element={<PersonalOrder/>}/>
+            <Route path="/account/personalorders/:id/product/:id" element={<Product/>}/>
 
             <Route path="cart" element={<Cart/>}/>
             <Route path="cart/product/:id" element={<Product/>}/>
