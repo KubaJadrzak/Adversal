@@ -21,6 +21,8 @@ class Order < ApplicationRecord
     has_one :product, dependent: :destroy
 
     scope :only_personal_orders, -> { where(buyer_id: Current.user) }
+    scope :only_customer_orders, -> { where(id: includes(:product).where(product: {seller_id: Current.user}).select(:order_id)) }
+    scope :without_carted_products, -> {where.not(id: includes(:cart_products).where(cart_products: {buyer_id: Current.user} ).select(:carted_product_id))}
 
     private
 

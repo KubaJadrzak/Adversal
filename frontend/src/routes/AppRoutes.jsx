@@ -10,8 +10,8 @@ import EditProduct from '../forms/products/EditProduct'
 import Account from '../views/account/Account'
 import Profile from '../views/account/Profile'
 import EditUser from '../forms/users/EditUser'
-import PersonalOrders from "../views/account/PersonalOrders";
-import PersonalOrder from "../views/account/PersonalOrder";
+import Orders from "../views/account/Orders";
+import Order from "../views/account/Order";
 import AddOrder from "../forms/orders/AddOrder";
 
 function AppRoutes(){
@@ -28,9 +28,12 @@ function AppRoutes(){
             <Route path="/account/catalog/product/:id" element={<Product/>}/>
             <Route path="/account/profile" element={<Profile/>}/>
             <Route path="/account/profile/edit" element={<EditUser/>}/>
-            <Route path="/account/personalorders" element={<PersonalOrders/>}/>
-            <Route path="/account/personalorders/:id" element={<PersonalOrder/>}/>
+            <Route path="/account/personalorders" element={<Orders/>}/>
+            <Route path="/account/personalorders/:id" element={<Order/>}/>
             <Route path="/account/personalorders/:id/product/:id" element={<Product/>}/>
+            <Route path="/account/customerorders/" element={<Orders/>}/>
+            <Route path="/account/customerorders/:id" element={<Order/>}/>
+            <Route path="/account/customerorders/:id/product/:id" element={<Product/>}/>
 
             <Route path="cart" element={<Cart/>}/>
             <Route path="cart/product/:id" element={<Product/>}/>

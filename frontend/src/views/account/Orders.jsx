@@ -1,28 +1,35 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { fetchAllOrders } from "../../api/orderApi"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import {Box, Button, Typography, Card, ListItemButton, List, Divider} from '@mui/material'
-import "./PersonalOrders.css"
+import "./Orders.css"
 
 function PersonalOrders() {
     const [orders, setOrders] = useState()
+    const location = useLocation();
     const navigate = useNavigate()
 
     useEffect(() => {
-        async function loadData(){
+        async function loadData() {
           try {
-              const params = new URLSearchParams({
-                  only_personal_orders: "true",
-                })
-              const data = await fetchAllOrders(params)
-              setOrders(data)
+            let params = new URLSearchParams(); // Declare params outside the if-else blocks
+
+            if (location.pathname.includes('/personalorders')) {
+              params.set('only_personal_orders', 'true');
+            } else if (location.pathname.includes('/customerorders')) {
+              params.set('only_customer_orders', 'true');
+            }
+
+            const data = await fetchAllOrders(params);
+            setOrders(data);
           } catch (e) {
-              console.error("Failed to load orders: ", e)
+            console.error("Failed to load orders: ", e);
           }
         }
-        loadData()
-      }, [])
+
+        loadData();
+      }, []);
 
       if (!orders || orders.length === 0) return (
         <div></div>

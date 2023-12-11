@@ -16,7 +16,7 @@ function Account() {
                 <ListItemButton className='account-list-item' onClick={() => {navigate(`personalorders`)}}>
                     <Typography>Personal orders</Typography>
                 </ListItemButton>
-                <ListItemButton className='account-list-item'>
+                <ListItemButton className='account-list-item' onClick={() => {navigate(`customerorders`)}}>
                     <Typography>Customer orders</Typography>
                 </ListItemButton>
                 <ListItemButton className='account-list-item' onClick={() => {navigate(`catalog`)}}>

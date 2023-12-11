@@ -8,6 +8,9 @@ class Api::V1::OrdersController < ApplicationController
     if params[:only_personal_orders].to_s == "true"
       @orders = @orders.only_personal_orders
     end
+    if params[:only_customer_orders].to_s == "true"
+      @orders = @orders.only_customer_orders
+    end
   end
 
   # GET /orders/1
@@ -59,6 +62,6 @@ class Api::V1::OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:buyer_id, :country, :city, :address, :postal_code, :only_personal_orders, :product_id)
+      params.require(:order).permit(:buyer_id, :country, :status, :city, :address, :postal_code, :only_personal_orders, :product_id)
     end
 end
