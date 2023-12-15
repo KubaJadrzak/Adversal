@@ -43,6 +43,7 @@ function Order() {
     try {
       // Use the updateOrder method to update the order status
       await updateOrder(id, { status: status });
+      navigate(`/account/customerorders`)
       // Optionally, you can fetch the updated order data after the update
     } catch (error) {
       console.error('Failed to update order status: ', error);
@@ -130,6 +131,10 @@ function Order() {
           <Box className="personal-order-address-card-element">
             <Typography>PRICE: </Typography>
             <Typography>${order.product.price}</Typography>
+          </Box>
+          <Box className="personal-order-address-card-element">
+            <Typography>DATE: </Typography>
+            <Typography>{order.created_at}</Typography>
           </Box>
           {isCustomerOrder &&
             <Button variant="contained" color="primary" onClick={handleUpdateStatus}>

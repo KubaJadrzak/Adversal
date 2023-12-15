@@ -3,6 +3,8 @@ import { useState } from "react"
 import { styled } from '@mui/material/styles'
 import { Card, Button, TextField, MenuItem, Box } from '@mui/material'
 import { deleteProductImage } from "../../api/productApi"
+import { faCar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './ProductForm.css'
 
 function ProductForm({buttonMessage, data, handleSubmit}) {
@@ -82,7 +84,7 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
                 >
                     {data.categories.map((category) => (
                         <MenuItem key={category.id} value={category.id}>
-                            {category.name}
+                    <FontAwesomeIcon icon={category.icon === 'faCar' && faCar } /> {category.name}
                         </MenuItem>
                     ))}
                 </TextField>

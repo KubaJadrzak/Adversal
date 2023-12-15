@@ -13,12 +13,14 @@ import EditUser from '../forms/users/EditUser'
 import Orders from "../views/account/Orders";
 import Order from "../views/account/Order";
 import AddOrder from "../forms/orders/AddOrder";
+import Welcome from "../views/Welcome";
 
 function AppRoutes(){
     return(
         <Routes>
-            <Route path="/" element={<ProductsList/>} />
+            <Route path="/" element={<Welcome/>} />
 
+            <Route path="products" element={<ProductsList/>}/>
             <Route path="product/:id" element={<Product/>}/>
             <Route path="/product/add" element={<AddProduct/>}/>
             <Route path="/product/:id/edit" element={<EditProduct/>}/>

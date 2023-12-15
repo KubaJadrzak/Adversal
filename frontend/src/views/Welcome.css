@@ -1,0 +1,21 @@
+.welcome-category-container{
+    display:  flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 1000px;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.welcome-category-item{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 20px;
+    align-items: center;
+}
+
+.welcome-category-item:hover{
+    cursor: pointer;
+    background-color: lightgray;
+}

@@ -4,6 +4,10 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
+    if params[:category].present?
+      category = Category.find_by(name: params[:category])
+      @products = @products.where(category: category) if category.present?
+    end
     if params[:only_listed_products].to_s == "true"
       @products = @products.only_listed_products
     end
@@ -76,7 +80,7 @@ class Api::V1::ProductsController < ApplicationController
       params.require(:product).permit(
         :title, :price, :description, :category_id,
         :seller_id, :with_seller, :only_listed_products,
-        :without_listed_products, images: []
+        :without_listed_products, :category, images: []
       )
     end
 end
