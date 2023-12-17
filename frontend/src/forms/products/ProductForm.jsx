@@ -3,8 +3,6 @@ import { useState } from "react"
 import { styled } from '@mui/material/styles'
 import { Card, Button, TextField, MenuItem, Box, Typography } from '@mui/material'
 import { deleteProductImage } from "../../api/productApi"
-import { faCar } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CategoryIcon from '../../components/CategoryIcon'
 import './ProductForm.css'
 

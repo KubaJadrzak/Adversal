@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { fetchAllProducts } from "../api/productApi"
 import ProductsListElement from "../components/ProductsListElement"
-import { useNavigate, useSearchParams  } from "react-router-dom"
+import { useNavigate, useSearchParams, useLocation  } from "react-router-dom"
 import { Box } from '@mui/material'
 import "./ProductsList.css"
 
@@ -11,22 +11,30 @@ function ProductsList() {
     const navigate = useNavigate()
 
     useEffect(() => {
-      async function loadData(){
-        try {
+        async function loadData() {
+          try {
+            const searchParams = new URLSearchParams(location.search);
             const category = searchParams.get("category");
-            const params = new URLSearchParams({
-                without_carted_products: "true",
-                without_listed_products: "true",
-                category: category
-            })
-            const data = await fetchAllProducts(params)
-            setProducts(data)
-        } catch (e) {
-            console.error("Failed to load products: ", e)
+            const query = searchParams.get('query');
+            const params = new URLSearchParams();
+            params.set("without_carted_products", "true");
+            params.set("without_listed_products", "true");
+            if (category) {
+              params.set("category", category);
+            }
+            if (query) {
+              params.set("query", query);
+            }
+            const data = await fetchAllProducts(params);
+            setProducts(data);
+          } catch (e) {
+            console.error("Failed to load products: ", e);
+          }
         }
-      }
-      loadData()
-    }, [])
+
+        loadData();
+      }, [location.search]);
+
 
     const onAddToCart = (id) => {
         const index = products.findIndex(product => {

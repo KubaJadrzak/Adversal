@@ -4,6 +4,9 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
+    if params[:query].present? && params[:query].is_a?(String)
+      @products = @products.where("title ILIKE ?", "%#{params[:query]}%")
+    end
     if params[:category].present?
       category = Category.find_by(name: params[:category])
       @products = @products.where(category: category) if category.present?
@@ -80,7 +83,7 @@ class Api::V1::ProductsController < ApplicationController
       params.require(:product).permit(
         :title, :price, :description, :category_id,
         :seller_id, :with_seller, :only_listed_products,
-        :without_listed_products, :category, images: []
+        :without_listed_products, :category, :query, images: []
       )
     end
 end
