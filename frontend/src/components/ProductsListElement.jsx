@@ -1,5 +1,5 @@
 import React from "react"
-import {Box, Card, Typography, Button, ImageList, ImageListItem} from '@mui/material'
+import {Box, Card, Typography, Button, ImageList, ImageListItem, Avatar} from '@mui/material'
 import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
 import { useLocation } from "react-router-dom"
@@ -67,7 +67,8 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
             {!isFromAccount ?
             <Box className='product-list-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
-                <Box>
+                <Box className='product-list-element-seller'>
+                    <Avatar className='product-list-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
                     <Typography>{product.seller.name}</Typography>
                 </Box>
             </Box> :

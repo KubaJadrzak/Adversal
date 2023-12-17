@@ -46,3 +46,14 @@
     height: 98%;
     object-fit: cover;
 }
+
+.product-form-category{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin: 2px;
+}
+
+.product-form-category-item{
+    margin-left: 10px;
+}

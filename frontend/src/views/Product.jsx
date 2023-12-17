@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
 import { createCartProduct } from "../api/cartProductApi";
-import {Container, Typography, Card, Box, ImageList, ImageListItem, Button} from '@mui/material'
+import {Container, Typography, Card, Box, ImageList, ImageListItem, Button, Avatar} from '@mui/material'
 import './Product.css'
 
 function Product() {
@@ -49,7 +49,10 @@ function Product() {
                 <Typography variant='h4' className="product-title">{product.title}</Typography>
                 <Container className='product-price-seller'>
                     <Typography variant='h6' className="product-price">${product.price}</Typography>
-                    <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
+                    <Box className='product-element-seller'>
+                        <Avatar className='product-list-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
+                        <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
+                    </Box>
                 </Container>
                 <Box className="product-image-container">
                     {product.images ?

@@ -1,10 +1,11 @@
 import React from "react"
 import { useState } from "react"
 import { styled } from '@mui/material/styles'
-import { Card, Button, TextField, MenuItem, Box } from '@mui/material'
+import { Card, Button, TextField, MenuItem, Box, Typography } from '@mui/material'
 import { deleteProductImage } from "../../api/productApi"
 import { faCar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import CategoryIcon from '../../components/CategoryIcon'
 import './ProductForm.css'
 
 function ProductForm({buttonMessage, data, handleSubmit}) {
@@ -84,7 +85,11 @@ function ProductForm({buttonMessage, data, handleSubmit}) {
                 >
                     {data.categories.map((category) => (
                         <MenuItem key={category.id} value={category.id}>
-                    <FontAwesomeIcon icon={category.icon === 'faCar' && faCar } /> {category.name}
+                        <Box className='product-form-category'>
+                            <CategoryIcon icon={category.icon}/>
+                            <Typography className='product-form-category-item'>{category.name}</Typography>
+                        </Box>
+
                         </MenuItem>
                     ))}
                 </TextField>

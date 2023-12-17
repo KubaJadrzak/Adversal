@@ -18,6 +18,7 @@
     justify-content: space-between;
     align-items: baseline;
     height: 60px;
+    width: 98%;
 }
 
 .product-list-element-description{
@@ -28,13 +29,22 @@
     display: -webkit-box;
 }
 
+.product-list-element-seller{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .product-list-element-footer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
-    justify-self: flex-end;
     margin-top: auto;
+}
+
+.product-list-element-seller-avatar{
+    margin-right: 10px;
+
 }
 
 .product-list-element-button{

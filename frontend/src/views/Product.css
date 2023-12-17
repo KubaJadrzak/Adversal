@@ -41,3 +41,9 @@
 .product-button{
     width: 30%;
 }
+
+.product-element-seller{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
