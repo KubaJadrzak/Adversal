@@ -1,18 +1,17 @@
 import React from "react";
 import { useState } from "react"
 import { TextField, Card, InputAdornment } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './NavSearchBar.css'
+import './SearchBar.css'
 
-function NavSearchBar() {
-  const navigate = useNavigate();
+function NavSearchBar({handleSubmit}) {
+
   const [query, setQuery] = useState('');
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      navigate(`/products?query=${encodeURIComponent(query)}`)
+      handleSubmit({query})
     }
   };
 
