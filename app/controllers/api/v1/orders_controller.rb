@@ -11,6 +11,9 @@ class Api::V1::OrdersController < ApplicationController
     if params[:only_customer_orders].to_s == "true"
       @orders = @orders.only_customer_orders
     end
+    if params[:query].present? && params[:query].is_a?(String)
+      @orders = @orders.joins(:product).where("products.title ILIKE ?", "%#{params[:query]}%")
+    end
   end
 
   # GET /orders/1
@@ -62,6 +65,6 @@ class Api::V1::OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:buyer_id, :country, :status, :city, :address, :postal_code, :only_personal_orders, :product_id)
+      params.require(:order).permit(:buyer_id, :country, :status, :city, :address, :postal_code, :only_personal_orders, :query, :product_id)
     end
 end

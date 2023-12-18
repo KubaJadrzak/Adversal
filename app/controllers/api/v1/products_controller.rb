@@ -4,9 +4,7 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all
-    if params[:query].present? && params[:query].is_a?(String)
-      @products = @products.where("title ILIKE ?", "%#{params[:query]}%")
-    end
+
     if params[:category].present?
       category = Category.find_by(name: params[:category])
       @products = @products.where(category: category) if category.present?
@@ -22,6 +20,9 @@ class Api::V1::ProductsController < ApplicationController
     end
     if params[:with_ordered_products].to_s != 'true'
       @products = @products.without_ordered_products
+    end
+    if params[:query].present? && params[:query].is_a?(String)
+      @products = @products.where("title ILIKE ?", "%#{params[:query]}%")
     end
   end
 

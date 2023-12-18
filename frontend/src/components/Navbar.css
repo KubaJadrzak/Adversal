@@ -2,3 +2,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.navbar-search{
+    width: 600px;
+}

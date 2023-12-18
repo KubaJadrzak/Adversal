@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './SearchBar.css'
 
-function NavSearchBar({handleSubmit}) {
+function SearchBar({handleSubmit}) {
 
   const [query, setQuery] = useState('');
 
@@ -23,7 +23,7 @@ function NavSearchBar({handleSubmit}) {
         placeholder="Search..."
         variant="outlined"
         autoComplete="off"
-        value={query}
+        defaultValue=''
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         InputProps={{
@@ -38,4 +38,4 @@ function NavSearchBar({handleSubmit}) {
   );
 }
 
-export default NavSearchBar
+export default SearchBar

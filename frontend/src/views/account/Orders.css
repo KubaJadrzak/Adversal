@@ -5,6 +5,10 @@
     margin: auto;
     margin-bottom: 40px;
     margin-top: 40px;
+
+}
+
+.personal-orders-card{
     min-height: 500px;
 }
 
