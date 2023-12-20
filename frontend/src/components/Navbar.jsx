@@ -30,7 +30,9 @@ function Navbar() {
         <AppBar position="fixed">
           <Box className='navbar'>
             <Box className='navbar-search'>
-            <SearchBar handleSubmit={handleSubmit}/>
+              {!location.pathname.includes('/account') &&
+                <SearchBar handleSubmit={handleSubmit}/>
+              }
             </Box>
           <Toolbar sx={{ justifyContent: 'flex-end' }}>
             <IconButton onClick={() => {navigate(`/account`)}}>
