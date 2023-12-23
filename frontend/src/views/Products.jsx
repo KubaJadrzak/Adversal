@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { fetchAllProducts } from "../api/productApi"
-import ProductsListElement from "../components/ProductsListElement"
+import ProductsElement from "../components/ProductsElement"
 import { useNavigate, useSearchParams, useLocation  } from "react-router-dom"
 import { Box } from '@mui/material'
-import "./ProductsList.css"
+import "./Products.css"
 
 function ProductsList() {
     const [products, setProducts] = useState([])
@@ -45,10 +45,10 @@ function ProductsList() {
     }
 
     return (
-        <Box className='products-list-container'>
+        <Box className='products-container'>
             {products.map((product) => (
                 <Box key={product.id}>
-                    <ProductsListElement product={product} navigate={navigate} onAddToCart={onAddToCart}/>
+                    <ProductsElement product={product} navigate={navigate} onAddToCart={onAddToCart}/>
                 </Box>
 
             ))}

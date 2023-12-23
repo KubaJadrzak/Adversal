@@ -4,9 +4,9 @@ import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
 import { useLocation } from "react-router-dom"
 
-import "./ProductsListElement.css"
+import "./ProductsElement.css"
 
-function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) {
+function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
     const location = useLocation()
 
     if (!product || product.length === 0) return (
@@ -40,14 +40,14 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
     const isFromAccount = location.pathname.includes('/account');
 
     return (
-        <Card className='product-list-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
-            <Box className='product-list-element-header'>
+        <Card className='products-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
+            <Box className='products-element-header'>
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
             </Box>
-                <Box className="product-list-element-image-container">
+                <Box className="products-element-image-container">
                     {product.images ?
-                        <ImageList cols={2} className="product-list-element-image-list">
+                        <ImageList cols={2} className="products-element-image-list">
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} >
                                     <img
@@ -63,26 +63,26 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
 
                     }
                 </Box>
-            <Typography className='product-list-element-description'>{product.description}</Typography>
+            <Typography className='products-element-description'>{product.description}</Typography>
             {!isFromAccount ?
-            <Box className='product-list-element-footer'>
+            <Box className='products-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
-                <Box className='product-list-element-seller'>
-                    <Avatar className='product-list-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
+                <Box className='products-element-seller'>
+                    <Avatar className='products-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
                     <Typography>{product.seller.name}</Typography>
                 </Box>
             </Box> :
-            <Box className='product-list-element-footer'>
+            <Box className='products-element-footer'>
                 <Button
                     variant='contained'
-                    className='product-list-element-button'
+                    className='products-element-button'
                     onClick={(e) => {
                         e.stopPropagation()
                         navigate(`/product/${product.id}/edit`)
                     }}>
                     Edit
                 </Button>
-                <Button variant='contained' className='product-list-element-button' onClick={handleDeleteProduct}>
+                <Button variant='contained' className='products-element-button' onClick={handleDeleteProduct}>
                     Delete
                 </Button>
             </Box>
@@ -91,4 +91,4 @@ function ProductsListElement({product, navigate, onAddToCart, onDeleteProduct}) 
     )
 }
 
-export default ProductsListElement
+export default ProductsElement

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import ProductsList from '../views/ProductsList'
+import Products from '../views/Products'
 import Product from '../views/Product'
 import Cart from "../views/Cart";
 import Catalog from "../views/account/Catalog";
@@ -14,13 +14,20 @@ import Orders from "../views/account/Orders";
 import Order from "../views/account/Order";
 import AddOrder from "../forms/orders/AddOrder";
 import Welcome from "../views/Welcome";
+import Login from '../views/login/Login'
+import SignUp from "../views/login/SignUp";
+import PasswordReset from "../views/login/PasswordReset";
 
 function AppRoutes(){
     return(
         <Routes>
+            <Route path='login' element={<Login/>}/>
+            <Route path='/login/reset' element={<PasswordReset/>}/>
+            <Route path='/login/signup' element={<SignUp/>}/>
+
             <Route path="/" element={<Welcome/>} />
 
-            <Route path="products" element={<ProductsList/>}/>
+            <Route path="products" element={<Products/>}/>
             <Route path="product/:id" element={<Product/>}/>
             <Route path="/product/add" element={<AddProduct/>}/>
             <Route path="/product/:id/edit" element={<EditProduct/>}/>

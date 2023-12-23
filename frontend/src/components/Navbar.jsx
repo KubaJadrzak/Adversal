@@ -25,6 +25,13 @@ function Navbar() {
     }
   };
 
+  const isLoginPage = location.pathname.includes('login')
+
+  if (isLoginPage) {
+    return null;
+  }
+
+
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">

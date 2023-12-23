@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { fetchAllProducts } from "../../api/productApi"
-import ProductsListElement from "../../components/ProductsListElement"
+import ProductsElement from "../../components/ProductsElement"
 import { useNavigate } from "react-router-dom"
 import {Box, Button} from '@mui/material'
 import "./Catalog.css"
@@ -30,11 +30,10 @@ function Catalog() {
     )
 
     const onDeleteProduct = (id) => {
-        // Create a new array with the item removed
+
         const updatedProducts = products.filter((product) => product.id !== id);
-        
-        // Update the state with the new array
         setProducts(updatedProducts);
+
       }
 
 
@@ -49,7 +48,7 @@ function Catalog() {
                 {products.length > 0 &&
                     products.map((product) => (
                     <Box key={product.id}>
-                        <ProductsListElement product={product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
+                        <ProductsElement product={product} navigate={navigate} onDeleteProduct={onDeleteProduct}/>
                     </Box>
                     ))
                     }

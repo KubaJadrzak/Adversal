@@ -1,0 +1,35 @@
+.login-card{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: auto;
+    margin-top: 100px;
+    min-height: 200px;
+}
+
+.login-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 50px 0px 40px 0px
+}
+
+.login-form-element{
+    margin: 10px;
+    width: 80%;
+}
+
+.login-form-link{
+    margin: 5px;
+}
+
+.login-form-button{
+    margin: 10px
+}
+
+.login-form-link:hover{
+    cursor: pointer;
+    background-color: whitesmoke;
+}
