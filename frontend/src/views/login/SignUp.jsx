@@ -28,6 +28,13 @@ function SignUp() {
                     label="Password"
                     type="password"
                 ></TextField>
+                <TextField
+                    required
+                    className="login-signup-form-element"
+                    id="password"
+                    label=" Confirm Password"
+                    type="password"
+                ></TextField>
                 <Link className="login-form-link" underline="hover" onClick={() => {navigate(`/login`)}}>Back to login</Link>
                 <Box className="login-signup-form-button">
                 <Button variant="contained" type="submit">LOGIN</Button>
