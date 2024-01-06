@@ -1,5 +1,5 @@
 export async function fetchAllProducts(params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products?${params}`)
+    const response = await fetch(`http://localhost:3000/products?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
@@ -19,7 +19,7 @@ export async function createProduct(data){
     }
 
 
-    const response = await fetch('http://localhost:3000/api/v1/products', {
+    const response = await fetch('http://localhost:3000/products', {
         method: "POST",
         body: formData
     })
@@ -31,7 +31,7 @@ export async function createProduct(data){
 }
 
 export async function deleteProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`, {
+    const response = await fetch(`http://localhost:3000/products/${id}?${params}`, {
         method: "DELETE",
     })
     if (!response.ok) {
@@ -57,7 +57,7 @@ export async function updateProduct(id, data) {
         formData.append(`product[images][]`, data.images[i])
     }
 
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}`, {
+    const response = await fetch(`http://localhost:3000/products/${id}`, {
         method: "PUT",
         body: formData
     });
@@ -70,7 +70,7 @@ export async function updateProduct(id, data) {
 }
 
 export async function fetchProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`)
+    const response = await fetch(`http://localhost:3000/products/${id}?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
@@ -79,7 +79,7 @@ export async function fetchProduct(id, params) {
 
 export async function deleteProductImage(id, image_id) {
 
-    await fetch(`http://localhost:3000/api/v1/products/${id}/delete_image/${image_id}`, {
+    await fetch(`http://localhost:3000/products/${id}/delete_image/${image_id}`, {
         method: "DELETE",
       });
 

@@ -1,5 +1,5 @@
 export async function fetchAllUsers() {
-    const response = await fetch('http://localhost:3000/api/v1/users')
+    const response = await fetch('http://localhost:3000/users')
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
@@ -19,7 +19,7 @@ export async function createUser(data){
         formData.append('user[image]', data.image);
     }
 
-    const response = await fetch('http://localhost:3000/api/v1/users', {
+    const response = await fetch('http://localhost:3000/users', {
         method: "POST",
         body: formData
     })
@@ -31,7 +31,7 @@ export async function createUser(data){
 }
 
 export async function deleteUser(id) {
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
         method: "DELETE",
     })
     if (!response.ok) {
@@ -59,7 +59,7 @@ export async function updateUser(id, data) {
         formData.append('user[image]', data.image);
     }
 
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
         method: "PUT",
         body: formData
     });
@@ -73,7 +73,7 @@ export async function updateUser(id, data) {
 
 
 export async function fetchUser(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/users/${id}?${params}`)
+    const response = await fetch(`http://localhost:3000/users/${id}?${params}`)
     if (!response.ok) {
         throw new Error(reponse.statusText)
     }
@@ -82,7 +82,7 @@ export async function fetchUser(id, params) {
 
 export async function deleteUserImage(id) {
 
-    await fetch(`http://localhost:3000/api/v1/users/${id}/delete_image`, {
+    await fetch(`http://localhost:3000/users/${id}/delete_image`, {
         method: "DELETE",
       });
 

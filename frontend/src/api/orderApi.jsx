@@ -1,5 +1,5 @@
 export async function fetchAllOrders(params) {
-    const response = await fetch(`http://localhost:3000/api/v1/orders?${params}`);
+    const response = await fetch(`http://localhost:3000/orders?${params}`);
     if (!response.ok) {
         throw new Error(response.statusText);
     }
@@ -7,7 +7,7 @@ export async function fetchAllOrders(params) {
 }
 
 export async function createOrder(data) {
-    const response = await fetch('http://localhost:3000/api/v1/orders', {
+    const response = await fetch('http://localhost:3000/orders', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export async function createOrder(data) {
 }
 
 export async function deleteOrder(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/orders/${id}?${params}`, {
+    const response = await fetch(`http://localhost:3000/orders/${id}?${params}`, {
         method: 'DELETE',
     });
     if (!response.ok) {
@@ -36,7 +36,7 @@ export async function deleteOrder(id, params) {
 }
 
 export async function updateOrder(id, data) {
-    const response = await fetch(`http://localhost:3000/api/v1/orders/${id}`, {
+    const response = await fetch(`http://localhost:3000/orders/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export async function updateOrder(id, data) {
 }
 
 export async function fetchOrder(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/orders/${id}?${params}`);
+    const response = await fetch(`http://localhost:3000/orders/${id}?${params}`);
     if (!response.ok) {
         throw new Error(response.statusText);
     }
