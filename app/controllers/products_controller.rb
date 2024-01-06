@@ -1,4 +1,4 @@
-class Api::V1::ProductsController < ApplicationController
+class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show update destroy ]
 
   # GET /products
@@ -35,7 +35,7 @@ class Api::V1::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      render json: @product, status: :created, location: api_v1_products_url(@product)
+      render json: @product, status: :created, location: products_url(@product)
     else
       render json: @product.errors, status: :unprocessable_entity
     end

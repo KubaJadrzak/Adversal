@@ -4,4 +4,5 @@ class ApplicationController < ActionController::API
     def set_current_user
         Current.user = User.find_by(id: 1)
     end
+
 end

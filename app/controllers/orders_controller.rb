@@ -1,4 +1,4 @@
-class Api::V1::OrdersController < ApplicationController
+class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show update destroy ]
 
   # GET /orders
@@ -33,7 +33,7 @@ class Api::V1::OrdersController < ApplicationController
         cart_product = CartProduct.find_by(carted_product_id: product.id, buyer_id: Current.user)
         cart_product.destroy
 
-        render :show, status: :created, location: api_v1_order_url(@order)
+        render :show, status: :created, location: order_url(@order)
       else
         render json: @order.errors, status: :unprocessable_entity
       end
@@ -45,7 +45,7 @@ class Api::V1::OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
     if @order.update(order_params)
-      render :show, status: :ok, location: api_v1_orders_url(@order)
+      render :show, status: :ok, location: orders_url(@order)
     else
       render json: @order.errors, status: :unprocessable_entity
     end

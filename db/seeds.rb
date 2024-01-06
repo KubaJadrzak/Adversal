@@ -8,12 +8,12 @@
 
 
 users_data = [
-  { name: "John Doe", email: "john.doe@example.com" },
-  { name: "Jane Smith", email: "jane.smith@example.com" },
-  { name: "Bob Johnson", email: "bob.johnson@example.com" },
-  { name: "Alice Williams", email: "alice.williams@example.com" },
-  { name: "Charlie Brown", email: "charlie.brown@example.com" },
-  { name: "Eva Davis", email: "eva.davis@example.com" }
+  { name: "John Doe", email: "john.doe@example.com", password: "password123", jti: SecureRandom.uuid },
+  { name: "Jane Smith", email: "jane.smith@example.com", password: "password123", jti: SecureRandom.uuid },
+  { name: "Bob Johnson", email: "bob.johnson@example.com", password: "password123", jti: SecureRandom.uuid },
+  { name: "Alice Williams", email: "alice.williams@example.com", password: "password123", jti: SecureRandom.uuid },
+  { name: "Charlie Brown", email: "charlie.brown@example.com", password: "password123", jti: SecureRandom.uuid },
+  { name: "Eva Davis", email: "eva.davis@example.com", password: "password123", jti: SecureRandom.uuid }
 ]
 
 users_data.each do |user_data|

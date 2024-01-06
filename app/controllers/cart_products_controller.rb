@@ -1,4 +1,4 @@
-class Api::V1::CartProductsController < ApplicationController
+class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show update destroy ]
 
   # GET /cart_products
@@ -18,7 +18,7 @@ class Api::V1::CartProductsController < ApplicationController
     @cart_product = CartProduct.new(cart_product_params)
 
     if @cart_product.save
-      render :show, status: :created, location: api_v1_cart_products_url(@cart_product)
+      render :show, status: :created, location: cart_products_url(@cart_product)
     else
       render json: @cart_product.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Api::V1::CartProductsController < ApplicationController
   # PATCH/PUT /cart_products/1.json
   def update
     if @cart_product.update(cart_product_params)
-      render :show, status: :ok, location: api_v1_cart_products_url(@cart_product)
+      render :show, status: :ok, location: cart_products_url(@cart_product)
     else
       render json: @cart_product.errors, status: :unprocessable_entity
     end
