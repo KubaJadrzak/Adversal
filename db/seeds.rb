@@ -255,6 +255,16 @@ products_data = [
   # Add more hand-generated data for other products...
 ]
 
+def create_images_attachments(model_instance, num_images)
+  num_images.times do
+    image_url = Faker::LoremFlickr.image(size: "300x200", search_terms: ['product'])
+    image_file = URI.open(image_url)
+    filename = "#{SecureRandom.uuid}.png"
+    model_instance.images.attach(io: image_file, filename: filename)
+  end
+end
+
 products_data.each do |product_data|
-  Product.create(product_data)
+  product = Product.create(product_data)
+  create_images_attachments(product, 5)
 end

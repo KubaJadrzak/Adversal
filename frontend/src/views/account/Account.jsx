@@ -22,6 +22,9 @@ function Account() {
                 <ListItemButton className='account-list-item' onClick={() => {navigate(`catalog`)}}>
                     <Typography>Your catalog</Typography>
                 </ListItemButton>
+                <ListItemButton className='account-list-item' onClick={() => {handleLogout}}>
+                    <Typography>Logout</Typography>
+                </ListItemButton>
             </List>
         </Card>
     )

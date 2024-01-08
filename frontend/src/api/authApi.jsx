@@ -1,38 +1,34 @@
-export async function CreateUser(data) {
-    const response = await fetch('http://localhost:3000/signup', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
+export async function SignUpUser(data) {
+    try {
+        const response = await fetch('http://localhost:3000/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
 
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
 
-    const responseData = await response.json();
+        const responseData = await response.json();
+        const userId = responseData?.data?.id;
+        const authToken = response.headers.get('Authorization');
 
-    // Check if the response contains an "id"
-    if (responseData && responseData.data && responseData.data.id) {
-        const userId = responseData.data.id;
+        if (!userId) {
+            throw new Error("User ID not found in the response");
+        }
 
-        // Save the user id to localStorage
         localStorage.setItem('id', userId);
-    } else {
-        // If the "id" is not present in the response, handle the error accordingly
-        throw new Error("User ID not found in the response");
-    }
 
-    // Check if the "Authorization" header is present in the response
-    const authTokenHeader = response.headers.get('Authorization');
-
-    if (authTokenHeader) {
-        // Extract the token from the "Authorization" header with "Bearer" prefix
-        const authToken = authTokenHeader.split(' ')[1];
-        localStorage.setItem('authToken', `Bearer ${authToken}`);
-    } else {
-        // If the "Authorization" header is not present, handle the error accordingly
-        throw new Error("Authorization header not found in the response");
+        if (authToken) {
+            localStorage.setItem('token', authToken);
+        } else {
+            throw new Error("Authorization header not found in the response");
+        }
+    } catch (error) {
+        console.error('Error signing up user:', error);
+        // Handle the error as needed (e.g., show a notification to the user)
     }
 }

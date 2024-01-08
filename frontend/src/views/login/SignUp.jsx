@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Box, Card, TextField, Button, Link } from "@mui/material"
-import { CreateUser } from "../../api/authApi"
+import { SignUpUser } from "../../api/authApi"
 import './SignUp.css'
 
 function SignUp() {
@@ -22,9 +22,8 @@ function SignUp() {
             }
         }
         try {
-            await CreateUser(data)
-            console.log(localStorage.getItem('authToken'))
-            console.log(localStorage.getItem('id'))
+            await SignUpUser(data)
+            navigate('/account')
         } catch (error) {
             console.error(error)
         }

@@ -1,60 +1,57 @@
+import api from './apiClient';
+
 export async function fetchCartProducts(params) {
-    const response = await fetch(`http://localhost:3000/cart_products?${params}`)
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
-    }
-    return response.json()
+  try {
+    const response = await api.get(`/cart_products?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching cart products');
+  }
 }
 
-export async function createCartProduct(data){
-    const response = await fetch('http://localhost:3000/cart_products', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-
-    if (!response.ok) {
-        throw new Error(response.statusText)
-    }
-    return response.json()
+export async function createCartProduct(data) {
+  try {
+    const response = await api.post('/cart_products', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Error creating cart product');
+  }
 }
 
 export async function deleteCartProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/cart_products/${id}?${params}`, {
-        method: "DELETE",
-    })
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
+  try {
+    const response = await api.delete(`/cart_products/${id}?${params}`);
+    if (response.status === 204) {
+      return null;
     }
-
-    if (response.status === 204){
-        return null
-    }
-    return response.json()
+    return response.data;
+  } catch (error) {
+    throw new Error('Error deleting cart product');
+  }
 }
 
 export async function updateCartProduct(id, data) {
-    const response = await fetch(`http://localhost:3000/cart_products/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+  try {
+    const response = await api.put(`/cart_products/${id}`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-
-    return response.json();
+    return response.data;
+  } catch (error) {
+    throw new Error('Error updating cart product');
+  }
 }
 
 export async function fetchCartProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/cart_products/${id}?${params}`)
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
-    }
-    return response.json()
+  try {
+    const response = await api.get(`/cart_products/${id}?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching cart product');
+  }
 }

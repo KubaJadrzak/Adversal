@@ -1,60 +1,57 @@
+import api from './apiClient';
+
 export async function fetchAllOrders(params) {
-    const response = await fetch(`http://localhost:3000/orders?${params}`);
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-    return response.json();
+  try {
+    const response = await api.get(`/orders?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching all orders');
+  }
 }
 
 export async function createOrder(data) {
-    const response = await fetch('http://localhost:3000/orders', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+  try {
+    const response = await api.post('/orders', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-    return response.json();
+    return response.data;
+  } catch (error) {
+    throw new Error('Error creating order');
+  }
 }
 
 export async function deleteOrder(id, params) {
-    const response = await fetch(`http://localhost:3000/orders/${id}?${params}`, {
-        method: 'DELETE',
-    });
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-
+  try {
+    const response = await api.delete(`/orders/${id}?${params}`);
     if (response.status === 204) {
-        return null;
+      return null;
     }
-    return response.json();
+    return response.data;
+  } catch (error) {
+    throw new Error('Error deleting order');
+  }
 }
 
 export async function updateOrder(id, data) {
-    const response = await fetch(`http://localhost:3000/orders/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+  try {
+    const response = await api.put(`/orders/${id}`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-
-    return response.json();
+    return response.data;
+  } catch (error) {
+    throw new Error('Error updating order');
+  }
 }
 
 export async function fetchOrder(id, params) {
-    const response = await fetch(`http://localhost:3000/orders/${id}?${params}`);
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-    return response.json();
+  try {
+    const response = await api.get(`/orders/${id}?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching order');
+  }
 }
