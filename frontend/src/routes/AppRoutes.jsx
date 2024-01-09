@@ -24,14 +24,17 @@ import PasswordReset from "../views/login/PasswordReset";
 function AppRoutes(){
     return(
         <Routes>
+            <Route path="/" element={<Welcome/>} />
+            <Route path="products" element={<Products/>}/>
+            <Route path="product/:id" element={<Product/>}/>
+
+
             <Route element={<PublicRoutes />}>
                 <Route path='login' element={<Login/>}/>
                 <Route path='/login/reset' element={<PasswordReset/>}/>
                 <Route path='/login/signup' element={<SignUp/>}/>
-                <Route path="/" element={<Welcome/>} />
-                <Route path="products" element={<Products/>}/>
-                <Route path="product/:id" element={<Product/>}/>
             </Route>
+
 
             <Route element={<PrivateRoutes />}>
                 <Route path="/product/add" element={<AddProduct/>}/>
