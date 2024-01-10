@@ -30,12 +30,14 @@ api.interceptors.response.use(
         localStorage.removeItem('token')
         localStorage.removeItem('id')
         localStorage.removeItem('email')
+        window.location.reload()
       }
 
       if (data.exception.includes("Couldn't find User")){
         localStorage.removeItem('token')
         localStorage.removeItem('id')
         localStorage.removeItem('email')
+        window.location.reload()
       }
 
       // Handle other error scenarios

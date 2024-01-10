@@ -12,6 +12,13 @@ class UsersController < ApplicationController
   def show
   end
 
+  def update
+    if @user.update(user_params)
+      render :show, status: :ok, location: user_url(@user)
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -40,6 +47,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:name, :email, :image)
+      params.require(:user).permit(:name, :email, :image)
     end
 end

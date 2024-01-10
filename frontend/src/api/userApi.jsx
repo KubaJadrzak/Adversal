@@ -33,7 +33,24 @@ export async function fetchAllUsers() {
 
   export async function updateUser(id, data) {
     try {
-      const response = await api.put(`/users/${id}`, data);
+      const formData = new FormData();
+  
+      Object.entries(data).forEach(([key, value]) => {
+        if (key !== 'image') {
+          formData.append(`user[${key}]`, value);
+        }
+      });
+  
+      if (data.image) {
+        formData.append('user[image]', data.image);
+      }
+  
+      const response = await api.put(`/users/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set content type for form data
+        },
+      });
+      
       return response.data;
     } catch (error) {
       throw new Error('Error updating user');

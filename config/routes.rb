@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       sessions: 'users/sessions',
       registrations: 'users/registrations'
     }
-    resources :users do
+    resources :users, only: [:show, :edit, :update] do
       delete 'delete_image', to: 'users#delete_image', on: :member, as: :delete_image
     end
     resources :orders

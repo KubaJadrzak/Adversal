@@ -54,6 +54,7 @@ export async function logoutUser() {
 
       // Clear localStorage items
       localStorage.removeItem('email');
+      localStorage.removeItem('id');
       localStorage.removeItem('token');
 
       // Redirect the user or perform any other necessary actions
@@ -65,7 +66,7 @@ export async function logoutUser() {
     }
 }
 
-  export async function loginUser(data) {
+export async function loginUser(data) {
     try {
         const response = await fetch('http://localhost:3000/login', {
             method: 'POST',
