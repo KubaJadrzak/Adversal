@@ -30,7 +30,7 @@ function Profile() {
                     <Typography className='profile-list-element'>{user.name}</Typography>
                     <Typography className='profile-list-element'>{user.email}</Typography>
                 </List>
-                <Button className='profile-button' variant="contained" onClick={() => {navigate(`/account/profile/password`)}}>Edit Password</Button>
+                <Button className='profile-button' variant="contained" onClick={() => {navigate(`/account/profile/password`)}}>Change Password</Button>
                 <Button className='profile-button' variant="contained" onClick={() => {navigate(`/account/profile/edit`)}}>Edit Profile</Button>
             </Box>
         </Card>

@@ -20,6 +20,7 @@ import Welcome from "../views/Welcome";
 import Login from '../views/login/Login'
 import SignUp from "../views/login/SignUp";
 import PasswordReset from "../views/login/PasswordReset";
+import PasswordChangeForm from "../forms/users/PasswordChangeForm";
 
 function AppRoutes(){
     return(
@@ -45,6 +46,7 @@ function AppRoutes(){
                 <Route path="/account/catalog/product/:id" element={<Product/>}/>
                 <Route path="/account/profile" element={<Profile/>}/>
                 <Route path="/account/profile/edit" element={<EditUser/>}/>
+                <Route path="/account/profile/password" element= {<PasswordChangeForm/>}/>
                 <Route path="/account/personalorders" element={<Orders/>}/>
                 <Route path="/account/personalorders/:id" element={<Order/>}/>
                 <Route path="/account/personalorders/:id/product/:id" element={<Product/>}/>

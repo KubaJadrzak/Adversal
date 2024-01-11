@@ -10,12 +10,16 @@
 .user-form{
     display: flex;
     flex-direction: column;
-    margin: 80px;
+    margin: 50px;
     align-items: center;
 }
 
 .user-form > * {
     margin: 10px;
+}
+
+.user-form-element{
+    width: 300px;
 }
 
 .user-form-avatar-container{
@@ -29,4 +33,7 @@
     width: 150px;
     height: 150px;
     margin-bottom: 10px;
+}
+.user-form-button{
+    width: 150px;
 }

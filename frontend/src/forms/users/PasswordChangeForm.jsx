@@ -15,28 +15,36 @@ function PasswordChangeForm() {
         <Card className='user-form-cart'>
             <form className="user-form" onSubmit={(e) => {
                 e.preventDefault()
-                handleSubmit({name, email, newImage})}}>
+                handleSubmit()}}>
                 <TextField
                     required
                     className="user-form-element"
-                    id="name"
-                    label="Name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    id="current password"
+                    label="Current Password"
+                    value={currentPassword}
+                    onChange={e => setCurrentPassword(e.target.value)}
                 ></TextField>
                 <TextField
                     required
                     className="user-form-element"
-                    id="email"
-                    label="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    id="new password"
+                    label="New Password"
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                ></TextField>
+                <TextField
+                    required
+                    className="user-form-element"
+                    id="new password confirmation"
+                    label="New Password Confirmation"
+                    value={newPasswordConfirmation}
+                    onChange={e => setNewPasswordConfirmation(e.target.value)}
                 >
                 </TextField>
-                <Button variant="contained" type="submit">{buttonMessage}</Button>
+                <Button variant="contained" type="submit">CHANGE PASSWORD</Button>
             </form>
         </Card>
     )
 }
 
-export default UserForm
+export default PasswordChangeForm
