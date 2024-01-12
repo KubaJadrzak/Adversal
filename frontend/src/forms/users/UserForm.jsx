@@ -45,22 +45,22 @@ function UserForm({buttonMessage, data, handleSubmit}) {
                 {(newImage != 0 && image == '') &&
                     <Box className='user-form-avatar-container'>
                         <Avatar className='user-form-avatar' src={URL.createObjectURL(newImage)}/>
-                        <Button variant='contained' onClick={handleDeleteNewImage}>Delete Image</Button>
+                        <Button className="user-form-button" variant='contained' onClick={handleDeleteNewImage}>Delete Image</Button>
                     </Box>
                 }
                 {(newImage == 0 && image != '') &&
                     <Box className='user-form-avatar-container'>
                         <Avatar className='user-form-avatar' src={"http://localhost:3000" + image}/>
-                        <Button variant='contained' onClick={handleDeleteImage}>Delete Image</Button>
+                        <Button className="user-form-button" variant='contained' onClick={handleDeleteImage}>Delete Image</Button>
                     </Box>
                 }
                 {(newImage != 0 && image!= '') &&
                     <Box className='user-form-avatar-container'>
                         <Avatar className='user-form-avatar' src={URL.createObjectURL(newImage)}/>
-                        <Button variant='contained' onClick={handleDeleteImage}>Delete Image</Button>
+                        <Button className="user-form-button" variant='contained' onClick={handleDeleteImage}>Delete Image</Button>
                     </Box>
                 }
-                <Button component="label" variant="contained" className='product-form-upload'>
+                <Button component="label" variant="contained" className="user-form-button" >
                     Upload Image
                     <VisuallyHiddenInput type="file" onChange={e => setNewImage(e.target.files[0])}/>
                 </Button>
@@ -81,7 +81,7 @@ function UserForm({buttonMessage, data, handleSubmit}) {
                     onChange={e => setEmail(e.target.value)}
                 >
                 </TextField>
-                <Button variant="contained" type="submit">{buttonMessage}</Button>
+                <Button className="user-form-button" variant="contained" type="submit">{buttonMessage}</Button>
             </form>
         </Card>
     )

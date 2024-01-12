@@ -2,7 +2,7 @@ import React from "react"
 import {Box, Card, Typography, Button, ImageList, ImageListItem, Avatar} from '@mui/material'
 import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
-import { useLocation } from "react-router-dom"
+import { useLocation} from "react-router-dom"
 
 import "./ProductsElement.css"
 
@@ -19,6 +19,11 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
         const carted_product_id = product.id
         const data = { carted_product_id }
         try {
+            if (!localStorage.getItem('token')) {
+                // Redirect to the login page if no token is found
+                navigate("/login");
+                return
+            }
             await createCartProduct(data)
             onAddToCart(product.id)
         } catch (e) {

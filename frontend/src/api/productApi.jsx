@@ -1,88 +1,83 @@
+import api from './apiClient';
+
 export async function fetchAllProducts(params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products?${params}`)
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
-    }
-    return response.json()
+  try {
+    const response = await api.get(`/products?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching all products');
+  }
 }
 
-export async function createProduct(data){
-
-    const formData = new FormData()
+export async function createProduct(data) {
+  try {
+    const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'images') {
-            formData.append(`product[${key}]`, value)
-        }
-    })
-    for (let i=0; i < data.images.length; i++) {
-        formData.append(`product[images][]`, data.images[i])
+      if (key !== 'images') {
+        formData.append(`product[${key}]`, value);
+      }
+    });
+    for (let i = 0; i < data.images.length; i++) {
+      formData.append(`product[images][]`, data.images[i]);
     }
 
-
-    const response = await fetch('http://localhost:3000/api/v1/products', {
-        method: "POST",
-        body: formData
-    })
-
-    if (!response.ok) {
-        throw new Error(response.statusText)
-    }
-    return response.json()
+    const response = await api.post('/products', formData);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error creating product');
+  }
 }
 
 export async function deleteProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`, {
-        method: "DELETE",
-    })
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
-    }
-
-    if (response.status === 204){
-        return null
+  try {
+    const response = await api.delete(`/products/${id}?${params}`);
+    if (response.status === 204) {
+      return null;
     } else {
-        return response.json()
+      return response.data;
     }
+  } catch (error) {
+    throw new Error('Error deleting product');
+  }
 }
 
 export async function updateProduct(id, data) {
-
-    const formData = new FormData()
+  try {
+    const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'images') {
-            formData.append(`product[${key}]`, value)
-        }
-    })
-    for (let i=0; i < data.images.length; i++) {
-        formData.append(`product[images][]`, data.images[i])
+      if (key !== 'images') {
+        formData.append(`product[${key}]`, value);
+      }
+    });
+    for (let i = 0; i < data.images.length; i++) {
+      formData.append(`product[images][]`, data.images[i]);
     }
 
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}`, {
-        method: "PUT",
-        body: formData
+    const response = await api.put(`/products/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Set content type for form data
+      },
     });
 
-    if (!response.ok) {
-        throw new Error(response.statusText);
-    }
-
-    return response.json();
+    return response.data;
+  } catch (error) {
+    throw new Error('Error updating product');
+  }
 }
 
 export async function fetchProduct(id, params) {
-    const response = await fetch(`http://localhost:3000/api/v1/products/${id}?${params}`)
-    if (!response.ok) {
-        throw new Error(reponse.statusText)
-    }
-    return response.json()
+  try {
+    const response = await api.get(`/products/${id}?${params}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error fetching product');
+  }
 }
 
 export async function deleteProductImage(id, image_id) {
-
-    await fetch(`http://localhost:3000/api/v1/products/${id}/delete_image/${image_id}`, {
-        method: "DELETE",
-      });
-
+  try {
+    await api.delete(`/products/${id}/delete_image/${image_id}`);
+  } catch (error) {
+    throw new Error('Error deleting product image');
+  }
 }
-
-

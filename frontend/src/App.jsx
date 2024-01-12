@@ -6,9 +6,6 @@ import { Box } from "@mui/material"
 import './App.css';
 
 function App() {
-  if(!localStorage.getItem('id')){
-    localStorage.setItem("id", 1)
-  }
   return (
     <StyledEngineProvider injectFirst>
       <Router>
