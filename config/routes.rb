@@ -4,15 +4,16 @@ Rails.application.routes.draw do
       sign_in: 'login',
       sign_out: 'logout',
       registration: 'signup'
-    },
-    controllers: {
+    }, controllers: {
       sessions: 'users/sessions',
       registrations: 'users/registrations',
-      passwords: 'users/passwords'
     }
+
+    devise_scope :user do
+      put '/change_password', to: 'users/passwords#change_password'
+    end
     resources :users, only: [:show, :edit, :update] do
       delete 'delete_image', to: 'users#delete_image', on: :member, as: :delete_image
-      put 'passwords/update', to: 'users/passwords#update'
     end
     resources :orders
     resources :cart_products

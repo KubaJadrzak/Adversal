@@ -14,6 +14,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: %i[name image])
   end
 
+  def change_password
+    user = current_user
+
+    if user.valid_password?(params[:current_password])
+      user.update(password: params[:password])
+      render json: { message: 'Password changed successfully' }
+    else
+      render json: { error: 'Invalid current password' }, status: :unprocessable_entity
+    end
+  end
+
 
   def respond_with(current_user, _opts = {})
     if resource.persisted?

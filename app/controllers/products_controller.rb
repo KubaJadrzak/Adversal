@@ -13,15 +13,14 @@ class ProductsController < ApplicationController
       if params[:only_listed_products].to_s == "true"
         @products = @products.only_listed_products
       end
-    
+
       if params[:without_carted_products].to_s == "true"
         @products = @products.without_carted_products
       end
-    
+
       if params[:without_listed_products].to_s == "true"
         @products = @products.without_listed_products
       end
-    
       if params[:with_ordered_products].to_s != 'true'
         @products = @products.without_ordered_products
       end

@@ -1,14 +1,36 @@
 import React from "react"
 import { useState } from "react"
-import { styled } from '@mui/material/styles'
-import { Card, Button, TextField, Avatar, Box } from '@mui/material'
-import { deleteUserImage } from "../../api/userApi"
+import { Card, Button, TextField } from '@mui/material'
+import { changePassword } from "../../api/authApi"
 import './UserForm.css'
 
 function PasswordChangeForm() {
     const [currentPassword, setCurrentPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
+
+    const handleSubmit = async () => {
+        try {
+            // Check if newPassword and newPasswordConfirmation match
+            if (newPassword !== newPasswordConfirmation) {
+                // Handle mismatch error
+                console.error('New password and confirmation do not match');
+                return;
+            }
+
+            // Make a request to change the password
+            await changePassword({
+                current_password: currentPassword,
+                password: newPassword,
+                password_confirmation: newPasswordConfirmation,
+            });
+
+            // Optionally, you can reset the form or show a success message
+        } catch (error) {
+            // Handle errors (e.g., show an error message to the user)
+            console.error('Error changing password:', error);
+        }
+    };
 
 
     return (

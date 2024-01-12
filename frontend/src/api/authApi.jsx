@@ -107,3 +107,25 @@ export async function loginUser(data) {
         // Handle the error as needed (e.g., show a notification to the user)
     }
 }
+
+export async function changePassword(data) {
+    try {
+        const response = await api.put('/change_password', JSON.stringify(data), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status !== 200) {
+            throw new Error(response.statusText);
+        }
+
+        const responseData = await response.data;
+        console.log('Password change response:', responseData);
+        // Optionally, you can handle success or show a message to the user
+
+    } catch (error) {
+        console.error('Error changing password:', error);
+        // Handle the error as needed (e.g., show a notification to the user)
+    }
+}
