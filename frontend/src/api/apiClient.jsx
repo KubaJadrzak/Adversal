@@ -26,11 +26,13 @@ api.interceptors.response.use(
       const { status, data } = error.response;
 
 
-      if (data.exception.includes('JWT::ExpiredSignature')) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('id')
-        localStorage.removeItem('email')
-        window.location.reload()
+      if (status === 401 || data.exception === 'JWT::ExpiredSignature') {
+        // Token expired, clear local storage and redirect to login
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        localStorage.removeItem('email');
+        window.location.reload(); // Redirect to your login page
+        return Promise.reject(error);
       }
 
       if (data.exception.includes("Couldn't find User")){

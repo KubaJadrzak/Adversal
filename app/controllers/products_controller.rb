@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: %i[ index ], if: :authentication_required?
+  before_action :authenticate_user!, only: %i[ update destroy ]
 
   # GET /products
   def index
@@ -21,6 +23,7 @@ class ProductsController < ApplicationController
       if params[:without_listed_products].to_s == "true"
         @products = @products.without_listed_products
       end
+
       if params[:with_ordered_products].to_s != 'true'
         @products = @products.without_ordered_products
       end
@@ -90,5 +93,9 @@ class ProductsController < ApplicationController
         :seller_id, :with_seller, :only_listed_products,
         :without_listed_products, :category, :query, images: []
       )
+    end
+
+    def authentication_required?
+      params.key?(:only_listed_products) || params.key?(:with_ordered_products)
     end
 end
