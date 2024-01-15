@@ -13,6 +13,7 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
+    authorize! :create, @category
     @category = Category.new(category_params)
 
     if @category.save
@@ -24,7 +25,9 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1
   def update
+    authorize! :update, @category
     if @category.update(category_params)
+
       render json: @category
     else
       render json: @category.errors, status: :unprocessable_entity
@@ -33,6 +36,7 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
+    authorize! :destroy, @category
     @category.destroy
   end
 

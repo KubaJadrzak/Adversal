@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorize! :update, @user
+
     if @user.update(user_params)
       render :show, status: :ok, location: user_url(@user)
     else
@@ -21,15 +23,14 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
+    authorize! :destroy, @user
+
     @user.destroy
   end
 
   def delete_image
-    # Find the user
-    @user = User.find(params[:id])
+    authorize! :update, @user
 
     # Purge the associated image if it exists
     if @user.image.attached?

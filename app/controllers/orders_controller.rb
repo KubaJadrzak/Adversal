@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    authorize! :create, @order
       @order = Order.new(order_params)
 
       if @order.save
@@ -45,6 +46,8 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+    authorize! :update, @order
+
     if @order.update(order_params)
       render :show, status: :ok, location: orders_url(@order)
     else

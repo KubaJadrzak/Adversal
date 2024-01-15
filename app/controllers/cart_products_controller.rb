@@ -1,6 +1,7 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show update destroy ]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /cart_products
   # GET /cart_products.json
@@ -16,7 +17,9 @@ class CartProductsController < ApplicationController
   # POST /cart_products
   # POST /cart_products.json
   def create
+
     @cart_product = CartProduct.new(cart_product_params)
+    authorize! :create, @cart_product
 
     if @cart_product.save
       render :show, status: :created, location: cart_products_url(@cart_product)
@@ -28,6 +31,7 @@ class CartProductsController < ApplicationController
   # PATCH/PUT /cart_products/1
   # PATCH/PUT /cart_products/1.json
   def update
+    authorize! :update, @cart_product
     if @cart_product.update(cart_product_params)
       render :show, status: :ok, location: cart_products_url(@cart_product)
     else
@@ -38,6 +42,7 @@ class CartProductsController < ApplicationController
   # DELETE /cart_products/1
   # DELETE /cart_products/1.json
   def destroy
+    authorize! :destroy, @cart_product
     @cart_product.destroy
   end
 
