@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   before_action :authenticate_user!, except: :index
+  load_and_authorize_resource
+
 
   # GET /categories
   def index
@@ -13,7 +15,6 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
-    authorize! :create, @category
     @category = Category.new(category_params)
 
     if @category.save
@@ -25,7 +26,6 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1
   def update
-    authorize! :update, @category
     if @category.update(category_params)
 
       render json: @category
@@ -36,7 +36,6 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   def destroy
-    authorize! :destroy, @category
     @category.destroy
   end
 

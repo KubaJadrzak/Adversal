@@ -7,17 +7,20 @@ class Ability
 
     can :read, :all
     return unless user.present?
-    can :create, [Product, Order, CartProduct]
     cannot :create, :all
-    can :update, Product, user_id: user.id
-    can :update, Order, user_id: user.id
-    can :update, User, user_id: user.id
-    cannot :update, :all
+    can :create, Order
+    can :create, CartProduct
+    can :create, Product
 
-    # Allow deletion of own products
-    can :destroy, Product, user_id: user.id
-    can :destroy, CartProduct, user_id: user.id
-    # Restrict deletion of other resources
+    cannot :update, :all
+    can :update, Product, seller_id: user.id
+    can :update, Order, product: { seller_id: user.id }
+    can :update, User, id: user.id
+
     cannot :destroy, :all
+    can :destroy, Product, seller_id: user.id
+    can :destroy, CartProduct, buyer_id: user.id
+
+
   end
 end
