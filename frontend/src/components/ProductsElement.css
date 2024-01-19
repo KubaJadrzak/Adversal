@@ -40,6 +40,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: auto;
+    align-items: baseline;
 }
 
 .products-element-seller-avatar{
@@ -48,7 +49,8 @@
 }
 
 .products-element-button{
-    width: 40%;
+    width: 30%;
+
 }
 
 .products-element-image-container{

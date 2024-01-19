@@ -45,7 +45,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
     const isFromAccount = location.pathname.includes('/account');
 
     return (
-        <Card className='products-element-container' onClick={() => {navigate(`/product/${product.id}`)}}>
+        <Card className='products-element-container' onClick={() => {navigate(`product/${product.id}`)}}>
             <Box className='products-element-header'>
                 <Typography variant='h6'>{product.title}</Typography>
                 <Typography>${product.price}</Typography>
@@ -90,6 +90,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
                 <Button variant='contained' className='products-element-button' onClick={handleDeleteProduct}>
                     Delete
                 </Button>
+                <Typography className='products-element-button'>{product.status}</Typography>
             </Box>
             }
         </Card>

@@ -17,7 +17,7 @@ class Product < ApplicationRecord
     validates :category_id, presence: true
     validates :seller_id, presence: true
 
-
+    enum status: { AVAILABLE: 1, ORDERED: 2, SOLD: 3, DELETED: 4 }
     belongs_to :order, optional: true
     belongs_to :category
     belongs_to :seller, class_name: :User, inverse_of: :listed_products, foreign_key: :seller_id, default: -> { Current.user }
@@ -29,5 +29,6 @@ class Product < ApplicationRecord
     scope :only_listed_products, -> { where(seller_id: Current.user) }
     scope :without_listed_products, -> { where.not(seller_id: Current.user) }
     scope :without_ordered_products, -> { where(order_id: nil) }
+    scope :without_deleted_products, -> { where.not(status: 4) }
 
 end

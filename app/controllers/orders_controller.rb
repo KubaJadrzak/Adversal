@@ -27,8 +27,10 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-      @order = Order.new(order_params)
+    product = Product.find(params[:product_id])
 
+    # Update the product status to "SOLD" when the order is created
+    product.update(status: 2, order_id: @order.id)
       if @order.save
         product = Product.find(params[:product_id])
         product.update(order_id: @order.id)
@@ -48,6 +50,14 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
     if @order.update(order_params)
+      # Check if the order status is being updated to "delivered"
+      if order_params[:status] == 4
+        product = @order.product
+
+        # Update the product status to "SOLD" when the order is delivered
+        product.update(status: 3)
+      end
+
       render :show, status: :ok, location: orders_url(@order)
     else
       render json: @order.errors, status: :unprocessable_entity

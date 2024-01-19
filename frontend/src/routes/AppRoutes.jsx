@@ -27,7 +27,7 @@ function AppRoutes(){
         <Routes>
             <Route path="/" element={<Welcome/>} />
             <Route path="products" element={<Products/>}/>
-            <Route path="product/:id" element={<Product/>}/>
+            <Route path="products/product/:id" element={<Product/>}/>
 
 
             <Route element={<PublicRoutes />}>

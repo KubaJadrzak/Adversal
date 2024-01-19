@@ -25,8 +25,8 @@ class ProductsController < ApplicationController
         @products = @products.without_listed_products
       end
 
-      if params[:with_ordered_products].to_s != 'true'
-        @products = @products.without_ordered_products
+      if params[:with_deleted_products].to_s != 'true'
+        @products = @products.without_deleted_products
       end
     end
     if params[:query].present? && params[:query].is_a?(String)
@@ -67,8 +67,12 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
 
-    @product.destroy
-    render json: { message: 'Product deleted successfully' }, status: :ok
+    # Assuming 'DELETED' is the status you want to set
+    if @product.update(status: 4)
+      render json: { message: 'Product status changed to DELETED successfully' }, status: :ok
+    else
+      render json: @product.errors, status: :unprocessable_entity
+    end
   end
 
   def delete_image
@@ -97,11 +101,11 @@ class ProductsController < ApplicationController
       params.require(:product).permit(
         :title, :price, :description, :category_id,
         :seller_id, :with_seller, :only_listed_products,
-        :without_listed_products, :category, :query, images: []
+        :without_listed_products, :with_ordered_products, :with_deleted_products, :category, :query, images: []
       )
     end
 
     def authentication_required?
-      params.key?(:only_listed_products) || params.key?(:with_ordered_products)
+      params.key?(:only_listed_products) || params.key?(:with_ordered_products) || params.key?(:with_deleted_products)
     end
 end
