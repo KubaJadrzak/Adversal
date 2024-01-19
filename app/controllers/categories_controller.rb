@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   before_action :authenticate_user!, except: :index
+  load_and_authorize_resource
+
 
   # GET /categories
   def index
@@ -25,6 +27,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   def update
     if @category.update(category_params)
+
       render json: @category
     else
       render json: @category.errors, status: :unprocessable_entity

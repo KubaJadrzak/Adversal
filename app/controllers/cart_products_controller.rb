@@ -1,6 +1,7 @@
 class CartProductsController < ApplicationController
   before_action :set_cart_product, only: %i[ show update destroy ]
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /cart_products
   # GET /cart_products.json
@@ -16,7 +17,9 @@ class CartProductsController < ApplicationController
   # POST /cart_products
   # POST /cart_products.json
   def create
+
     @cart_product = CartProduct.new(cart_product_params)
+
 
     if @cart_product.save
       render :show, status: :created, location: cart_products_url(@cart_product)

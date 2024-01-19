@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show update destroy ]
   before_action :authenticate_user!, only: %i[ index ], if: :authentication_required?
   before_action :authenticate_user!, only: %i[ update destroy ]
+  load_and_authorize_resource
 
   # GET /products
   def index
@@ -50,6 +51,8 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1
   def update
+    @product = Product.find(params[:id])
+
     if product_params[:images].present?
       @product.images.attach(product_params[:images])
     end
@@ -61,13 +64,16 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
   def destroy
+    @product = Product.find(params[:id])
+
     @product.destroy
+    render json: { message: 'Product deleted successfully' }, status: :ok
   end
 
   def delete_image
     @product = Product.find(params[:id])
+  
     index_to_delete = params[:index].to_i
     # Check if the image at the specified index exists and is not nil
     if @product.images[index_to_delete].present?

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^1.6.5",
+    "cancancan": "^1.0.3",
     "jwt-decode": "^4.0.0"
   }
 }
