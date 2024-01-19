@@ -22,7 +22,7 @@ function AddOrder() {
       }, [])
 
     if (!cartProducts || cartProducts.length === 0) return (
-        <div>xd</div>
+      <div></div>
     )
 
 

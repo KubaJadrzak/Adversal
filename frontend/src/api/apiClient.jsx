@@ -31,7 +31,7 @@ api.interceptors.response.use(
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         localStorage.removeItem('email');
-        window.location.reload(); // Redirect to your login page
+        window.location.href = '/login'; // Redirect to your login page
         return Promise.reject(error);
       }
 
@@ -39,7 +39,7 @@ api.interceptors.response.use(
         localStorage.removeItem('token')
         localStorage.removeItem('id')
         localStorage.removeItem('email')
-        window.location.reload()
+        window.location.href = '/login';
       }
 
       // Handle other error scenarios

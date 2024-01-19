@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Order Status Update: Shipped</h1>
+
+  <p>Dear <%= @buyer.name %>,</p>
+
+  <p>We are excited to let you know that your order has been shipped. Here are the shipment details:</p>
+
+  <p>
+    Order Number: <%= @order.number %><br>
+    Product Name: <%= @product.title %>
+  </p>
+
+  <p>
+    Your order is on its way to you. If you have any specific inquiries about the shipment, please contact the seller directly at <%= @product.seller.email %>.
+  </p>
+
+  <p>
+    If you have any general questions or concerns, our customer support is here to assist you.
+  </p>
+
+  <p>Best regards,<br>
+    Adversal
+  </p>
+</body>
+</html>

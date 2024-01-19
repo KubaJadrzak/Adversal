@@ -38,6 +38,8 @@ class OrdersController < ApplicationController
         cart_product = CartProduct.find_by(carted_product_id: product.id, buyer_id: Current.user)
         cart_product.destroy
 
+        ApplicationMailer.order_confirmation_email(@order, product).deliver_now
+        ApplicationMailer.order_placement_email(@order, product).deliver_now
         render :show, status: :created, location: order_url(@order)
       else
         render json: @order.errors, status: :unprocessable_entity
@@ -51,6 +53,17 @@ class OrdersController < ApplicationController
   def update
     if @order.update(order_params)
       # Check if the order status is being updated to "delivered"
+      case order_params[:status].to_i
+      when 2
+        ApplicationMailer.order_payed_email(@order).deliver_now
+      when 3
+        ApplicationMailer.order_shipped_email(@order).deliver_now
+      when 4
+        ApplicationMailer.order_delivered_email(@order).deliver_now
+      when 5
+        ApplicationMailer.order_failed_email(@order).deliver_now
+      end
+
       if order_params[:status] == 4
         product = @order.product
 

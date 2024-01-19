@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
-  devise :database_authenticatable, :registerable, :validatable, :recoverable,
+  devise :database_authenticatable, :registerable, :validatable, :recoverable, :confirmable, :trackable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
     has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer

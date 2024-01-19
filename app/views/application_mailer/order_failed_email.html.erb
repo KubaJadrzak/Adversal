@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>Order Status Update: Delivery Failed</h1>
+
+  <p>Dear <%= @buyer.name %>,</p>
+
+  <p>We regret to inform you that there was an issue with the delivery of your order. Unfortunately, the delivery attempt was unsuccessful. Here are the details:</p>
+
+  <p>
+    Order Number: <%= @order.number %><br>
+    Product Name: <%= @product.title %>
+  </p>
+
+  <p>
+    We sincerely apologize for any inconvenience caused. Please contact our customer support for assistance in resolving this issue. Additionally, you may reach out to the seller directly at <%= @product.seller.email %> for further assistance.
+  </p>
+
+  <p>
+    We appreciate your understanding and cooperation in resolving this matter.
+  </p>
+
+  <p>Best regards,<br>
+    Adversal
+  </p>
+</body>
+</html>

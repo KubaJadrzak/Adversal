@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h1>New Order Notification</h1>
+
+  <p>Dear <%= @product.seller.name %>,</p>
+
+  <p>We are pleased to inform you that a new order has been placed for your product on Adversal. Here are the order details:</p>
+
+  <p>
+    Order Number: <%= @order.number %><br>
+    Product Name: <%= @product.title %><br>
+    Buyer: <%= @buyer.name %><br>
+    Buyer's Email: <%= @buyer.email %><br>
+  </p>
+
+  <p>
+    Shipping Address:
+    <br>
+    <%= @order.address %><br>
+    <%= @order.city %>, <%= @order.country %><br>
+    <%= @order.postal_code %>
+  </p>
+
+  <p>
+    The buyer may have specific inquiries about the product, delivery, or other details. We kindly ask you to respond promptly to their questions. You can reach out to the buyer directly at <%= @buyer.email %> for any product-related discussions.
+  </p>
+
+  <p>
+    If you have any concerns or need further assistance, please feel free to contact our seller support
+  </p>
+
+  <p>Thank you for being a part of Adversal!</p>
+
+  <p>Best regards,<br>
+    Adversal
+  </p>
+</body>
+</html>

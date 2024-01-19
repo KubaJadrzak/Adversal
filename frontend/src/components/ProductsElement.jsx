@@ -90,7 +90,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
                 <Button variant='contained' className='products-element-button' onClick={handleDeleteProduct}>
                     Delete
                 </Button>
-                <Typography className='products-element-button'>{product.status}</Typography>
+                <Typography className='products-element-button'>STATUS: {product.status}</Typography>
             </Box>
             }
         </Card>
