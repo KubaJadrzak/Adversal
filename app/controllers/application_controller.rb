@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  include RackSessionsFix
+    include RackSessionsFix
     before_action :set_current_user
     respond_to :json
 
