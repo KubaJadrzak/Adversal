@@ -21,6 +21,7 @@ import Login from '../views/login/Login'
 import SignUp from "../views/login/SignUp";
 import PasswordReset from "../views/login/PasswordReset";
 import PasswordChangeForm from "../forms/users/PasswordChangeForm";
+import PasswordResetForm from "../views/login/PasswordResetForm";
 
 function AppRoutes(){
     return(
@@ -34,6 +35,7 @@ function AppRoutes(){
                 <Route path='login' element={<Login/>}/>
                 <Route path='/login/reset' element={<PasswordReset/>}/>
                 <Route path='/login/signup' element={<SignUp/>}/>
+                <Route path='password/reset' element={<PasswordResetForm/>}/>
             </Route>
 
 

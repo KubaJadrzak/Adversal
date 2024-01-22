@@ -129,3 +129,56 @@ export async function changePassword(data) {
         // Handle the error as needed (e.g., show a notification to the user)
     }
 }
+
+export async function resetPasswordRequest(data) {
+    try {
+        const response = await fetch('http://localhost:3000/password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
+        const responseData = await response.json();
+        // Check the response data for success or error messages
+
+        // Handle the response data as needed (e.g., show a notification to the user)
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        // Handle the error as needed (e.g., show a notification to the user)
+    }
+}
+
+export async function resetPassword(data) {
+    try {
+        const response = await fetch('http://localhost:3000/password', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
+        // Check if the response status is 204 (No Content)
+        if (response.status === 204) {
+            console.log('Password reset successful.');
+            // Optionally, you can handle success or show a message to the user
+        } else {
+            // Parse the response as JSON if it's not a 204 status
+            const responseData = await response.json();
+            console.log('Password reset response:', responseData);
+        }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        // Handle the error as needed (e.g., show a notification to the user)
+    }
+}
