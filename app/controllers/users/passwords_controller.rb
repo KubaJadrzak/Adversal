@@ -4,13 +4,15 @@ class Users::PasswordsController < Devise::PasswordsController
 
   def change_password
     user = current_user
-
+  
     if user.valid_password?(params[:current_password])
       user.update(password: params[:password])
-      render json: { message: 'Password changed successfully' }
+      ApplicationMailer.password_change_email(user).deliver_now
+      render json: { success: true, message: 'Password changed successfully' }
     else
-      render json: { error: 'Invalid current password' }, status: :unprocessable_entity
+      render json: { success: false, error: 'Invalid current password' }, status: :unprocessable_entity
     end
   end
+
 
 end

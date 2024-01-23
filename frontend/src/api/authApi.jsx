@@ -14,28 +14,6 @@ export async function signupUser(data) {
             throw new Error(response.statusText);
         }
 
-        const responseData = await response.json();
-        const userId = responseData?.data?.id;
-        const email = responseData?.data?.email;
-        const authToken = response.headers.get('Authorization')
-
-        if (!userId) {
-            throw new Error("User ID not found in the response")
-        }
-
-        localStorage.setItem('id', userId);
-
-        if (authToken) {
-            localStorage.setItem('token', authToken);
-        } else {
-            throw new Error("Authorization header not found in the response")
-        }
-
-        if (email) {
-            localStorage.setItem('email', email)
-        } else {
-            throw new Error("Email not found in the response");
-        }
     } catch (error) {
         console.error('Error signing up user:', error);
 
@@ -110,23 +88,20 @@ export async function loginUser(data) {
 
 export async function changePassword(data) {
     try {
-        const response = await api.put('/change_password', JSON.stringify(data), {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+      const response = await api.put('/change_password', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (response.status !== 200) {
-            throw new Error(response.statusText);
-        }
-
-        const responseData = await response.data;
-        console.log('Password change response:', responseData);
-        // Optionally, you can handle success or show a message to the user
-
+      console.log('Response status:', response.status); // Add this line for debugging
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
+      }
+      await logoutUser()
     } catch (error) {
-        console.error('Error changing password:', error);
-        // Handle the error as needed (e.g., show a notification to the user)
+      console.error('Error changing password:', error);
+      // Handle the error as needed (e.g., show a notification to the user)
     }
 }
 

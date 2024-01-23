@@ -9,7 +9,8 @@ function PasswordChangeForm() {
     const [newPassword, setNewPassword] = useState('')
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         try {
             // Check if newPassword and newPasswordConfirmation match
             if (newPassword !== newPasswordConfirmation) {
@@ -35,14 +36,13 @@ function PasswordChangeForm() {
 
     return (
         <Card className='user-form-cart'>
-            <form className="user-form" onSubmit={(e) => {
-                e.preventDefault()
-                handleSubmit()}}>
+            <form className="user-form" onSubmit={handleSubmit}>
                 <TextField
                     required
                     className="user-form-element"
                     id="current password"
                     label="Current Password"
+                    type="password"
                     value={currentPassword}
                     onChange={e => setCurrentPassword(e.target.value)}
                 ></TextField>
@@ -51,6 +51,7 @@ function PasswordChangeForm() {
                     className="user-form-element"
                     id="new password"
                     label="New Password"
+                    type="password"
                     value={newPassword}
                     onChange={e => setNewPassword(e.target.value)}
                 ></TextField>
@@ -59,6 +60,7 @@ function PasswordChangeForm() {
                     className="user-form-element"
                     id="new password confirmation"
                     label="New Password Confirmation"
+                    type="password"
                     value={newPasswordConfirmation}
                     onChange={e => setNewPasswordConfirmation(e.target.value)}
                 >
