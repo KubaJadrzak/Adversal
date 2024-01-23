@@ -1,18 +1,41 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { resetPasswordRequest } from "../../api/authApi"
 import { Box, Card, TextField, Button, Link } from "@mui/material"
 import './PasswordReset.css'
 
 function PasswordReset() {
+    const [login, setLogin] = useState('');
     const navigate = useNavigate()
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await resetPasswordRequest({
+                user: {
+                    email: login
+                },
+            });
+
+            // Redirect to the desired page after successful login
+            navigate('/login');
+        } catch (error) {
+            console.error('Password reset error:', error);
+            // Handle the error or show a relevant message to the user
+        }
+    };
 
     return (
         <Card className='login-reset-card'>
-            <form className="login-reset-form" onSubmit={(e) => {handleSubmit}}>
-                <TextField
+            <form className="login-reset-form" onSubmit={handleSubmit}>
+            <TextField
                     required
                     className="login-reset-form-element"
+                    id="Email"
                     label="Email"
+                    onChange={(e) => setLogin(e.target.value)}
                 ></TextField>
                 <Link className="login-form-link" underline="hover" onClick={() => {navigate(`/login`)}}>Back to login</Link>
                 <Box className="login-reset-form-button">

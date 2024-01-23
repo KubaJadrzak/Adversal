@@ -14,7 +14,7 @@ class ApplicationMailer < ActionMailer::Base
     @product = product
     @buyer = @order.buyer # Replace with your actual association
 
-    mail(to: @buyer.email, subject: 'Order Confirmation')
+    mail(to: @product.seller.email, subject: 'Order Confirmation')
   end
   def order_payed_email(order)
     @order = order
@@ -45,5 +45,10 @@ class ApplicationMailer < ActionMailer::Base
     @buyer = @order.buyer # Replace with your actual association
   
     mail(to: @buyer.email, subject: 'Order Failed')
+  end
+  def password_change_email(user)
+    @user = user
+
+    mail(to: user.email, subject: 'Password Change')
   end
 end
