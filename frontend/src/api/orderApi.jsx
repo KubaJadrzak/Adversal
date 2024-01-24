@@ -5,7 +5,7 @@ export async function fetchAllOrders(params) {
     const response = await api.get(`/orders?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching all orders');
+    throw error
   }
 }
 
@@ -18,7 +18,7 @@ export async function createOrder(data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error creating order');
+    throw error
   }
 }
 
@@ -30,7 +30,7 @@ export async function deleteOrder(id, params) {
     }
     return response.data;
   } catch (error) {
-    throw new Error('Error deleting order');
+    throw error
   }
 }
 
@@ -43,7 +43,7 @@ export async function updateOrder(id, data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error updating order');
+    throw error
   }
 }
 
@@ -52,6 +52,6 @@ export async function fetchOrder(id, params) {
     const response = await api.get(`/orders/${id}?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching order');
+    throw error
   }
 }

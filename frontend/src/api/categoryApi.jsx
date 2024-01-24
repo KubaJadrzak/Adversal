@@ -5,7 +5,7 @@ export async function fetchAllCategories() {
     const response = await api.get('/categories');
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching all categories');
+    throw error
   }
 }
 
@@ -18,7 +18,7 @@ export async function createCategory(data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error creating category');
+    throw error
   }
 }
 
@@ -27,7 +27,7 @@ export async function deleteCategory(id) {
     const response = await api.delete(`/categories/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error deleting category');
+    throw error
   }
 }
 
@@ -40,7 +40,7 @@ export async function updateCategory(id, data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error updating category');
+    throw error
   }
 }
 
@@ -49,6 +49,6 @@ export async function fetchCategory(id) {
     const response = await api.get(`/categories/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching category');
+    throw error
   }
 }

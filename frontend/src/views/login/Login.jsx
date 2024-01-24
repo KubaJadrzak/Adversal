@@ -12,7 +12,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             await loginUser({
                 user: {
@@ -20,12 +20,9 @@ function Login() {
                     password: password,
                 },
             });
-
-            // Redirect to the desired page after successful login
             navigate('/account');
         } catch (error) {
-            console.error('Login error:', error);
-            // Handle the error or show a relevant message to the user
+            console.error(error)
         }
     };
 

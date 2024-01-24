@@ -5,7 +5,7 @@ export async function fetchAllUsers() {
       const response = await api.get('/users');
       return response.data;
     } catch (error) {
-      throw new Error('Error fetching all users');
+      throw error
     }
   }
 
@@ -14,7 +14,7 @@ export async function fetchAllUsers() {
       const response = await api.post('/users', data);
       return response.data;
     } catch (error) {
-      throw new Error('Error creating user');
+      throw error
     }
   }
 
@@ -27,7 +27,7 @@ export async function fetchAllUsers() {
         return response.data;
       }
     } catch (error) {
-      throw new Error('Error deleting user');
+      throw error
     }
   }
 
@@ -53,7 +53,7 @@ export async function fetchAllUsers() {
       
       return response.data;
     } catch (error) {
-      throw new Error('Error updating user');
+      throw error
     }
   }
 
@@ -62,7 +62,7 @@ export async function fetchAllUsers() {
       const response = await api.get(`/users/${id}?${params}`);
       return response.data;
     } catch (error) {
-      throw new Error('Error fetching user');
+      throw error
     }
   }
 
@@ -70,6 +70,6 @@ export async function fetchAllUsers() {
     try {
       await api.delete(`/users/${id}/delete_image`);
     } catch (error) {
-      throw new Error('Error deleting user image');
+      throw error
     }
   }

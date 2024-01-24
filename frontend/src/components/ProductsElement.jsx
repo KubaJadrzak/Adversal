@@ -28,9 +28,10 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
             }
             await createCartProduct(data)
             onAddToCart(product.id)
-            setAlert('Login success!', 'success');
+            setAlert('Product was added to cart!', 'success');
         } catch (e) {
-            console.error("Failed to create a post: ", e)
+            console.error("Failed to add product to cart: ", e)
+            setAlert('Failed to add product to cart!', 'error');
         }
     }
 

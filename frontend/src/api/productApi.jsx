@@ -5,7 +5,7 @@ export async function fetchAllProducts(params) {
     const response = await api.get(`/products?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching all products');
+    throw error
   }
 }
 
@@ -24,7 +24,7 @@ export async function createProduct(data) {
     const response = await api.post('/products', formData);
     return response.data;
   } catch (error) {
-    throw new Error('Error creating product');
+    throw error
   }
 }
 
@@ -37,7 +37,7 @@ export async function deleteProduct(id, params) {
       return response.data;
     }
   } catch (error) {
-    throw new Error('Error deleting product');
+    throw error
   }
 }
 
@@ -61,7 +61,7 @@ export async function updateProduct(id, data) {
 
     return response.data;
   } catch (error) {
-    throw new Error('Error updating product');
+    throw error
   }
 }
 
@@ -70,7 +70,7 @@ export async function fetchProduct(id, params) {
     const response = await api.get(`/products/${id}?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching product');
+    throw error
   }
 }
 
@@ -78,6 +78,6 @@ export async function deleteProductImage(id, image_id) {
   try {
     await api.delete(`/products/${id}/delete_image/${image_id}`);
   } catch (error) {
-    throw new Error('Error deleting product image');
+    throw error
   }
 }
