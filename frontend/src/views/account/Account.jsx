@@ -2,10 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, List, ListItemButton, Typography } from '@mui/material';
 import { logoutUser } from "../../api/authApi"
+import useAlert from "../../components/alerts/useAlert"
 
 import "./Account.css";
 
 function Account() {
+    const {setAlert} = useAlert()
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -15,6 +17,7 @@ function Account() {
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
+            setAlert('Failed to logout!', 'error')
             // Handle the error or show a relevant message to the user
         }
     };

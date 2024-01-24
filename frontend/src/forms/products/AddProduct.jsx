@@ -5,8 +5,10 @@ import ProductForm from "./ProductForm"
 import { Box } from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import './ProductForm.css'
+import useAlert from "../../components/alerts/useAlert"
 
 function AddProduct() {
+    const {setAlert} = useAlert()
     const [categories, setCategories] = useState([])
     const navigate = useNavigate()
 
@@ -33,8 +35,10 @@ function AddProduct() {
         try {
             const response = await createProduct(data)
             navigate(`/account/catalog`)
+            setAlert('Product was successfully created', 'success')
         } catch (e) {
             console.error("Failed to create a product: ", e)
+            setAlert('Failed to create a product', 'error')
         }
     }
 

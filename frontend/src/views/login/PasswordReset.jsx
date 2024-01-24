@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { resetPasswordRequest } from "../../api/authApi"
 import { Box, Card, TextField, Button, Link } from "@mui/material"
 import './PasswordReset.css'
+import useAlert from "../../components/alerts/useAlert"
 
 function PasswordReset() {
+    const {setAlert} = useAlert()
     const [login, setLogin] = useState('');
     const navigate = useNavigate()
 
@@ -21,8 +23,10 @@ function PasswordReset() {
 
             // Redirect to the desired page after successful login
             navigate('/login');
+            setAlert('Password reset request sent!', 'success')
         } catch (error) {
             console.error('Password reset error:', error);
+            setAlert('Password reset rquest failed!', 'error')
             // Handle the error or show a relevant message to the user
         }
     };

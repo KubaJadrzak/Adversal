@@ -4,9 +4,12 @@ import OrderForm from "./OrderForm"
 import { createOrder } from '../../api/orderApi'
 import { Box } from '@mui/material'
 import { useNavigate } from "react-router-dom"
+import useAlert from "../../components/alerts/useAlert"
+
 
 function AddOrder() {
     const navigate = useNavigate()
+    const {setAlert} = useAlert()
     const [cartProducts, setCartProducts] = useState()
 
     useEffect(() => {
@@ -45,10 +48,19 @@ function AddOrder() {
             await createOrder(data);
           }
 
+
           // After creating all orders, navigate to the desired location
           navigate('/account/personalorders');
+
+          const alertMessage =
+          cartProducts.length > 1
+              ? `Orders were successfully created`
+              : 'Order was successfully created';
+
+          setAlert(alertMessage, 'success');
         } catch (e) {
-          console.error("Failed to create orders: ", e);
+          console.error("Failed to create and order: ", e);
+          setAlert('Failed to create an order', 'error')
         }
       };
 

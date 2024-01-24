@@ -3,11 +3,13 @@ import {Box, Card, Typography, Button, ImageList, ImageListItem, Avatar} from '@
 import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
 import { useLocation} from "react-router-dom"
+import useAlert from "./alerts/useAlert"
 
 import "./ProductsElement.css"
 
 function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
     const location = useLocation()
+    const { setAlert } = useAlert();
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -26,8 +28,10 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
             }
             await createCartProduct(data)
             onAddToCart(product.id)
+            setAlert('Product was added to cart!', 'success');
         } catch (e) {
-            console.error("Failed to create a post: ", e)
+            console.error("Failed to add product to cart: ", e)
+            setAlert('Failed to add product to cart!', 'error');
         }
     }
 
@@ -37,8 +41,10 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
         try {
             deleteProduct(product.id)
             onDeleteProduct(product.id)
+            setAlert('Product was successfully deleted!', 'success')
         } catch (e) {
             console.error("Failed to delete the product:", e)
+            setAlert('Failed to delete the product!', 'error');
         }
     }
 

@@ -15,6 +15,7 @@ function Catalog() {
         try {
             const params = new URLSearchParams({
                 only_listed_products: "true",
+                with_ordered_products: "true",
               })
             const data = await fetchAllProducts(params)
             setProducts(data)

@@ -4,8 +4,10 @@ import { deleteCartProduct } from "../api/cartProductApi"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {List, ListItemButton, Divider, Typography, IconButton, Box} from '@mui/material'
 import "./CartElement.css"
+import useAlert from "./alerts/useAlert"
 
 function CartElement ({cartProduct, navigate, onDeleteCartProduct}) {
+    const {setAlert} = useAlert()
 
     if (!cartProduct || cartProduct.lenght === 0) return (
         <div></div>
@@ -15,10 +17,12 @@ function CartElement ({cartProduct, navigate, onDeleteCartProduct}) {
         e.stopPropagation()
         e.preventDefault()
         try {
-            deleteCartProduct(cartProduct.id)
+            await deleteCartProduct(cartProduct.id)
             onDeleteCartProduct(cartProduct.id)
+            setAlert('Product was removed from cart!', 'success')
         } catch (e) {
-            console.error("Failed to delete the product:", e)
+            console.error("Failed to delete the cart item:", e)
+            setAlert('Failed to delete the cart item!', 'error')
         }
     }
 

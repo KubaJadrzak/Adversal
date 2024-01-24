@@ -5,7 +5,7 @@ export async function fetchCartProducts(params) {
     const response = await api.get(`/cart_products?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching cart products');
+    throw error
   }
 }
 
@@ -18,7 +18,7 @@ export async function createCartProduct(data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error creating cart product');
+    throw error
   }
 }
 
@@ -30,7 +30,7 @@ export async function deleteCartProduct(id, params) {
     }
     return response.data;
   } catch (error) {
-    throw new Error('Error deleting cart product');
+    throw error
   }
 }
 
@@ -43,7 +43,7 @@ export async function updateCartProduct(id, data) {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error updating cart product');
+    throw error
   }
 }
 
@@ -52,6 +52,6 @@ export async function fetchCartProduct(id, params) {
     const response = await api.get(`/cart_products/${id}?${params}`);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching cart product');
+    throw error
   }
 }
