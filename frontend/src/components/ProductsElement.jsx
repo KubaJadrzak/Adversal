@@ -3,11 +3,13 @@ import {Box, Card, Typography, Button, ImageList, ImageListItem, Avatar} from '@
 import { createCartProduct } from "../api/cartProductApi"
 import { deleteProduct } from "../api/productApi"
 import { useLocation} from "react-router-dom"
+import useAlert from "./alerts/useAlert"
 
 import "./ProductsElement.css"
 
 function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
     const location = useLocation()
+    const { setAlert } = useAlert();
 
     if (!product || product.length === 0) return (
         <div></div>
@@ -26,6 +28,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
             }
             await createCartProduct(data)
             onAddToCart(product.id)
+            setAlert('Login success!', 'success');
         } catch (e) {
             console.error("Failed to create a post: ", e)
         }
