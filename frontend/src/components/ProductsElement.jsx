@@ -41,8 +41,10 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
         try {
             deleteProduct(product.id)
             onDeleteProduct(product.id)
+            setAlert('Product was successfully deleted!', 'success')
         } catch (e) {
             console.error("Failed to delete the product:", e)
+            setAlert('Failed to delete the product!', 'error');
         }
     }
 

@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom"
 import { resetPassword } from "../../api/authApi"
 import { Box, Card, TextField, Button, Link } from "@mui/material"
 import './Login.css'
+import useAlert from "../../components/alerts/useAlert"
 
 function PasswordResetForm() {
+    const {setAlert}  = useAlert()
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const navigate = useNavigate()
@@ -41,11 +43,14 @@ function PasswordResetForm() {
                 password_confirmation: passwordConfirmation
             }
           });
+          navigate('/login')
+          setAlert('Password reset successfully!', 'success')
 
           // Optionally, you can handle success or show a message to the user
           // For example, you can redirect the user to the login page
         } catch (error) {
           console.error("Error resetting password:", error);
+          setAlert('Error resetting password!', 'error')
           // Handle the error as needed (e.g., show a notification to the user)
         }
       };

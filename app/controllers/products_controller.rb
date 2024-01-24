@@ -12,22 +12,24 @@ class ProductsController < ApplicationController
       category = Category.find_by(name: params[:category])
       @products = @products.where(category: category) if category.present?
     end
-    if current_user.present?
-      if params[:only_listed_products].to_s == "true"
-        @products = @products.only_listed_products
-      end
+    if params[:only_listed_products].to_s == "true"
+      @products = @products.only_listed_products
+    end
 
-      if params[:without_carted_products].to_s == "true"
-        @products = @products.without_carted_products
-      end
+    if params[:without_carted_products].to_s == "true"
+      @products = @products.without_carted_products
+    end
 
-      if params[:without_listed_products].to_s == "true"
-        @products = @products.without_listed_products
-      end
+    if params[:without_listed_products].to_s == "true"
+      @products = @products.without_listed_products
+    end
 
-      if params[:with_deleted_products].to_s != 'true'
-        @products = @products.without_deleted_products
-      end
+    if params[:with_deleted_products].to_s != 'true'
+      @products = @products.without_deleted_products
+    end
+
+    if params[:with_ordered_products].to_s != 'true'
+      @products = @products.without_ordered_products
     end
     if params[:query].present? && params[:query].is_a?(String)
       @products = @products.where("title ILIKE ?", "%#{params[:query]}%")

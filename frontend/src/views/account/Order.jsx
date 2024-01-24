@@ -3,10 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchOrder } from '../../api/orderApi';
 import { useParams } from 'react-router-dom';
 import { updateOrder } from '../../api/orderApi';
+import useAlert from "../../components/alerts/useAlert"
 import { Box, Typography, Card, ImageList, MenuItem, ImageListItem, Divider, TextField, Button } from '@mui/material';
 import './Order.css';
 
 function Order() {
+  const {setAlert} = useAlert()
   const { id } = useParams();
   const [order, setOrder] = useState();
   const [status, setStatus] = useState();
@@ -44,9 +46,11 @@ function Order() {
       // Use the updateOrder method to update the order status
       await updateOrder(id, { status: status });
       navigate(`/account/customerorders`)
+      setAlert('Status was successfully updated!', 'success')
       // Optionally, you can fetch the updated order data after the update
     } catch (error) {
       console.error('Failed to update order status: ', error);
+      setAlert('Failed to update status!', "error")
     }
   };
 

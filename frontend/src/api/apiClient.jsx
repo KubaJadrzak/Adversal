@@ -30,7 +30,6 @@ api.interceptors.response.use(
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         localStorage.removeItem('email');
-        setAlert('Your session expired, you need to sign in again', 'error');
         window.location.href = '/login'; // Redirect to your login page
         return Promise.reject(error);
       }

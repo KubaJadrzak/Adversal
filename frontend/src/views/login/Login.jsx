@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Card, TextField, Button, Link } from "@mui/material";
 import { loginUser } from "../../api/authApi"
+import useAlert from "../../components/alerts/useAlert"
 
 import './Login.css';
 
 function Login() {
+    const {setAlert} = useAlert()
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
         try {
             await loginUser({
                 user: {
@@ -22,7 +23,8 @@ function Login() {
             });
             navigate('/account');
         } catch (error) {
-            console.error(error)
+            console.error('Failed to login!', error)
+            setAlert('Invalid email or password', 'success')
         }
     };
 

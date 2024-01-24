@@ -5,9 +5,11 @@ import { useParams } from 'react-router-dom';
 import { fetchProduct } from "../api/productApi"
 import { createCartProduct } from "../api/cartProductApi";
 import {Container, Typography, Card, Box, ImageList, ImageListItem, Button, Avatar} from '@mui/material'
+import useAlert from "../components/alerts/useAlert"
 import './Product.css'
 
 function Product() {
+    const {setAlert} = useAlert()
     const { id } = useParams()
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
@@ -36,8 +38,10 @@ function Product() {
         try {
             await createCartProduct(data)
             navigate('/cart')
+            setAlert('Product was added to cart!', 'success')
         } catch (e) {
-            console.error("Failed to create a post: ", e)
+            console.error("Failed to add product to cart: ", e)
+            setAlert('Failed to add product to cart!', 'error')
         }
     }
 

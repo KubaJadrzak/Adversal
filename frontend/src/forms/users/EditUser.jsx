@@ -4,8 +4,10 @@ import { fetchUser, updateUser } from "../../api/userApi"
 import { Box } from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import UserForm from "./UserForm"
+import useAlert from "../../components/alerts/useAlert"
 
 function EditUser() {
+    const { setAlert } = useAlert()
     const [user, setUser] = useState()
     const navigate = useNavigate()
     const id = localStorage.getItem('id')
@@ -31,8 +33,10 @@ function EditUser() {
         try {
             await updateUser(id, updatedData)
             navigate(`/account/profile`)
+            setAlert('User information updated successfully!', 'success')
         } catch (e) {
-            console.error("Failed to update a product: ", e)
+            console.error("Failed to update user information: ", e)
+            setAlert('Failed to update user information!', 'error')
         }
     }
 

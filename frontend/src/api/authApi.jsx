@@ -27,8 +27,7 @@ export async function logoutUser() {
         localStorage.removeItem('email');
         localStorage.removeItem('id');
         localStorage.removeItem('token');
-
-        window.location.href = '/login';
+        window.location.href = '/login'
     } catch (error) {
         throw new Error('Error logging out user');
     }
@@ -79,7 +78,6 @@ export async function changePassword(data) {
             throw new Error('Failed to change password. Please try again.');
         }
 
-        await logoutUser();
     } catch (error) {
         throw new Error('Error changing password:');
     }

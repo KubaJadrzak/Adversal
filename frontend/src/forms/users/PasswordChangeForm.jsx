@@ -2,9 +2,13 @@ import React from "react"
 import { useState } from "react"
 import { Card, Button, TextField } from '@mui/material'
 import { changePassword } from "../../api/authApi"
+import { useNavigate } from "react-router-dom"
 import './UserForm.css'
+import useAlert from "../../components/alerts/useAlert"
 
 function PasswordChangeForm() {
+    const navigate = useNavigate()
+    const {setAlert} = useAlert()
     const [currentPassword, setCurrentPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
@@ -25,11 +29,13 @@ function PasswordChangeForm() {
                 password: newPassword,
                 password_confirmation: newPasswordConfirmation,
             });
-
+            navigate(`/account/profile`)
+            setAlert("Password updated successfully!", 'success')
             // Optionally, you can reset the form or show a success message
         } catch (error) {
             // Handle errors (e.g., show an error message to the user)
             console.error('Error changing password:', error);
+            setAlert('Failed to update password!', 'error')
         }
     };
 
