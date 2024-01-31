@@ -24,7 +24,7 @@ function Login() {
             navigate('/account');
         } catch (error) {
             console.error('Failed to login!', error)
-            setAlert('Invalid email or password', 'success')
+            setAlert('Failed to login! Invalid email or password', 'error')
         }
     };
 

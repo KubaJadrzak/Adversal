@@ -33,10 +33,10 @@ function EditUser() {
         try {
             await updateUser(id, updatedData)
             navigate(`/account/profile`)
-            setAlert('User information updated successfully!', 'success')
+            setAlert('User profile updated successfully!', 'success')
         } catch (e) {
-            console.error("Failed to update user information: ", e)
-            setAlert('Failed to update user information!', 'error')
+            console.error("Failed to update user profile: ", e)
+            setAlert('Failed to update user profile!', 'error')
         }
     }
 
