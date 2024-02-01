@@ -1,6 +1,8 @@
 .search-form-card{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    margin-left: 10px;
 }
 
 .search-form-field{

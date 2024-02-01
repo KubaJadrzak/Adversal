@@ -34,7 +34,7 @@ function Cart() {
       }
       const calculateTotalPrice = () => {
         const total = cartProducts.reduce((sum, cartProduct) => sum + parseFloat(cartProduct.product.price), 0);
-        return total.toFixed(2); // Format as a string with two decimal places
+        return total.toFixed(2);
       };
 
 

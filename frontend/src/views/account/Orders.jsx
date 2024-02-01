@@ -14,7 +14,7 @@ function PersonalOrders() {
     useEffect(() => {
         async function loadData() {
           try {
-            let params = new URLSearchParams(); // Declare params outside the if-else blocks
+            let params = new URLSearchParams();
 
             if (location.pathname.includes('/personalorders')) {
               params.set('only_personal_orders', 'true');

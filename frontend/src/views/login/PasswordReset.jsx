@@ -21,13 +21,11 @@ function PasswordReset() {
                 },
             });
 
-            // Redirect to the desired page after successful login
             navigate('/login');
             setAlert('Password reset request sent!', 'success')
         } catch (error) {
             console.error('Password reset error:', error);
             setAlert('Password reset rquest failed!', 'error')
-            // Handle the error or show a relevant message to the user
         }
     };
 

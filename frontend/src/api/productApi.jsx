@@ -55,7 +55,7 @@ export async function updateProduct(id, data) {
 
     const response = await api.put(`/products/${id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Set content type for form data
+        'Content-Type': 'multipart/form-data',
       },
     });
 

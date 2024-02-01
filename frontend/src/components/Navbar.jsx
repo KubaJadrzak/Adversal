@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SearchBar from "./SearchBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import './Navbar.css'
+import Adversal from '../assets/adversal-white.png'
 
 function Navbar() {
   const navigate = useNavigate()
@@ -37,6 +38,7 @@ function Navbar() {
         <AppBar position="fixed">
           <Box className='navbar'>
             <Box className='navbar-search'>
+              <img src={Adversal} alt='logo' className="navbar-logo"/>
               {!location.pathname.includes('/account') &&
                 <SearchBar handleSubmit={handleSubmit}/>
               }

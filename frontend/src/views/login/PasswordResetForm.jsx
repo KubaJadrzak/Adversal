@@ -20,10 +20,8 @@ function PasswordResetForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // Validate passwords
         if (password !== passwordConfirmation) {
           console.error("Passwords do not match");
-          // Handle the error (e.g., show a notification to the user)
           return;
         }
     
@@ -31,7 +29,6 @@ function PasswordResetForm() {
     
         if (!resetToken) {
           console.error("Reset token not found");
-          // Handle the error (e.g., show a notification to the user)
           return;
         }
     
@@ -46,12 +43,9 @@ function PasswordResetForm() {
           navigate('/login')
           setAlert('Password reset successfully!', 'success')
 
-          // Optionally, you can handle success or show a message to the user
-          // For example, you can redirect the user to the login page
         } catch (error) {
           console.error("Error resetting password:", error);
           setAlert('Error resetting password!', 'error')
-          // Handle the error as needed (e.g., show a notification to the user)
         }
       };
 

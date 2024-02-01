@@ -13,12 +13,10 @@ function Account() {
     const handleLogout = async () => {
         try {
             await logoutUser();
-            // Redirect to the login page or any other page after successful logout
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
             setAlert('Failed to logout!', 'error')
-            // Handle the error or show a relevant message to the user
         }
     };
 

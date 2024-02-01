@@ -32,7 +32,6 @@ function AddOrder() {
     const handleSubmit = async ({country, city, address, postal_code}) => {
         try {
 
-          // Loop through each cartProduct and create an order
           for (const cartProduct of cartProducts) {
             const product_id = cartProduct.product.id;
 
@@ -44,12 +43,9 @@ function AddOrder() {
               postal_code
             };
 
-            // Assuming createOrder is an asynchronous function that sends a request to create an order
             await createOrder(data);
           }
 
-
-          // After creating all orders, navigate to the desired location
           navigate('/account/personalorders');
 
           const alertMessage =

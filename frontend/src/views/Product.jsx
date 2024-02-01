@@ -31,7 +31,6 @@ function Product() {
         const carted_product_id = product.id
         const data = { carted_product_id }
         if (!localStorage.getItem('token')) {
-            // Redirect to the login page if no token is found
             navigate("/login");
             return
         }

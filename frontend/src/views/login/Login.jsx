@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Card, TextField, Button, Link } from "@mui/material";
 import { loginUser } from "../../api/authApi"
 import useAlert from "../../components/alerts/useAlert"
+import Adversal from '../../assets/adversal.png'
 
 import './Login.css';
 
@@ -31,6 +32,7 @@ function Login() {
     return (
         <Card className='login-card'>
             <form className="login-form" onSubmit={handleSubmit}>
+            <img src={Adversal} alt="logo" className='login-logo' />
                 <TextField
                     required
                     className="login-form-element"

@@ -47,7 +47,7 @@ export async function fetchAllUsers() {
   
       const response = await api.put(`/users/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Set content type for form data
+          'Content-Type': 'multipart/form-data',
         },
       });
       

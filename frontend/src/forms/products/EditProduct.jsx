@@ -42,12 +42,11 @@ function EditProduct() {
       navigate(`/account/catalog`);
     } catch (error) {
       console.error("Failed to update a product: ", error);
-      // Handle error feedback to the user
     }
   };
 
   if (!categories.length || !product.id) {
-    return <div>Loading...</div>; // or any other loading state
+    return <div>Loading...</div>; 
   }
 
   const { id: productId, title, price, category, description, images } = product;

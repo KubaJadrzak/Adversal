@@ -16,14 +16,11 @@ function PasswordChangeForm() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            // Check if newPassword and newPasswordConfirmation match
             if (newPassword !== newPasswordConfirmation) {
-                // Handle mismatch error
                 console.error('New password and confirmation do not match');
                 return;
             }
 
-            // Make a request to change the password
             await changePassword({
                 current_password: currentPassword,
                 password: newPassword,
@@ -31,9 +28,7 @@ function PasswordChangeForm() {
             });
             navigate(`/account/profile`)
             setAlert("Password updated successfully!", 'success')
-            // Optionally, you can reset the form or show a success message
         } catch (error) {
-            // Handle errors (e.g., show an error message to the user)
             console.error('Error changing password:', error);
             setAlert('Failed to update password!', 'error')
         }

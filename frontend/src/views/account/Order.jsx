@@ -43,11 +43,9 @@ function Order() {
 
   const handleUpdateStatus = async () => {
     try {
-      // Use the updateOrder method to update the order status
       await updateOrder(id, { status: status });
       navigate(`/account/customerorders`)
       setAlert('Status was successfully updated!', 'success')
-      // Optionally, you can fetch the updated order data after the update
     } catch (error) {
       console.error('Failed to update order status: ', error);
       setAlert('Failed to update status!', "error")
