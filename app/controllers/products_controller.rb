@@ -69,7 +69,6 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
 
-    # Assuming 'DELETED' is the status you want to set
     if @product.update(status: 4)
       render json: { message: 'Product status changed to DELETED successfully' }, status: :ok
     else
@@ -81,9 +80,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   
     index_to_delete = params[:index].to_i
-    # Check if the image at the specified index exists and is not nil
     if @product.images[index_to_delete].present?
-      # Delete the Active Storage attachment at the specified index
       @product.images[index_to_delete].purge
       render json: { message: 'Image deleted successfully' }, status: :ok
     else

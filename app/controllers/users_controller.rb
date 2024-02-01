@@ -32,7 +32,6 @@ class UsersController < ApplicationController
   def delete_image
 
 
-    # Purge the associated image if it exists
     if @user.image.attached?
       @user.image.purge
       render json: { message: 'Image deleted successfully' }
