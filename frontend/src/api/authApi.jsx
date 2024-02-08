@@ -1,7 +1,9 @@
 import api from './apiClient';
 
+const baseURL = import.meta.env.API_BASE_URL || 'http://localhost:3000';
+
 export async function signupUser(data) {
-    const response = await fetch('http://localhost:3000/signup', {
+    const response = await fetch(`${baseURL}/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -34,7 +36,7 @@ export async function logoutUser() {
 }
 
 export async function loginUser(data) {
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch(`${baseURL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ export async function changePassword(data) {
 }
 
 export async function resetPasswordRequest(data) {
-        const response = await fetch('http://localhost:3000/password', {
+        const response = await fetch(`${baseURL}/password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
