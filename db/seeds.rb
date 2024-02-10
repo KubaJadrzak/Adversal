@@ -17,6 +17,7 @@ users_data = [
 ]
 
 users_data.each do |user_data|
+  user_data[:confirmed_at] = Time.now # Set confirmed_at attribute to mark user as confirmed
   User.create(user_data)
 end
 
