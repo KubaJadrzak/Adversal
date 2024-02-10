@@ -1,6 +1,6 @@
 import api from './apiClient';
 
-const baseURL = import.meta.env.API_BASE_URL || 'http://localhost:3000';
+const baseURL = import.meta.env.VITE_API_BASE_URL
 
 export async function signupUser(data) {
     const response = await fetch(`${baseURL}/signup`, {
