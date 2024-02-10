@@ -21,21 +21,12 @@ export async function createProduct(data) {
       formData.append(`product[images][]`, data.images[i]);
     }
 
-    const response = await api.post('/products', formData);
+    const response = await api.post(`/products`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
-  } catch (error) {
-    throw error
-  }
-}
-
-export async function deleteProduct(id, params) {
-  try {
-    const response = await api.delete(`/products/${id}?${params}`);
-    if (response.status === 204) {
-      return null;
-    } else {
-      return response.data;
-    }
   } catch (error) {
     throw error
   }
@@ -64,6 +55,21 @@ export async function updateProduct(id, data) {
     throw error
   }
 }
+
+export async function deleteProduct(id, params) {
+  try {
+    const response = await api.delete(`/products/${id}?${params}`);
+    if (response.status === 204) {
+      return null;
+    } else {
+      return response.data;
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+
 
 export async function fetchProduct(id, params) {
   try {

@@ -19,6 +19,7 @@ class Ability
 
     cannot :destroy, :all
     can :destroy, Product, seller_id: user.id
+    can :delete_image, Product, seller_id: user.id
     can :destroy, CartProduct, buyer_id: user.id
 
 
