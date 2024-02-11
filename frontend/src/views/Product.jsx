@@ -9,6 +9,7 @@ import useAlert from "../components/alerts/useAlert"
 import './Product.css'
 
 function Product() {
+    const baseURL = import.meta.env.VITE_API_BASE_URL
     const {setAlert} = useAlert()
     const { id } = useParams()
     const [product, setProduct] = useState([])
@@ -58,7 +59,7 @@ function Product() {
                 <Container className='product-price-seller'>
                     <Typography variant='h6' className="product-price">${product.price}</Typography>
                     <Box className='product-element-seller'>
-                        <Avatar className='product-list-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
+                        <Avatar className='product-list-element-seller-avatar' src={baseURL + product.seller.image}/>
                         <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
                     </Box>
                 </Container>
@@ -68,7 +69,7 @@ function Product() {
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} className='product-image'>
                                     <img
-                                    src={"http://localhost:3000" + image}
+                                    src={baseURL + image}
                                     loading="lazy"
                                     />
                                 </ImageListItem>

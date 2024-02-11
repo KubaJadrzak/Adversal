@@ -8,6 +8,7 @@ import useAlert from "./alerts/useAlert"
 import "./ProductsElement.css"
 
 function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
+    const baseURL = import.meta.env.VITE_API_BASE_URL
     const location = useLocation()
     const { setAlert } = useAlert();
 
@@ -62,7 +63,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
                             {product.images.map((image, index) => (
                                 <ImageListItem key={index} >
                                     <img
-                                    src={"http://localhost:3000" + image}
+                                    src={baseURL + image}
                                     loading="lazy"
                                     />
                                 </ImageListItem>
@@ -79,7 +80,7 @@ function ProductsElement({product, navigate, onAddToCart, onDeleteProduct}) {
             <Box className='products-element-footer'>
                 <Button variant='contained' onClick={handleAddToCart}>Add to cart</Button>
                 <Box className='products-element-seller'>
-                    <Avatar className='products-element-seller-avatar' src={"http://localhost:3000" + product.seller.image}/>
+                    <Avatar className='products-element-seller-avatar' src={baseURL + product.seller.image}/>
                     <Typography>{product.seller.name}</Typography>
                 </Box>
             </Box> :

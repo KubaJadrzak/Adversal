@@ -6,6 +6,7 @@ import {Card, List, Box, Typography, Avatar, Button} from '@mui/material'
 import "./Profile.css"
 
 function Profile() {
+    const baseURL = import.meta.env.VITE_API_BASE_URL
     const navigate = useNavigate()
     const [user, setUser] = useState([])
 
@@ -25,7 +26,7 @@ function Profile() {
     return (
         <Card className='profile-cart'>
             <Box className='profile-container'>
-                <Avatar className='profile-avatar' src={"http://localhost:3000" + user.image}/>
+                <Avatar className='profile-avatar' src={baseURL + user.image}/>
                 <List className='profile-list'>
                     <Typography className='profile-list-element'>{user.name}</Typography>
                     <Typography className='profile-list-element'>{user.email}</Typography>
