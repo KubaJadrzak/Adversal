@@ -8,6 +8,7 @@ import { Box, Typography, Card, ImageList, MenuItem, ImageListItem, Divider, Tex
 import './Order.css';
 
 function Order() {
+  const baseURL = import.meta.env.VITE_API_BASE_URL
   const {setAlert} = useAlert()
   const { id } = useParams();
   const [order, setOrder] = useState();
@@ -68,7 +69,7 @@ function Order() {
             <ImageList cols={2} className="personal-order-product-image-list">
               {order.product.images.map((image, index) => (
                 <ImageListItem key={index}>
-                  <img src={'http://localhost:3000' + image} loading="lazy" />
+                  <img src={baseURL + image} loading="lazy" />
                 </ImageListItem>
               ))}
             </ImageList>
