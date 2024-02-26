@@ -79,5 +79,6 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.force_ssl = false
+  config.confirmation_redirect_url = "http://localhost:5173/login"
 
 end
