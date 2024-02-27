@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  defaults format: :json do
+  defaults format: :json, protocol: 'https' do
     devise_for :users, path: '', path_names: {
       sign_in: 'login',
       sign_out: 'logout',
