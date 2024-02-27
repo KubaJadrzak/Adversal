@@ -100,7 +100,7 @@ export async function resetPasswordRequest(data) {
 }
 
 export async function resetPassword(data) {
-        const response = await fetch('http://localhost:3000/password', {
+        const response = await fetch(`${baseURL}/password`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
