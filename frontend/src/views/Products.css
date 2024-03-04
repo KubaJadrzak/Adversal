@@ -1,6 +1,6 @@
 .products-container{
     display: grid;
-    grid-template-columns: repeat(auto-fill, 460px);
+    grid-template-columns: repeat(auto-fill, 445px);
     grid-gap: 1rem;
     justify-content: space-around;
 }

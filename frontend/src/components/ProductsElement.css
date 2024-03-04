@@ -1,7 +1,7 @@
 .products-element-container{
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 370px;
     height: 580px;
     margin: 10px;
     padding: 20px

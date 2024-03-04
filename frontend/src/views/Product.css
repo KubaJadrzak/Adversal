@@ -3,8 +3,9 @@
     flex-direction: column;
     width: 80%;
     margin: auto;
-    margin: 20px 0px 40px 0px;
-    padding: 50px
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 5%
 }
 .product-title{
     display: flex;

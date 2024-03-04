@@ -1,16 +1,24 @@
-.personal-order-container{
+.personal-order-container {
     display: flex;
     flex-direction: row;
-    width: 1000px;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    min-width: 100%;
     margin: auto;
     margin-top: 40px;
 }
 
-.personal-order-address-card-title{
+@media (max-width: 1000px) {
+    .personal-order-container {
+        flex-direction: column;
+    }
+}
+
+.personal-order-address-card-title {
     padding: 20px;
 }
 
-.personal-order-address-card{
+.personal-order-address-card {
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -20,7 +28,7 @@
     align-items: center;
 }
 
-.personal-order-address-card-element{
+.personal-order-address-card-element {
     display: flex;
     flex-direction: row;
     width: 300px;
@@ -28,16 +36,16 @@
     justify-content: space-between;
 }
 
-.personal-order-product-card{
+.personal-order-product-card {
     display: flex;
     flex-direction: column;
     width: 400px;
     height: 560px;
     margin: 10px;
-    padding: 20px
+    padding: 20px;
 }
 
-.personal-order-product-card:hover{
+.personal-order-product-card:hover {
     cursor: pointer;
     background-color: whitesmoke;
 }

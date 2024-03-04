@@ -8,6 +8,13 @@
     min-height: 500px;
 }
 
+@media (max-width: 800px) {
+    .account-cart{
+        width: 400px;
+    }
+}
+
+
 .account-list{
     width: 300px;
     display: flex;

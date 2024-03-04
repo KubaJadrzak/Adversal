@@ -7,6 +7,13 @@
     min-height: 500px;
 }
 
+@media (max-width: 800px) {
+    .profile-cart{
+        width: 400px;
+    }
+}
+
+
 .profile-container{
     display: flex;
     flex-direction: column;

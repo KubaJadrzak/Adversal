@@ -1,7 +1,7 @@
 .personal-orders-container{
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    width: 70%;
     margin: auto;
     margin-bottom: 40px;
     margin-top: 40px;
@@ -18,7 +18,7 @@
 
 .personal-orders-item{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .personal-orders-number{
@@ -43,4 +43,12 @@
 
 .personal-orders-status{
     width: 10%;
+}
+
+@media (max-width: 1000px) {
+    .personal-orders-date,
+    .personal-orders-title,
+    .personal-orders-status {
+        display: none;
+}
 }

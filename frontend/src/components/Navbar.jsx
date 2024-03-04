@@ -38,7 +38,7 @@ function Navbar() {
         <AppBar position="fixed">
           <Box className='navbar'>
             <Box className='navbar-search'>
-              <a href="/" className="navbar-logo-link">
+              <a href="/ " className="navbar-logo-link">
                 <img src={Adversal} alt='logo' className="navbar-logo"/>
               </a>
               {!location.pathname.includes('/account') &&

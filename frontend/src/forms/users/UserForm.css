@@ -7,6 +7,12 @@
     min-height: 500px;
 }
 
+@media (max-width: 800px) {
+    .user-form-cart{
+        width: 400px;
+    }
+}
+
 .user-form{
     display: flex;
     flex-direction: column;

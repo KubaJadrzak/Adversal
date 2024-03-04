@@ -1,10 +1,16 @@
-.welcome-category-container{
-    display:  flex;
+.welcome-category-container {
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 1000px;
+    width: 60%;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 200px; /* Default margin-top */
+}
+
+@media (max-width: 800px) {
+    .welcome-category-container {
+        margin-top: 20px; /* Remove margin-top for screens less than 500px wide */
+    }
 }
 
 .welcome-category-item{
