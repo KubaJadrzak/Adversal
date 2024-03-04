@@ -18,22 +18,19 @@
 
 .personal-orders-item{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .personal-orders-number{
-    padding: 10px;
     width: 15%;
 }
 
 .personal-orders-date{
-    padding: 10px;
     width: 10%;
 }
 
 
 .personal-orders-price{
-    padding: 10px;
     width: 10%;
 }
 
@@ -51,4 +48,10 @@
     .personal-orders-status {
         display: none;
 }
+    .personal-orders-container {
+        width: 90%;
+    }
+    .personal-orders-price{
+        width: 20%;
+    }
 }

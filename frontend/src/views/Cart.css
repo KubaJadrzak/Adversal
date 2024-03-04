@@ -19,3 +19,9 @@
     align-self: flex-end;
     margin: 20px 20px 0px 20px;
 }
+
+@media (max-width: 1000px) {
+    .cart-container {
+        width: 90%;
+    }
+}
