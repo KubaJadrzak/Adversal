@@ -8,12 +8,6 @@
     margin-top: 40px;
 }
 
-@media (max-width: 1000px) {
-    .personal-order-container {
-        flex-direction: column;
-    }
-}
-
 .personal-order-address-card-title {
     padding: 20px;
 }
@@ -40,8 +34,7 @@
     flex-direction: column;
     width: 400px;
     height: 560px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
     padding: 20px;
 }
 
@@ -50,9 +43,22 @@
         flex-direction: column;
     }
     .personal-order-product-card {
-        margin-right: 0px;
+        display: flex;
+        flex-direction: column;
+        width: 360px;
+        margin: 0px;
+        padding: 20px;
+    }
+    .personal-order-address-card {
+        display: flex;
+        flex-direction: column;
+        width: 360px;
+        padding: 20px;
+        margin: 10px 0px 20px 0px;
+        align-items: center;
     }
 }
+
 
 .personal-order-product-card:hover {
     cursor: pointer;
