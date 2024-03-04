@@ -23,7 +23,6 @@
     flex-direction: column;
     width: 400px;
     height: 450px;
-    margin: 10px;
     padding: 20px;
     align-items: center;
 }
@@ -41,8 +40,18 @@
     flex-direction: column;
     width: 400px;
     height: 560px;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     padding: 20px;
+}
+
+@media (max-width: 1000px) {
+    .personal-order-container {
+        flex-direction: column;
+    }
+    .personal-order-product-card {
+        margin-right: 0px;
+    }
 }
 
 .personal-order-product-card:hover {
