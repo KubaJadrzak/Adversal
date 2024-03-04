@@ -7,6 +7,16 @@
     margin-bottom: 40px;
     padding: 5%
 }
+
+@media (max-width: 1000px) {
+    .product-card {
+        width: 98%;
+    }
+    .product-button{
+        width: 50%;
+    }
+}
+
 .product-title{
     display: flex;
     justify-self: center;
