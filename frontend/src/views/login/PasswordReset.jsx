@@ -21,7 +21,7 @@ function PasswordReset() {
                 },
             });
 
-            navigate('/login');
+            navigate('/login/email');
             setAlert('Password reset request sent!', 'success')
         } catch (error) {
             console.error('Password reset error:', error);

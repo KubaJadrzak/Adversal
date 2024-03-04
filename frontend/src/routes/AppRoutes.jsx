@@ -22,6 +22,7 @@ import SignUp from "../views/login/SignUp";
 import PasswordReset from "../views/login/PasswordReset";
 import PasswordChangeForm from "../forms/users/PasswordChangeForm";
 import PasswordResetForm from "../views/login/PasswordResetForm";
+import EmailAlert from "../views/login/EmailAlert";
 
 function AppRoutes(){
     return(
@@ -35,6 +36,7 @@ function AppRoutes(){
                 <Route path='login' element={<Login/>}/>
                 <Route path='/login/reset' element={<PasswordReset/>}/>
                 <Route path='/login/signup' element={<SignUp/>}/>
+                <Route path='/login/email' element={<EmailAlert/>}/>
                 <Route path='password/reset' element={<PasswordResetForm/>}/>
             </Route>
 

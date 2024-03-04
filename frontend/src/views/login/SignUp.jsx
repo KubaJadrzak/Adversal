@@ -23,7 +23,7 @@ function SignUp() {
         }
         try {
             await signupUser(data)
-            navigate('/account')
+            navigate('/login/email')
         } catch (error) {
             console.error(error)
         }

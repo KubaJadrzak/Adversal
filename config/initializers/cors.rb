@@ -6,12 +6,23 @@
 # Read more: https://github.com/cyu/rack-cors
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-    origins 'https://adversal.it', 'http://adversal.it', 'http://www.adversal.it', 'https://www.adversal.it'
+  if Rails.env.production?
+    allow do
+      origins 'https://adversal.it', 'http://adversal.it', 'http://www.adversal.it', 'https://www.adversal.it'
 
-    resource "*",
-      headers: :any,
-      expose: ['Authorization'],
-      methods: [:get, :post, :put, :patch, :delete, :options, :head, :show]
+      resource "*",
+        headers: :any,
+        expose: ['Authorization'],
+        methods: [:get, :post, :put, :patch, :delete, :options, :head, :show]
+    end
+  else
+    allow do
+      origins '*'
+
+      resource "*",
+        headers: :any,
+        expose: ['Authorization'],
+        methods: [:get, :post, :put, :patch, :delete, :options, :head, :show]
+    end
   end
 end
