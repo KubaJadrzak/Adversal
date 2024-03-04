@@ -1,21 +1,13 @@
 .product-card{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 40px;
     padding: 5%
 }
 
-@media (max-width: 1000px) {
-    .product-card {
-        width: 98%;
-    }
-    .product-button{
-        width: 50%;
-    }
-}
 
 .product-title{
     display: flex;
@@ -57,4 +49,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+@media (max-width: 1000px) {
+    .product-card {
+        width: 90%;
+    }
+    .product-button{
+        width: 50%;
+    }
 }
