@@ -1,11 +1,19 @@
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
 }
 
-.navbar-search{
+.navbar-search {
     display: flex;
     margin: 10px 0px 0px 10px;
     height: 40px;
     width: 500px;
+}
+
+.navbar-logo-link {
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.navbar-logo-link img {
+    height: 40px; /* Adjust height as needed */
 }

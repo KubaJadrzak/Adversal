@@ -38,7 +38,9 @@ function Navbar() {
         <AppBar position="fixed">
           <Box className='navbar'>
             <Box className='navbar-search'>
-              <img src={Adversal} alt='logo' className="navbar-logo"/>
+              <a href="/" className="navbar-logo-link">
+                <img src={Adversal} alt='logo' className="navbar-logo"/>
+              </a>
               {!location.pathname.includes('/account') &&
                 <SearchBar handleSubmit={handleSubmit}/>
               }
