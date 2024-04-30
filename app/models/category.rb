@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: categories
@@ -8,6 +10,6 @@
 #  updated_at :datetime         not null
 #
 class Category < ApplicationRecord
-    validates :name, presence: true, uniqueness: true
-    has_many :products, dependent: :destroy
+  validates :name, presence: true, uniqueness: true
+  has_many :products, dependent: :destroy
 end

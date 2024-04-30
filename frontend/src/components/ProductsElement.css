@@ -1,68 +1,65 @@
-.products-element-container{
-    display: flex;
-    flex-direction: column;
-    width: 360px;
-    height: 580px;
-    margin: 10px;
-    padding: 20px
+.products-element-container {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 580px;
+  margin: 10px;
+  padding: 20px;
 }
 
-.products-element-container:hover{
-    cursor: pointer;
-    background-color: whitesmoke;
+.products-element-container:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
 }
 
-.products-element-header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    height: 60px;
-    width: 98%;
+.products-element-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 60px;
+  width: 98%;
 }
 
-.products-element-description{
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
+.products-element-description {
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 }
 
-.products-element-seller{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.products-element-seller {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.products-element-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: auto;
-    align-items: center
+.products-element-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: auto;
+  align-items: center;
 }
 
-.products-element-seller-avatar{
-    margin-right: 10px;
-
+.products-element-seller-avatar {
+  margin-right: 10px;
 }
 
-.products-element-button{
-    width: 27%;
-
+.products-element-button {
+  width: 27%;
 }
 
-.products-element-image-container{
-    display: flex;
-    height: 340px;
-    margin: 20px 0px 20px 0px;
-    justify-content: center;
-    align-items: center;
-
+.products-element-image-container {
+  display: flex;
+  height: 340px;
+  margin: 20px 0px 20px 0px;
+  justify-content: center;
+  align-items: center;
 }
 
-.products-element-image-list{
-    width: 100%;
-    height: 100%;
+.products-element-image-list {
+  width: 100%;
+  height: 100%;
 }

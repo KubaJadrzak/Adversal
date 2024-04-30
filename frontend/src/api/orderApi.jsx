@@ -1,9 +1,9 @@
-import api from './apiClient';
+import api from './apiClient'
 
 export async function fetchAllOrders(params) {
   try {
-    const response = await api.get(`/orders?${params}`);
-    return response.data;
+    const response = await api.get(`/orders?${params}`)
+    return response.data
   } catch (error) {
     throw error
   }
@@ -15,8 +15,8 @@ export async function createOrder(data) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
     throw error
   }
@@ -24,11 +24,11 @@ export async function createOrder(data) {
 
 export async function deleteOrder(id, params) {
   try {
-    const response = await api.delete(`/orders/${id}?${params}`);
+    const response = await api.delete(`/orders/${id}?${params}`)
     if (response.status === 204) {
-      return null;
+      return null
     }
-    return response.data;
+    return response.data
   } catch (error) {
     throw error
   }
@@ -40,8 +40,8 @@ export async function updateOrder(id, data) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
     throw error
   }
@@ -49,8 +49,8 @@ export async function updateOrder(id, data) {
 
 export async function fetchOrder(id, params) {
   try {
-    const response = await api.get(`/orders/${id}?${params}`);
-    return response.data;
+    const response = await api.get(`/orders/${id}?${params}`)
+    return response.data
   } catch (error) {
     throw error
   }

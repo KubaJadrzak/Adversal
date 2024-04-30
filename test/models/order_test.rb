@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -13,7 +15,7 @@
 #  address     :text
 #  postal_code :string
 #
-require "test_helper"
+require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
   # test "the truth" do

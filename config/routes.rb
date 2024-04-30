@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   defaults format: :json, protocol: 'https' do
     devise_for :users, path: '', path_names: {
@@ -14,7 +16,7 @@ Rails.application.routes.draw do
     devise_scope :user do
       put '/change_password', to: 'users/passwords#change_password'
     end
-    resources :users, only: [:show, :edit, :update] do
+    resources :users, only: %i[show edit update] do
       delete 'delete_image', to: 'users#delete_image', on: :member, as: :delete_image
     end
     resources :orders

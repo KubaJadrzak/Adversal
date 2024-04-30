@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CartProductsController < ApplicationController
-  before_action :set_cart_product, only: %i[ show update destroy ]
+  before_action :set_cart_product, only: %i[show update destroy]
   before_action :authenticate_user!
   load_and_authorize_resource
 
@@ -11,15 +13,12 @@ class CartProductsController < ApplicationController
 
   # GET /cart_products/1
   # GET /cart_products/1.json
-  def show
-  end
+  def show; end
 
   # POST /cart_products
   # POST /cart_products.json
   def create
-
     @cart_product = CartProduct.new(cart_product_params)
-
 
     if @cart_product.save
       render :show, status: :created, location: cart_products_url(@cart_product)
@@ -45,13 +44,14 @@ class CartProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart_product
-      @cart_product = CartProduct.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_product_params
-      params.fetch(:cart_product, {}).permit(:buyer_id, :carted_product_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cart_product
+    @cart_product = CartProduct.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cart_product_params
+    params.fetch(:cart_product, {}).permit(:buyer_id, :carted_product_id)
+  end
 end

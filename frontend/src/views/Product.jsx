@@ -1,95 +1,108 @@
-import React from "react"
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useParams } from 'react-router-dom';
-import { fetchProduct } from "../api/productApi"
-import { createCartProduct } from "../api/cartProductApi";
-import {Container, Typography, Card, Box, ImageList, ImageListItem, Button, Avatar} from '@mui/material'
-import useAlert from "../components/alerts/useAlert"
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { fetchProduct } from '../api/productApi'
+import { createCartProduct } from '../api/cartProductApi'
+import {
+  Container,
+  Typography,
+  Card,
+  Box,
+  ImageList,
+  ImageListItem,
+  Button,
+  Avatar,
+} from '@mui/material'
+import useAlert from '../components/alerts/useAlert'
 import './Product.css'
 
 function Product() {
-    const baseURL = import.meta.env.VITE_API_BASE_URL
-    const {setAlert} = useAlert()
-    const { id } = useParams()
-    const [product, setProduct] = useState([])
-    const navigate = useNavigate()
-    const location = useLocation()
+  const baseURL = import.meta.env.VITE_API_BASE_URL
+  const { setAlert } = useAlert()
+  const { id } = useParams()
+  const [product, setProduct] = useState([])
+  const navigate = useNavigate()
+  const location = useLocation()
 
-    useEffect(() => {
-      async function loadData(){
-        try {
-            const data = await fetchProduct(id)
-            setProduct(data)
-        } catch (e) {
-            console.error("Failed to load product: ", e)
-        }
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const data = await fetchProduct(id)
+        setProduct(data)
+      } catch (e) {
+        console.error('Failed to load product: ', e)
       }
-      loadData()
-    }, [id])
-
-    const handleAddToCart = async (e) => {
-        const carted_product_id = product.id
-        const data = { carted_product_id }
-        if (!localStorage.getItem('token')) {
-            navigate("/login");
-            return
-        }
-        try {
-            await createCartProduct(data)
-            navigate('/cart')
-            setAlert('Product was added to cart!', 'success')
-        } catch (e) {
-            console.error("Failed to add product to cart: ", e)
-            setAlert('Failed to add product to cart!', 'error')
-        }
     }
+    loadData()
+  }, [id])
 
-    const isFromCart = location.pathname.includes('/cart')
-    const isFromAccount = location.pathname.includes('account')
+  const handleAddToCart = async (e) => {
+    const carted_product_id = product.id
+    const data = { carted_product_id }
+    if (!localStorage.getItem('token')) {
+      navigate('/login')
+      return
+    }
+    try {
+      await createCartProduct(data)
+      navigate('/cart')
+      setAlert('Product was added to cart!', 'success')
+    } catch (e) {
+      console.error('Failed to add product to cart: ', e)
+      setAlert('Failed to add product to cart!', 'error')
+    }
+  }
 
-    if (!product || product.length === 0) return (
-        <div></div>
-    )
+  const isFromCart = location.pathname.includes('/cart')
+  const isFromAccount = location.pathname.includes('account')
 
-    return (
-        <Container className="product-container">
-            <Card className="product-card">
-                <Typography variant='h4' className="product-title">{product.title}</Typography>
-                <Container className='product-price-seller'>
-                    <Typography variant='h6' className="product-price">${product.price}</Typography>
-                    <Box className='product-element-seller'>
-                        <Avatar className='product-list-element-seller-avatar' src={baseURL + product.seller.image}/>
-                        <Typography variant='h6' className='product-seller'>{product.seller.name}</Typography>
-                    </Box>
-                </Container>
-                <Box className="product-image-container">
-                    {product.images ?
-                        <ImageList cols={2} className="product-image-list">
-                            {product.images.map((image, index) => (
-                                <ImageListItem key={index} className='product-image'>
-                                    <img
-                                    src={baseURL + image}
-                                    loading="lazy"
-                                    />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>:
-                        <Box>
-                            <Typography variant='overline'>no image available</Typography>
-                        </Box>
+  if (!product || product.length === 0) return <div></div>
 
-                    }
-                </Box>
-                <Typography className="product-description">{product.description}</Typography>
-                {!isFromCart && !isFromAccount &&
-                    <Button className='product-button' variant='contained' onClick={handleAddToCart}>
-                        Add to cart
-                    </Button>
-                }
-            </Card>
+  return (
+    <Container className='product-container'>
+      <Card className='product-card'>
+        <Typography variant='h4' className='product-title'>
+          {product.title}
+        </Typography>
+        <Container className='product-price-seller'>
+          <Typography variant='h6' className='product-price'>
+            ${product.price}
+          </Typography>
+          <Box className='product-element-seller'>
+            <Avatar
+              className='product-list-element-seller-avatar'
+              src={baseURL + product.seller.image}
+            />
+            <Typography variant='h6' className='product-seller'>
+              {product.seller.name}
+            </Typography>
+          </Box>
         </Container>
-    )
+        <Box className='product-image-container'>
+          {product.images ? (
+            <ImageList cols={2} className='product-image-list'>
+              {product.images.map((image, index) => (
+                <ImageListItem key={index} className='product-image'>
+                  <img src={baseURL + image} loading='lazy' />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          ) : (
+            <Box>
+              <Typography variant='overline'>no image available</Typography>
+            </Box>
+          )}
+        </Box>
+        <Typography className='product-description'>{product.description}</Typography>
+        {!isFromCart && !isFromAccount && (
+          <Button className='product-button' variant='contained' onClick={handleAddToCart}>
+            Add to cart
+          </Button>
+        )}
+      </Card>
+    </Container>
+  )
 }
 
 export default Product

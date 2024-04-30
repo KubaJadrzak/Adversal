@@ -3,5 +3,13 @@
     "axios": "^1.6.5",
     "cancancan": "^1.0.3",
     "jwt-decode": "^4.0.0"
+  },
+  "devDependencies": {
+    "@prettier/plugin-ruby": "^4.0.4",
+    "prettier": "^3.2.5",
+    "prettier-plugin-ruby": "^0.3.1"
+  },
+  "scripts": {
+    "format": "prettier --write ."
   }
 }

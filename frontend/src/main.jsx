@@ -9,5 +9,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AlertProvider>
       <App />
     </AlertProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

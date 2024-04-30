@@ -1,8 +1,8 @@
-import { Alert } from '@mui/material';
-import useAlert from './useAlert';
+import { Alert } from '@mui/material'
+import useAlert from './useAlert'
 
 const AlertPopup = () => {
-  const { text, type } = useAlert();
+  const { text, type } = useAlert()
 
   if (text && type) {
     return (
@@ -15,14 +15,12 @@ const AlertPopup = () => {
           zIndex: 10,
         }}
       >
-        <Alert severity={type}>
-          {text}
-        </Alert>
+        <Alert severity={type}>{text}</Alert>
       </div>
-    );
+    )
   } else {
-    return <></>;
+    return <></>
   }
-};
+}
 
-export default AlertPopup;
+export default AlertPopup

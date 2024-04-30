@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
+  before_action :set_category, only: %i[show update destroy]
   before_action :authenticate_user!, except: :index
   load_and_authorize_resource
-
 
   # GET /categories
   def index
@@ -10,8 +11,7 @@ class CategoriesController < ApplicationController
   end
 
   # GET /categories/1
-  def show
-  end
+  def show; end
 
   # POST /categories
   def create
@@ -40,13 +40,14 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def category_params
-      params.require(:category).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def category_params
+    params.require(:category).permit(:name)
+  end
 end

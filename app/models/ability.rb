@@ -4,9 +4,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     can :read, :all
     return unless user.present?
+
     cannot :create, :all
     can :create, Order
     can :create, CartProduct
@@ -21,7 +21,5 @@ class Ability
     can :destroy, Product, seller_id: user.id
     can :delete_image, Product, seller_id: user.id
     can :destroy, CartProduct, buyer_id: user.id
-
-
   end
 end

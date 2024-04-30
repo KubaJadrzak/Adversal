@@ -1,22 +1,30 @@
-import { BrowserRouter as Router } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import AppRoutes from "./routes/AppRoutes"
+import { BrowserRouter as Router } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import AppRoutes from './routes/AppRoutes'
 import StyledEngineProvider from '@mui/material/StyledEngineProvider'
-import { Box } from "@mui/material"
-import AlertPopup from "./components/alerts/AlertPopup"
-import './App.css';
+import { Box, Divider } from '@mui/material'
+import AlertPopup from './components/alerts/AlertPopup'
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './theme'
+import './App.css'
 
 function App() {
   return (
-    <StyledEngineProvider injectFirst>
-      <Router>
-        <Box className="app">
-          <AlertPopup />
-          <Navbar/>
-          <AppRoutes />
-        </Box>
-      </Router>
-    </StyledEngineProvider>
+    <ThemeProvider theme={theme}>
+      <StyledEngineProvider injectFirst>
+        <Router>
+          <Box className='app'>
+            <AlertPopup />
+            <Box className='app-navbar'>
+              <Navbar />
+            </Box>
+            <Box className='app-content'>
+              <AppRoutes />
+            </Box>
+          </Box>
+        </Router>
+      </StyledEngineProvider>
+    </ThemeProvider>
   )
 }
 

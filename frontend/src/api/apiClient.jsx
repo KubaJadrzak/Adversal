@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
@@ -8,50 +8,48 @@ const api = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-});
+})
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   if (token) {
-    config.headers.Authorization = token;
+    config.headers.Authorization = token
   }
-  return config;
-});
+  return config
+})
 
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response) {
-      const { status, data } = error.response;
+      const { status, data } = error.response
 
       if (status === 401 || data.exception === 'JWT::ExpiredSignature') {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        localStorage.removeItem('email');
-        window.location.href = '/login';
-        return Promise.reject(error);
+        localStorage.removeItem('token')
+        localStorage.removeItem('id')
+        localStorage.removeItem('email')
+        window.location.href = '/login'
+        return Promise.reject(error)
       }
 
       if (data.exception.includes("Couldn't find User")) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        localStorage.removeItem('email');
-        window.location.href = '/login';
+        localStorage.removeItem('token')
+        localStorage.removeItem('id')
+        localStorage.removeItem('email')
+        window.location.href = '/login'
       }
 
-      console.error('Error status:', status);
-      console.error('Error data:', data);
-      console.error('Full error response:', error.response);
-
+      console.error('Error status:', status)
+      console.error('Error data:', data)
+      console.error('Full error response:', error.response)
     } else if (error.request) {
-      console.error('No response received. Request details:', error.request);
-
+      console.error('No response received. Request details:', error.request)
     } else {
-      console.error('Error during request setup:', error.message);
+      console.error('Error during request setup:', error.message)
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default api;
+export default api

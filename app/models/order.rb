@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -23,8 +25,12 @@ class Order < ApplicationRecord
   validate :buyer_cannot_buy_own_product
 
   scope :only_personal_orders, -> { where(buyer_id: Current.user) }
-  scope :only_customer_orders, -> { where(id: includes(:product).where(product: {seller_id: Current.user}).select(:order_id)) }
-  scope :without_carted_products, -> { where.not(id: includes(:cart_products).where(cart_products: {buyer_id: Current.user}).select(:carted_product_id)) }
+  scope :only_customer_orders, lambda {
+                                 where(id: includes(:product).where(product: { seller_id: Current.user }).select(:order_id))
+                               }
+  scope :without_carted_products, lambda {
+                                    where.not(id: includes(:cart_products).where(cart_products: { buyer_id: Current.user }).select(:carted_product_id))
+                                  }
 
   private
 
@@ -36,4 +42,3 @@ class Order < ApplicationRecord
     errors.add(:base, 'Buyer cannot buy their own product') if product&.seller_id == buyer_id
   end
 end
-

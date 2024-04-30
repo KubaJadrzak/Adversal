@@ -1,28 +1,28 @@
 .welcome-category-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 60%;
-    margin: auto;
-    margin-top: 200px; /* Default margin-top */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 60%;
+  margin: auto;
+  margin-top: 200px; /* Default margin-top */
 }
 
 @media (max-width: 800px) {
-    .welcome-category-container {
-        margin-top: 20px; /* Remove margin-top for screens less than 500px wide */
-    }
+  .welcome-category-container {
+    margin-top: 20px; /* Remove margin-top for screens less than 500px wide */
+  }
 }
 
-.welcome-category-item{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    padding: 20px;
-    align-items: center;
-    color: #070d0d
+.welcome-category-item {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 20px;
+  align-items: center;
+  color: #070d0d;
 }
 
-.welcome-category-item:hover{
-    cursor: pointer;
-    background-color: lightgray;
+.welcome-category-item:hover {
+  cursor: pointer;
+  background-color: lightgray;
 }

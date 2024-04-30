@@ -1,36 +1,39 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class CartProductsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @cart_product = cart_products(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get api_v1_cart_products_url, as: :json
     assert_response :success
   end
 
-  test "should create cart_product" do
-    assert_difference("CartProduct.count") do
+  test 'should create cart_product' do
+    assert_difference('CartProduct.count') do
       post api_v1_cart_products_url, params: {
-        cart_product: {buyer_id: users(:three).id, carted_product_id: products(:one).id }
+        cart_product: { buyer_id: users(:three).id, carted_product_id: products(:one).id }
       }, as: :json
     end
     assert_response :created
   end
 
-  test "should show cart_product" do
+  test 'should show cart_product' do
     get api_v1_cart_product_url(@cart_product), as: :json
     assert_response :success
   end
 
-  test "should update cart_product" do
-    patch api_v1_cart_product_url(@cart_product), params: { cart_product: {buyer_id: users(:four).id, carted_product_id: products(:one).id } }, as: :json
+  test 'should update cart_product' do
+    patch api_v1_cart_product_url(@cart_product),
+          params: { cart_product: { buyer_id: users(:four).id, carted_product_id: products(:one).id } }, as: :json
     assert_response :success
   end
 
-  test "should destroy cart_product" do
-    assert_difference("CartProduct.count", -1) do
+  test 'should destroy cart_product' do
+    assert_difference('CartProduct.count', -1) do
       delete api_v1_cart_product_url(@cart_product), as: :json
     end
 

@@ -1,9 +1,9 @@
-import api from './apiClient';
+import api from './apiClient'
 
 export async function fetchCartProducts(params) {
   try {
-    const response = await api.get(`/cart_products?${params}`);
-    return response.data;
+    const response = await api.get(`/cart_products?${params}`)
+    return response.data
   } catch (error) {
     throw error
   }
@@ -15,8 +15,8 @@ export async function createCartProduct(data) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
     throw error
   }
@@ -24,11 +24,11 @@ export async function createCartProduct(data) {
 
 export async function deleteCartProduct(id, params) {
   try {
-    const response = await api.delete(`/cart_products/${id}?${params}`);
+    const response = await api.delete(`/cart_products/${id}?${params}`)
     if (response.status === 204) {
-      return null;
+      return null
     }
-    return response.data;
+    return response.data
   } catch (error) {
     throw error
   }
@@ -40,8 +40,8 @@ export async function updateCartProduct(id, data) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    return response.data;
+    })
+    return response.data
   } catch (error) {
     throw error
   }
@@ -49,8 +49,8 @@ export async function updateCartProduct(id, data) {
 
 export async function fetchCartProduct(id, params) {
   try {
-    const response = await api.get(`/cart_products/${id}?${params}`);
-    return response.data;
+    const response = await api.get(`/cart_products/${id}?${params}`)
+    return response.data
   } catch (error) {
     throw error
   }

@@ -1,19 +1,30 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.navbar-bottom {
+  padding-top: 10px;
+  padding-left: 0.4vw;
+  padding-right: 0.4vw;
+}
+
+.navbar-icon {
+  color: #333333;
+}
+
+.navbar-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.navbar-bottom-toggle-button {
+  width: 10vw;
 }
 
 .navbar-search {
-    display: flex;
-    margin: 10px 0px 0px 10px;
-    height: 40px;
-    width: 500px;
-}
-
-.navbar-logo-link {
-    margin-right: 10px; /* Adjust margin as needed */
-}
-
-.navbar-logo-link img {
-    height: 40px; /* Adjust height as needed */
+  width: 100%; /* Ensure search bar takes up full width */
+  padding: 10px;
 }

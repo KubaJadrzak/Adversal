@@ -1,33 +1,32 @@
-.email-alert-card{
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    margin: auto;
-    margin-top: 100px;
-    min-height: 260px;
+.email-alert-card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  margin-top: 100px;
+  min-height: 260px;
 }
 
-.email-alert-content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 20px;
+.email-alert-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.email-alert-element{
-    margin: 10px;
-    width: 80%;
-    text-align: center;
+.email-alert-element {
+  margin: 10px;
+  width: 80%;
+  text-align: center;
 }
 
-.email-alert-link{
-    margin: 5px;
+.email-alert-link {
+  margin: 5px;
 }
 
-.email-alert-link:hover{
-    cursor: pointer;
-    background-color: whitesmoke;
+.email-alert-link:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
 }
-

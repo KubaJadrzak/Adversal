@@ -1,17 +1,17 @@
-.cart-list{
-    padding: 0
+.cart-list {
+  padding: 0;
 }
 
-.cart-list-item{
-    display: flex;
-    justify-content: space-between;
+.cart-list-item {
+  display: flex;
+  justify-content: space-between;
 }
 
-.cart-list-item-properties{
-    display: flex;
-    flex-direction: row;
+.cart-list-item-properties {
+  display: flex;
+  flex-direction: row;
 }
 
-.cart-list-item-price{
-    padding: 10px;
+.cart-list-item-price {
+  padding: 10px;
 }

@@ -1,9 +1,3 @@
-.search-form-card{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.search-form-field{
-    width: 100%
+.search-form-field {
+  width: 100%;
 }

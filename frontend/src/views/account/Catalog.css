@@ -1,10 +1,10 @@
-.catalog-new-product-button{
-    margin: 10px 20px 10px 20px;
+.catalog-new-product-button {
+  margin: 10px 20px 10px 20px;
 }
 
-.catalog-products-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 420px);
-    grid-gap: 1rem;
-    justify-content: space-around;
+.catalog-products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 420px);
+  grid-gap: 1rem;
+  justify-content: space-around;
 }
