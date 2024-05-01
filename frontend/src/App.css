@@ -1,11 +1,27 @@
 #root {
   width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   background-color: whitesmoke;
-  overflow: auto;
 }
 .app-content,
 .app-navbar {
   padding-left: 14vw;
   padding-right: 14vw;
+}
+
+@media only screen and (max-width: 1400px) {
+  .app-content,
+  .app-navbar {
+    padding-left: 7vw;
+    padding-right: 7vw;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .app-content,
+  .app-navbar {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
 }

@@ -1,6 +1,27 @@
-.products-container {
+.products {
+  display: flex;
+  flex-direction: row;
+}
+
+.products-elements {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 420px);
-  grid-gap: 1rem;
+  width: 82%;
+  grid-template-columns: repeat(auto-fill, 340px);
   justify-content: space-around;
+}
+
+.products-sidebar {
+  width: 18%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .products {
+    flex-direction: column;
+  }
+  .products-elements {
+    width: 100%;
+  }
+  .products-sidebar {
+    width: 100%;
+  }
 }

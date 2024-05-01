@@ -20,22 +20,33 @@ const theme = createTheme({
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0, // Set border radius to 0 for square edges
+        },
+      },
+    },
     MuiToggleButton: {
       styleOverrides: {
         root: {
           borderRadius: 0,
-          outline: 'none',
           border: 'none', // Remove border completely
-          outline: 'none',
-          borderColor: 'transparent', // Set border color to transparent by default
           '&.Mui-selected': {
             backgroundColor: '#F3D250',
+            outline: 'none',
             '&:hover': {
               backgroundColor: '#CAA330', // Darker color on hover when selected
+            },
+            '&:active': {
+              outline: 'none',
             },
           },
           '&:hover': {
             backgroundColor: '#E1C642', // Slightly darker color on hover
+          },
+          '&:active': {
+            outline: 'none',
           },
         },
       },

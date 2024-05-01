@@ -6,12 +6,8 @@
 
 .navbar-bottom {
   padding-top: 10px;
-  padding-left: 0.4vw;
-  padding-right: 0.4vw;
-}
-
-.navbar-icon {
-  color: #333333;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 .navbar-bottom {
@@ -20,11 +16,37 @@
   padding-top: 20px;
 }
 
-.navbar-bottom-toggle-button {
-  width: 10vw;
+.navbar-bottom-search {
+  width: 20%; /* Ensure search bar takes up full width */
+  padding: 10px;
 }
 
-.navbar-search {
-  width: 100%; /* Ensure search bar takes up full width */
-  padding: 10px;
+.navbar-bottom-toggle-group {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly; /* Spread ToggleButtons evenly */
+  flex-wrap: wrap;
+}
+
+.navbar-bottom-toggle-button {
+  flex: 1 20%; /* Adjust ToggleButton width */
+}
+
+@media only screen and (max-width: 1000px) {
+  .navbar-bottom {
+    flex-direction: column; /* Stacked layout */
+  }
+  .navbar-bottom-search {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .navbar-bottom {
+    flex-direction: column; /* Stacked layout */
+  }
+  .navbar-bottom-search {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+  }
 }

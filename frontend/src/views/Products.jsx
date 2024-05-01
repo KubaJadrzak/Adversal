@@ -3,6 +3,7 @@ import { fetchAllProducts } from '../api/productApi'
 import ProductsElement from '../components/ProductsElement'
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
+import ProductsSidebar from '../components/ProductsSidebar'
 import './Products.css'
 
 function ProductsList() {
@@ -44,12 +45,17 @@ function ProductsList() {
   }
 
   return (
-    <Box className='products-container'>
-      {products.map((product) => (
-        <Box key={product.id}>
-          <ProductsElement product={product} navigate={navigate} onAddToCart={onAddToCart} />
-        </Box>
-      ))}
+    <Box className='products'>
+      <Box className='products-sidebar'>
+        <ProductsSidebar />
+      </Box>
+      <Box className='products-elements'>
+        {products.map((product) => (
+          <Box key={product.id}>
+            <ProductsElement product={product} navigate={navigate} onAddToCart={onAddToCart} />
+          </Box>
+        ))}
+      </Box>
     </Box>
   )
 }

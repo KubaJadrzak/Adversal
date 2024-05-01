@@ -1,0 +1,22 @@
+.products-sidebar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.products-sidebar-toggle-group {
+  display: flex;
+  width: 100%;
+}
+@media only screen and (max-width: 1000px) {
+  .products-sidebar-toggle-group {
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  .products-sidebar-toggle-button {
+    flex: 1 40%; /* Adjust ToggleButton width */
+    color: black;
+  }
+}

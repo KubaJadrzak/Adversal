@@ -1,5 +1,17 @@
 import React from 'react'
-import { Box, Card, Typography, Button, ImageList, ImageListItem, Avatar } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Button,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  Avatar,
+  Card,
+} from '@mui/material'
+import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createCartProduct } from '../api/cartProductApi'
 import { deleteProduct } from '../api/productApi'
 import { useLocation } from 'react-router-dom'
@@ -12,6 +24,7 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
   const location = useLocation()
   const { setAlert } = useAlert()
 
+  const isFromAccount = location.pathname.includes('/account')
   if (!product || product.length === 0) return <div></div>
 
   const handleAddToCart = async (e) => {
@@ -47,53 +60,42 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
     }
   }
 
-  const isFromAccount = location.pathname.includes('/account')
-
   return (
-    <Card
-      className='products-element-container'
+    <Box
+      className='products-element'
       onClick={() => {
         navigate(`product/${product.id}`)
       }}
     >
-      <Box className='products-element-header'>
-        <Typography variant='h6'>{product.title}</Typography>
-        <Typography>${product.price}</Typography>
-      </Box>
-      <Box className='products-element-image-container'>
-        {product.images ? (
-          <ImageList cols={2} className='products-element-image-list'>
-            {product.images.map((image, index) => (
-              <ImageListItem key={index}>
-                <img src={baseURL + image} loading='lazy' />
-              </ImageListItem>
-            ))}
-          </ImageList>
+      <Box>
+        {product.images && product.images.length > 0 ? (
+          <img
+            style={{
+              height: 240,
+              width: 320,
+            }}
+            src={baseURL + product.images[0]}
+          />
         ) : (
-          <Box>
-            <Typography variant='overline'>no image available</Typography>
-          </Box>
+          <Typography variant='overline'>No image available</Typography>
         )}
       </Box>
-      <Typography className='products-element-description'>{product.description}</Typography>
+      <Box className='product-element-title'>
+        <Typography>{product.title}</Typography>
+      </Box>
+
       {!isFromAccount ? (
         <Box className='products-element-footer'>
-          <Button variant='contained' onClick={handleAddToCart}>
-            Add to cart
-          </Button>
-          <Box className='products-element-seller'>
-            <Avatar
-              className='products-element-seller-avatar'
-              src={baseURL + product.seller.image}
-            />
-            <Typography>{product.seller.name}</Typography>
-          </Box>
+          <Typography>${product.price}</Typography>
+          <IconButton className='products-element-footer-icon'>
+            <FontAwesomeIcon icon={faRegularHeart} />
+          </IconButton>
         </Box>
       ) : (
         <Box className='products-element-footer'>
           <Button
             variant='contained'
-            className='products-element-button'
+            className='products-element-footer-button'
             onClick={(e) => {
               e.stopPropagation()
               navigate(`/product/${product.id}/edit`)
@@ -103,15 +105,17 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
           </Button>
           <Button
             variant='contained'
-            className='products-element-button'
+            className='products-element-footer-button'
             onClick={handleDeleteProduct}
           >
             Delete
           </Button>
-          <Typography className='products-element-button'>STATUS: {product.status}</Typography>
+          <Typography className='products-element-footer-button'>
+            STATUS: {product.status}
+          </Typography>
         </Box>
       )}
-    </Card>
+    </Box>
   )
 }
 

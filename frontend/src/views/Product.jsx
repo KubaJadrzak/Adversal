@@ -61,7 +61,7 @@ function Product() {
 
   return (
     <Container className='product-container'>
-      <Card className='product-card'>
+      <Box className='product-card'>
         <Typography variant='h4' className='product-title'>
           {product.title}
         </Typography>
@@ -100,7 +100,7 @@ function Product() {
             Add to cart
           </Button>
         )}
-      </Card>
+      </Box>
     </Container>
   )
 }

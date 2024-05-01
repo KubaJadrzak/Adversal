@@ -18,6 +18,8 @@ function App() {
             <Box className='app-navbar'>
               <Navbar />
             </Box>
+            <Divider />
+            <Divider />
             <Box className='app-content'>
               <AppRoutes />
             </Box>
