@@ -1,0 +1,1 @@
+json.extract! subcategory, :id, :name, :parent_id

@@ -16,7 +16,6 @@ import EditUser from '../forms/users/EditUser'
 import Orders from '../views/account/Orders'
 import Order from '../views/account/Order'
 import AddOrder from '../forms/orders/AddOrder'
-import Welcome from '../views/Welcome'
 import Login from '../views/login/Login'
 import SignUp from '../views/login/SignUp'
 import PasswordReset from '../views/login/PasswordReset'
@@ -27,9 +26,8 @@ import EmailAlert from '../views/login/EmailAlert'
 function AppRoutes() {
   return (
     <Routes>
-      <Route path='/' element={<Welcome />} />
-      <Route path='products' element={<Products />} />
-      <Route path='products/product/:id' element={<Product />} />
+      <Route path='/' element={<Products />} />
+      <Route path='product/:id' element={<Product />} />
 
       <Route element={<PublicRoutes />}>
         <Route path='login' element={<Login />} />

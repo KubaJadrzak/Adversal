@@ -1,24 +1,23 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show update destroy]
-  before_action :authenticate_user!, except: :index
+  before_action :set_category, only: %i[update destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource
 
   # GET /categories
   def index
-    @categories = Category.all
+    @categories = Category.includes(:subcategories).where.not(subcategories: { id: nil })
   end
 
-  # GET /categories/1
-  def show; end
-
+  def show
+    @category = Category.includes(:subcategories).where.not(subcategories: { id: nil }).find(params[:id])
+  end
   # POST /categories
   def create
     @category = Category.new(category_params)
 
     if @category.save
-      render json: @category, status: :created, location: categories_url(@category)
     else
       render json: @category.errors, status: :unprocessable_entity
     end

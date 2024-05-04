@@ -34,7 +34,6 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
     const data = { carted_product_id }
     try {
       if (!localStorage.getItem('token')) {
-        // Redirect to the login page if no token is found
         navigate('/login')
         return
       }
@@ -62,7 +61,7 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
 
   return (
     <Box
-      className='products-element'
+      className='products-element-container'
       onClick={() => {
         navigate(`product/${product.id}`)
       }}

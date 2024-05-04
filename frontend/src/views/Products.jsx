@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { fetchAllProducts } from '../api/productApi'
-import ProductsElement from '../components/ProductsElement'
-import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
+import { fetchCategory } from '../api/categoryApi'
+import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material'
-import ProductsSidebar from '../components/ProductsSidebar'
+import ProductsElement from '../components/ProductsElement'
+import Sidebar from '../components/Sidebar'
 import './Products.css'
 
-function ProductsList() {
+function Products() {
   const [products, setProducts] = useState([])
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [category, setCategory] = useState()
   const navigate = useNavigate()
 
   useEffect(() => {
     async function loadData() {
       try {
         const searchParams = new URLSearchParams(location.search)
-        const category = searchParams.get('category')
+        const categoryId = searchParams.get('category')
+        const subcategoryId = searchParams.get('subcategory')
         const query = searchParams.get('query')
         const params = new URLSearchParams()
-        params.set('without_carted_products', 'true')
         params.set('without_listed_products', 'true')
-        if (category) {
-          params.set('category', category)
+
+        if (categoryId) {
+          params.set('category', categoryId)
+          const category = await fetchCategory(categoryId)
+          setCategory(category)
+
+          if (subcategoryId) {
+            params.set('category', subcategoryId)
+          }
+        } else {
+          setCategory(null)
         }
-        if (query) {
-          params.set('query', query)
-        }
-        const data = await fetchAllProducts(params)
-        setProducts(data)
+
+        const products = await fetchAllProducts(params)
+        setProducts(products)
       } catch (e) {
         console.error('Failed to load products: ', e)
       }
@@ -36,23 +44,17 @@ function ProductsList() {
     loadData()
   }, [location.search])
 
-  const onAddToCart = (id) => {
-    const index = products.findIndex((product) => {
-      return product.id === id
-    })
-    products.splice(index, 1)
-    setProducts([...products])
-  }
-
   return (
     <Box className='products'>
-      <Box className='products-sidebar'>
-        <ProductsSidebar />
-      </Box>
+      {category ? (
+        <Box className='products-sidebar'>
+          <Sidebar subcategories={category.subcategories} />
+        </Box>
+      ) : null}
       <Box className='products-elements'>
         {products.map((product) => (
           <Box key={product.id}>
-            <ProductsElement product={product} navigate={navigate} onAddToCart={onAddToCart} />
+            <ProductsElement product={product} navigate={navigate} />
           </Box>
         ))}
       </Box>
@@ -60,4 +62,4 @@ function ProductsList() {
   )
 }
 
-export default ProductsList
+export default Products

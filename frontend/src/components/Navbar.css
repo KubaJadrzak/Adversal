@@ -4,6 +4,11 @@
   padding-top: 10px;
 }
 
+.navbar-top-icon {
+  width: 60px;
+  height: 60px;
+}
+
 .navbar-bottom {
   padding-top: 10px;
   padding-left: 1vw;

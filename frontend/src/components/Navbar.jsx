@@ -1,41 +1,48 @@
-import React, { useEffect } from 'react'
-import {
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Link,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material'
-import { faUser, faHome, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect, useState } from 'react'
+import { Box, IconButton, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { faUser, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SearchBar from './SearchBar'
 import { useNavigate, useLocation } from 'react-router-dom'
-import './Navbar.css'
+import { fetchAllCategories } from '../api/categoryApi'
+
 import Adversal from '../assets/adversal-yellow.png'
+import SearchBar from './SearchBar'
+
+import './Navbar.css'
 
 function Navbar() {
-  const [alignment, setAlignment] = React.useState(null)
+  const [alignment, setAlignment] = useState(null)
+  const [categories, setCategories] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
 
-  useEffect(() => {
-    // Parse the category from the URL query parameter
-    const params = new URLSearchParams(location.search)
-    const category = params.get('category')
+  const isLoginPage = location.pathname.includes('login')
 
-    // Set the alignment state based on the category in the URL
-    if (category) {
-      setAlignment(category)
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categories = await fetchAllCategories()
+        setCategories(categories)
+
+        const params = new URLSearchParams(location.search)
+        const category = params.get('category')
+
+        if (category) {
+          setAlignment(parseInt(category, 10))
+        } else {
+          setAlignment(null)
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      }
     }
+
+    fetchCategories()
   }, [location.search])
 
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
-      setAlignment(newAlignment)
-      const encodedCategory = encodeURIComponent(newAlignment)
-      navigate(`/products?category=${encodedCategory}`)
+      navigate(`/?category=${newAlignment}`)
     }
   }
 
@@ -46,14 +53,12 @@ function Navbar() {
 
     searchParams.set('query', encodeURIComponent(query))
 
-    if (currentPath.includes('/products')) {
+    if (currentPath.includes('/category')) {
       navigate(`${currentPath}?${searchParams.toString()}`)
     } else {
-      navigate(`/products?${searchParams.toString()}`)
+      navigate(`/?${searchParams.toString()}`)
     }
   }
-
-  const isLoginPage = location.pathname.includes('login')
 
   if (isLoginPage) {
     return null
@@ -61,25 +66,19 @@ function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Box className='navbar'>
+      <Box>
         <Box className='navbar-top'>
-          <IconButton
-            onClick={() => {
-              navigate(`/`)
-            }}
-          >
-            <FontAwesomeIcon icon={faHome} />
-          </IconButton>
-
+          <Box className='navbar-top-icon'>
+            <IconButton onClick={() => navigate(`/`)}>
+              <FontAwesomeIcon icon={faHome} />
+            </IconButton>
+          </Box>
           <img src={Adversal} alt='logo' style={{ width: '60px', height: '60px' }} />
-
-          <IconButton
-            onClick={() => {
-              navigate(`/account`)
-            }}
-          >
-            <FontAwesomeIcon icon={faUser} />
-          </IconButton>
+          <Box className='navbar-top-icon'>
+            <IconButton onClick={() => navigate(`/`)}>
+              <FontAwesomeIcon icon={faUser} />
+            </IconButton>
+          </Box>
         </Box>
         <Box className='navbar-bottom'>
           <ToggleButtonGroup
@@ -88,24 +87,18 @@ function Navbar() {
             onChange={handleAlignment}
             className='navbar-bottom-toggle-group'
           >
-            <ToggleButton value='Camping' className='navbar-bottom-toggle-button'>
-              camping
-            </ToggleButton>
-            <ToggleButton value='Furniture' className='navbar-bottom-toggle-button'>
-              furniture
-            </ToggleButton>
-            <ToggleButton value='Electronics' className='navbar-bottom-toggle-button'>
-              electronics
-            </ToggleButton>
-            <ToggleButton value='Appliances' className='navbar-bottom-toggle-button'>
-              appliances
-            </ToggleButton>
-            <ToggleButton value='Clothes' className='navbar-bottom-toggle-button'>
-              clothes
-            </ToggleButton>
+            {categories.map((category) => (
+              <ToggleButton
+                key={category.id}
+                value={category.id}
+                className='navbar-bottom-toggle-button'
+              >
+                {category.name}
+              </ToggleButton>
+            ))}
           </ToggleButtonGroup>
           <Box className='navbar-bottom-search'>
-            {!location.pathname.includes('/account') && <SearchBar handleSubmit={handleSubmit} />}
+            <SearchBar handleSubmit={handleSubmit} />
           </Box>
         </Box>
       </Box>

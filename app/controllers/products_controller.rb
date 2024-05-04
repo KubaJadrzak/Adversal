@@ -11,8 +11,10 @@ class ProductsController < ApplicationController
     @products = Product.all
 
     if params[:category].present?
-      category = Category.find_by(name: params[:category])
-      @products = @products.where(category:) if category.present?
+      category_id = params[:category].to_i
+      category_ids = Category.descendant_ids(category_id)
+
+      @products = @products.where(category_id: category_ids).distinct
     end
     @products = @products.only_listed_products if params[:only_listed_products].to_s == 'true'
 
