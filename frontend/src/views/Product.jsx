@@ -36,24 +36,6 @@ function Product() {
     }
     loadData()
   }, [id])
-
-  const handleAddToCart = async (e) => {
-    const carted_product_id = product.id
-    const data = { carted_product_id }
-    if (!localStorage.getItem('token')) {
-      navigate('/login')
-      return
-    }
-    try {
-      await createCartProduct(data)
-      navigate('/cart')
-      setAlert('Product was added to cart!', 'success')
-    } catch (e) {
-      console.error('Failed to add product to cart: ', e)
-      setAlert('Failed to add product to cart!', 'error')
-    }
-  }
-
   const isFromCart = location.pathname.includes('/cart')
   const isFromAccount = location.pathname.includes('account')
 

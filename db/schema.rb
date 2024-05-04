@@ -42,34 +42,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_02_185709) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "cart_products", force: :cascade do |t|
-    t.bigint "buyer_id", null: false
-    t.bigint "carted_product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_cart_products_on_buyer_id"
-    t.index ["carted_product_id"], name: "index_cart_products_on_carted_product_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "parent_id"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.bigint "buyer_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "number", null: false
-    t.integer "status", default: 1
-    t.string "country", null: false
-    t.string "city", null: false
-    t.text "address", null: false
-    t.string "postal_code", null: false
-    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -80,10 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_02_185709) do
     t.datetime "updated_at", null: false
     t.bigint "category_id", null: false
     t.bigint "seller_id", null: false
-    t.bigint "order_id"
     t.integer "status", default: 1, null: false
     t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["order_id"], name: "index_products_on_order_id"
     t.index ["seller_id"], name: "index_products_on_seller_id"
     t.index ["status"], name: "index_products_on_status"
   end
@@ -112,10 +88,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_02_185709) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cart_products", "products", column: "carted_product_id"
-  add_foreign_key "cart_products", "users", column: "buyer_id"
-  add_foreign_key "orders", "users", column: "buyer_id"
   add_foreign_key "products", "categories"
-  add_foreign_key "products", "orders"
   add_foreign_key "products", "users", column: "seller_id"
 end

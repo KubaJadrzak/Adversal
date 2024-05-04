@@ -18,13 +18,10 @@ class ProductsController < ApplicationController
     end
     @products = @products.only_listed_products if params[:only_listed_products].to_s == 'true'
 
-    @products = @products.without_carted_products if params[:without_carted_products].to_s == 'true'
-
     @products = @products.without_listed_products if params[:without_listed_products].to_s == 'true'
 
     @products = @products.without_deleted_products if params[:with_deleted_products].to_s != 'true'
 
-    @products = @products.without_ordered_products if params[:with_ordered_products].to_s != 'true'
     return unless params[:query].present? && params[:query].is_a?(String)
 
     @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
