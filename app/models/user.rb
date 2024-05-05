@@ -20,4 +20,15 @@ class User < ApplicationRecord
 
   has_many :listed_products, class_name: :Product, inverse_of: :seller, foreign_key: :seller_id, dependent: :destroy
   has_one_attached :image
+
+  validates :name, presence: true
+  validates :phone_number, presence: true
+  validates :country, presence: true
+  validates :city, presence: true
+  validates :street, presence: true
+  validates :zip_code, presence: true
+
+  def full_address
+    "#{street}, #{city}, #{zip_code}, #{country}"
+  end
 end

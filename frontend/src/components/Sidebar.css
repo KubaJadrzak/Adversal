@@ -1,7 +1,7 @@
 .sidebar-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .sidebar-toggle-group {
@@ -16,7 +16,7 @@
     flex-wrap: wrap;
   }
   .sidebar-toggle-button {
-    flex: 1 40%;
+    flex: 1 33%;
     color: black;
   }
 }

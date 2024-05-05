@@ -1,14 +1,27 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Card, List, ListItemButton, Typography } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Box } from '@mui/material'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { logoutUser } from '../../api/authApi'
-import useAlert from '../../components/alerts/useAlert'
-
+import Sidebar from '../../components/Sidebar'
+import Profile from './Profile'
+import Catalog from './Catalog'
 import './Account.css'
 
 function Account() {
-  const { setAlert } = useAlert()
+  const [alignment, setAlignment] = useState(null)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const paramValue = params.get('view')
+
+    if (paramValue === 'profile') {
+      setAlignment(1)
+    } else if (paramValue === 'catalog') {
+      setAlignment(2)
+    }
+  }, [location.search])
 
   const handleLogout = async () => {
     try {
@@ -16,50 +29,39 @@ function Account() {
       navigate('/login')
     } catch (error) {
       console.error('Logout error:', error)
-      setAlert('Failed to logout!', 'error')
+    }
+  }
+
+  const sidebarItems = [
+    { id: 1, name: 'Profile', onClick: () => navigate('/account?view=profile') },
+    { id: 2, name: 'Catalog', onClick: () => navigate('/account?view=catalog') },
+    { id: 3, name: 'Logout', onClick: handleLogout },
+  ]
+
+  const handleAlignmentChange = (newAlignment) => {
+    if (newAlignment === 1) {
+      navigate('/account?view=profile')
+    } else if (newAlignment === 2) {
+      navigate('/account?view=catalog')
+    } else if (newAlignment === 3) {
+      handleLogout()
     }
   }
 
   return (
-    <Card className='account-cart'>
-      <List className='account-list'>
-        <ListItemButton
-          className='account-list-item'
-          onClick={() => {
-            navigate(`profile`)
-          }}
-        >
-          <Typography>Profile</Typography>
-        </ListItemButton>
-        <ListItemButton
-          className='account-list-item'
-          onClick={() => {
-            navigate(`personalorders`)
-          }}
-        >
-          <Typography>Personal orders</Typography>
-        </ListItemButton>
-        <ListItemButton
-          className='account-list-item'
-          onClick={() => {
-            navigate(`customerorders`)
-          }}
-        >
-          <Typography>Customer orders</Typography>
-        </ListItemButton>
-        <ListItemButton
-          className='account-list-item'
-          onClick={() => {
-            navigate(`catalog`)
-          }}
-        >
-          <Typography>Your catalog</Typography>
-        </ListItemButton>
-        <ListItemButton className='account-list-item' onClick={handleLogout}>
-          <Typography>Logout</Typography>
-        </ListItemButton>
-      </List>
-    </Card>
+    <Box className='account-container'>
+      <Box className='account-sidebar'>
+        <Sidebar
+          items={sidebarItems}
+          onAlignmentChange={handleAlignmentChange}
+          alignment={alignment}
+        />
+      </Box>
+      <Box className='account-content'>
+        {alignment === 1 && <Profile />}
+        {alignment === 2 && <Catalog />}
+      </Box>
+    </Box>
   )
 }
 

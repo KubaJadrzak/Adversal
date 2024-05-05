@@ -9,12 +9,72 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 users_data = [
-  { name: 'John Doe', email: 'john.doe@example.com', password: 'password123', jti: SecureRandom.uuid },
-  { name: 'Jane Smith', email: 'jane.smith@example.com', password: 'password123', jti: SecureRandom.uuid },
-  { name: 'Bob Johnson', email: 'bob.johnson@example.com', password: 'password123', jti: SecureRandom.uuid },
-  { name: 'Alice Williams', email: 'alice.williams@example.com', password: 'password123', jti: SecureRandom.uuid },
-  { name: 'Charlie Brown', email: 'charlie.brown@example.com', password: 'password123', jti: SecureRandom.uuid },
-  { name: 'Eva Davis', email: 'eva.davis@example.com', password: 'password123', jti: SecureRandom.uuid }
+  { 
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    password: 'password123',
+    phone_number: '123-456-7890',
+    country: 'USA',
+    city: 'Anytown',
+    street: 'Main St',
+    zip_code: '12345',
+    jti: SecureRandom.uuid 
+  },
+  { 
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    password: 'password123',
+    phone_number: '987-654-3210',
+    country: 'Canada',
+    city: 'Maple City',
+    street: 'Elm St',
+    zip_code: '56789',
+    jti: SecureRandom.uuid 
+  },
+  { 
+    name: 'Bob Johnson',
+    email: 'bob.johnson@example.com',
+    password: 'password123',
+    phone_number: '111-222-3333',
+    country: 'UK',
+    city: 'London',
+    street: 'Oak Ave',
+    zip_code: '67890',
+    jti: SecureRandom.uuid 
+  },
+  { 
+    name: 'Alice Williams',
+    email: 'alice.williams@example.com',
+    password: 'password123',
+    phone_number: '555-444-3333',
+    country: 'Australia',
+    city: 'Sydney',
+    street: 'Pine Rd',
+    zip_code: '54321',
+    jti: SecureRandom.uuid 
+  },
+  { 
+    name: 'Charlie Brown',
+    email: 'charlie.brown@example.com',
+    password: 'password123',
+    phone_number: '777-888-9999',
+    country: 'France',
+    city: 'Paris',
+    street: 'Cedar Ln',
+    zip_code: '98765',
+    jti: SecureRandom.uuid 
+  },
+  { 
+    name: 'Eva Davis',
+    email: 'eva.davis@example.com',
+    password: 'password123',
+    phone_number: '999-888-7777',
+    country: 'Germany',
+    city: 'Berlin',
+    street: 'Walnut Blvd',
+    zip_code: '45678',
+    jti: SecureRandom.uuid 
+  }
 ]
 
 users_data.each do |user_data|

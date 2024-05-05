@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Card, TextField, Button, Link } from '@mui/material'
+import { Box, TextField, Button, Divider } from '@mui/material'
 import { loginUser } from '../../api/authApi'
 import useAlert from '../../components/alerts/useAlert'
-import Adversal from '../../assets/adversal.png'
+import Adversal from '../../assets/adversal-yellow.png'
 
 import './Login.css'
 
@@ -30,13 +30,13 @@ function Login() {
   }
 
   return (
-    <Card className='login-card'>
+    <Box className='login-container'>
       <form className='login-form' onSubmit={handleSubmit}>
         <img src={Adversal} alt='logo' className='login-logo' />
         <TextField
           required
           className='login-form-element'
-          id='Email'
+          id='email'
           label='Email'
           onChange={(e) => setLogin(e.target.value)}
         ></TextField>
@@ -48,31 +48,36 @@ function Login() {
           type='password'
           onChange={(e) => setPassword(e.target.value)}
         ></TextField>
-        <Link
-          className='login-form-link'
-          underline='hover'
+        <Button
+          className='login-form-button'
+          variant='outlined'
+          color='secondary'
+          type='button'
           onClick={() => {
             navigate(`/login/reset`)
           }}
         >
           Forgot password?
-        </Link>
-        <Link
-          className='login-form-link'
-          underline='hover'
-          onClick={() => {
-            navigate(`/login/signup`)
-          }}
-        >
-          Create an account
-        </Link>
-        <Box className='login-form-button'>
-          <Button variant='contained' type='submit'>
-            LOGIN
-          </Button>
-        </Box>
+        </Button>
+        <Button className='login-form-button' variant='contained' type='submit'>
+          Login
+        </Button>
       </form>
-    </Card>
+      <Box className='login-form-divider'>
+        <Divider />
+        <Divider />
+      </Box>
+      <Button
+        className='login-form-button'
+        variant='outlined'
+        color='secondary'
+        onClick={() => {
+          navigate(`/login/signup`)
+        }}
+      >
+        Create an account
+      </Button>
+    </Box>
   )
 }
 

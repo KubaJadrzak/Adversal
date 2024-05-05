@@ -1,40 +1,44 @@
-.login-card {
+.login-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  align-items: center;
   margin: auto;
-  margin-top: 100px;
-  min-height: 200px;
+  margin-top: 50px;
+  width: 50%;
 }
 
 .login-logo {
   width: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .login-form {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  margin: 30px 0px 40px 0px;
 }
 
 .login-form-element {
   margin: 10px;
-  width: 80%;
+  width: 100%;
 }
 
-.login-form-link {
-  margin: 5px;
+.login-form-divider {
+  position: absolute;
+  width: 100vw;
+  margin-top: 440px;
 }
 
 .login-form-button {
   margin: 10px;
+  width: 100%;
 }
 
-.login-form-link:hover {
-  cursor: pointer;
-  background-color: whitesmoke;
+.login-form-button:last-child {
+  margin-bottom: 60px;
+}
+.login-alert {
+  text-align: center;
+  margin-bottom: 50px;
 }

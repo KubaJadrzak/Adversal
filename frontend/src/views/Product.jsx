@@ -3,17 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { fetchProduct } from '../api/productApi'
-import { createCartProduct } from '../api/cartProductApi'
-import {
-  Container,
-  Typography,
-  Card,
-  Box,
-  ImageList,
-  ImageListItem,
-  Button,
-  Avatar,
-} from '@mui/material'
+import { Container, Typography, Box, ImageList, ImageListItem, Button, Avatar } from '@mui/material'
 import useAlert from '../components/alerts/useAlert'
 import './Product.css'
 

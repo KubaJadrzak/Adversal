@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { resetPasswordRequest } from '../../api/authApi'
-import { Box, Card, TextField, Button, Link, Typography } from '@mui/material'
-import { faEnvelope, faHome, faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './EmailAlert.css'
-import useAlert from '../../components/alerts/useAlert'
+import { Box, Typography, Button } from '@mui/material'
+import Adversal from '../../assets/adversal-yellow.png'
+import './Login.css'
 
 function EmailAlert() {
   const navigate = useNavigate()
 
   return (
-    <Card className='email-alert-card'>
-      <Box className='email-alert-content'>
-        <FontAwesomeIcon icon={faEnvelope} size='6x' style={{ color: '1976d2' }} />
-        <Typography className='email-alert-element'>
-          Email has been send to your email account, please check your SPAM folder as well
-        </Typography>
-        <Link
-          className='email-alert-link'
-          underline='hover'
-          onClick={() => {
-            navigate(`/login`)
-          }}
-        >
-          Back to login
-        </Link>
-      </Box>
-    </Card>
+    <Box className='login-container'>
+      <img src={Adversal} alt='logo' className='login-logo' />
+      <Typography className='login-alert'>
+        We've sent a password reset email to your address. Be sure to check your spam folder if you
+        don't see it right away!
+      </Typography>
+      <Button
+        className='login-form-button'
+        variant='outlined'
+        color='secondary'
+        onClick={() => {
+          navigate(`/login`)
+        }}
+      >
+        Back to login
+      </Button>
+    </Box>
   )
 }
 

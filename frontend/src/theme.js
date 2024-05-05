@@ -7,12 +7,24 @@ const theme = createTheme({
     primary: {
       main: '#F3D250', // Customize primary color
     },
+    secondary: {
+      main: '#000000', // Black color
+    },
     // You can customize other colors like error, warning, info, etc.
   },
   typography: {
     // You can customize typography here
   },
   components: {
+    MuiTextField: {
+      defaultProps: {
+        InputProps: {
+          style: {
+            borderRadius: 0, // Set border radius to 0 for square edges
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

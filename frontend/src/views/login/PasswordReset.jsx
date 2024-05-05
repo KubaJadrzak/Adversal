@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { resetPasswordRequest } from '../../api/authApi'
-import { Box, Card, TextField, Button, Link } from '@mui/material'
-import './PasswordReset.css'
+import { Box, TextField, Button } from '@mui/material'
 import useAlert from '../../components/alerts/useAlert'
+import Adversal from '../../assets/adversal-yellow.png'
+import './Login.css'
 
 function PasswordReset() {
   const { setAlert } = useAlert()
-  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -29,31 +30,31 @@ function PasswordReset() {
   }
 
   return (
-    <Card className='login-reset-card'>
-      <form className='login-reset-form' onSubmit={handleSubmit}>
+    <Box className='login-container'>
+      <img src={Adversal} alt='logo' className='login-logo' />
+      <form className='login-form' onSubmit={handleSubmit}>
         <TextField
           required
-          className='login-reset-form-element'
+          className='login-form-element'
           id='Email'
           label='Email'
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         ></TextField>
-        <Link
-          className='login-form-link'
-          underline='hover'
+        <Button
+          className='login-form-button'
+          variant='outlined'
+          color='secondary'
           onClick={() => {
             navigate(`/login`)
           }}
         >
           Back to login
-        </Link>
-        <Box className='login-reset-form-button'>
-          <Button variant='contained' type='submit'>
-            Reset Password
-          </Button>
-        </Box>
+        </Button>
+        <Button className='login-form-button' variant='contained' type='submit'>
+          Reset Password
+        </Button>
       </form>
-    </Card>
+    </Box>
   )
 }
 

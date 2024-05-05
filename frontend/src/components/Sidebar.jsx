@@ -1,27 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { useNavigate, useLocation } from 'react-router-dom'
 import './Sidebar.css'
 
-function Sidebar({ subcategories }) {
-  const [alignment, setAlignment] = React.useState(null)
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search)
-    const subcategory = params.get('subcategory')
-
-    if (subcategory) {
-      setAlignment(parseInt(subcategory, 10))
-    }
-  })
-
+function Sidebar({ items, onAlignmentChange, alignment }) {
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
-      const params = new URLSearchParams(location.search)
-      const category = params.get('category')
-      navigate(`/?category=${category}&subcategory=${newAlignment}`)
+      onAlignmentChange(newAlignment)
     }
   }
 
@@ -34,13 +18,9 @@ function Sidebar({ subcategories }) {
         className='sidebar-toggle-group'
         onChange={handleAlignment}
       >
-        {subcategories.map((subcategory, index) => (
-          <ToggleButton
-            key={subcategory.id}
-            value={subcategory.id}
-            className='sidebar-toggle-button'
-          >
-            {subcategory.name}
+        {items.map((item) => (
+          <ToggleButton key={item.id} value={item.id} className='sidebar-toggle-button'>
+            {item.name}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>

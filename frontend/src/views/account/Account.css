@@ -1,29 +1,24 @@
-.account-cart {
+.account-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-  margin: auto;
-  margin-top: 100px;
-  min-height: 500px;
+  flex-direction: row;
 }
 
-@media (max-width: 800px) {
-  .account-cart {
-    width: 400px;
+.account-content {
+  flex: 1%;
+}
+
+.account-sidebar {
+  width: 18%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .account-container {
+    flex-direction: column;
   }
-}
-
-.account-list {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.account-list-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 200px;
+  .account-content {
+    width: 100%;
+  }
+  .account-sidebar {
+    width: 100%;
+  }
 }

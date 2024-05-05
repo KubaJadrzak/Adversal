@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchAllProducts } from '../api/productApi'
 import { fetchCategory } from '../api/categoryApi'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
 import ProductsElement from '../components/ProductsElement'
 import Sidebar from '../components/Sidebar'
@@ -10,7 +10,9 @@ import './Products.css'
 function Products() {
   const [products, setProducts] = useState([])
   const [category, setCategory] = useState()
+  const [alignment, setAlignment] = useState(null)
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     async function loadData() {
@@ -29,26 +31,38 @@ function Products() {
 
           if (subcategoryId) {
             params.set('category', subcategoryId)
+            setAlignment(parseInt(subcategoryId, 10))
           }
         } else {
           setCategory(null)
         }
 
-        const products = await fetchAllProducts(params)
-        setProducts(products)
-      } catch (e) {
-        console.error('Failed to load products: ', e)
+        const fetchedProducts = await fetchAllProducts(params)
+        setProducts(fetchedProducts)
+      } catch (error) {
+        console.error('Failed to load products: ', error)
       }
     }
 
     loadData()
   }, [location.search])
 
+  const handleAlignmentChange = (newAlignment) => {
+    setAlignment(newAlignment)
+    const params = new URLSearchParams(location.search)
+    const categoryId = params.get('category')
+    navigate(`/?category=${categoryId}&subcategory=${newAlignment}`)
+  }
+
   return (
     <Box className='products'>
       {category ? (
         <Box className='products-sidebar'>
-          <Sidebar subcategories={category.subcategories} />
+          <Sidebar
+            items={category.subcategories}
+            alignment={alignment}
+            onAlignmentChange={handleAlignmentChange}
+          />
         </Box>
       ) : null}
       <Box className='products-elements'>

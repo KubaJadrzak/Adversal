@@ -75,7 +75,7 @@ function Navbar() {
           </Box>
           <img src={Adversal} alt='logo' style={{ width: '60px', height: '60px' }} />
           <Box className='navbar-top-icon'>
-            <IconButton onClick={() => navigate(`/`)}>
+            <IconButton onClick={() => navigate(`/account`)}>
               <FontAwesomeIcon icon={faUser} />
             </IconButton>
           </Box>

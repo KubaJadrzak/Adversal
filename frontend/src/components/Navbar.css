@@ -22,24 +22,24 @@
 }
 
 .navbar-bottom-search {
-  width: 20%; /* Ensure search bar takes up full width */
+  width: 20%;
   padding: 10px;
 }
 
 .navbar-bottom-toggle-group {
   flex: 1;
   display: flex;
-  justify-content: space-evenly; /* Spread ToggleButtons evenly */
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
 .navbar-bottom-toggle-button {
-  flex: 1 20%; /* Adjust ToggleButton width */
+  flex: 1 20%;
 }
 
 @media only screen and (max-width: 1000px) {
   .navbar-bottom {
-    flex-direction: column; /* Stacked layout */
+    flex-direction: column;
   }
   .navbar-bottom-search {
     width: 100%;
@@ -48,7 +48,7 @@
 }
 @media only screen and (max-width: 400px) {
   .navbar-bottom {
-    flex-direction: column; /* Stacked layout */
+    flex-direction: column;
   }
   .navbar-bottom-search {
     width: 100%;

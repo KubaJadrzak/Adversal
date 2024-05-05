@@ -12,8 +12,7 @@
 #  updated_at  :datetime         not null
 #  category_id :bigint           not null
 #  seller_id   :bigint           not null
-#  order_id    :bigint
-#
+
 class Product < ApplicationRecord
   validates :category_id, presence: true
   validates :seller_id, presence: true
