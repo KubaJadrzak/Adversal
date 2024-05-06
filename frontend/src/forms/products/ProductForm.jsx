@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { Card, Button, TextField, MenuItem, Box, Typography } from '@mui/material'
 import { deleteProductImage } from '../../api/productApi'
-import CategoryIcon from '../../components/CategoryIcon'
 import './ProductForm.css'
 
 function ProductForm({ buttonMessage, data, handleSubmit }) {
@@ -86,7 +85,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           {data.categories.map((category) => (
             <MenuItem key={category.id} value={category.id}>
               <Box className='product-form-category'>
-                <CategoryIcon icon={category.icon} />
                 <Typography className='product-form-category-item'>{category.name}</Typography>
               </Box>
             </MenuItem>

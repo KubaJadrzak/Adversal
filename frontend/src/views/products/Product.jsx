@@ -1,50 +1,21 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  Avatar,
-  Card,
-} from '@mui/material'
-import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
+import { Box, Typography, Button, IconButton } from '@mui/material'
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
+import ImageDisplay from '../../components/ImageDisplay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { createCartProduct } from '../api/cartProductApi'
-import { deleteProduct } from '../api/productApi'
+import { deleteProduct } from '../../api/productApi'
 import { useLocation } from 'react-router-dom'
-import useAlert from './alerts/useAlert'
+import useAlert from '../../components/alerts/useAlert'
 
-import './ProductsElement.css'
+import './Product.css'
 
-function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
+function Product({ product, navigate, onAddToCart, onDeleteProduct }) {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
   const { setAlert } = useAlert()
 
   const isFromAccount = location.pathname.includes('/account')
   if (!product || product.length === 0) return <div></div>
-
-  const handleAddToCart = async (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-    const carted_product_id = product.id
-    const data = { carted_product_id }
-    try {
-      if (!localStorage.getItem('token')) {
-        navigate('/login')
-        return
-      }
-      await createCartProduct(data)
-      onAddToCart(product.id)
-      setAlert('Product was added to cart!', 'success')
-    } catch (e) {
-      console.error('Failed to add product to cart: ', e)
-      setAlert('Failed to add product to cart!', 'error')
-    }
-  }
 
   const handleDeleteProduct = async (e) => {
     e.stopPropagation()
@@ -66,18 +37,12 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
         navigate(`product/${product.id}`)
       }}
     >
-      <Box>
-        {product.images && product.images.length > 0 ? (
-          <img
-            style={{
-              height: 240,
-              width: 320,
-            }}
-            src={baseURL + product.images[0]}
-          />
-        ) : (
-          <Typography variant='overline'>No image available</Typography>
-        )}
+      <Box className='products-element-image'>
+        <ImageDisplay
+          imageURL={
+            product.images && product.images.length > 0 ? baseURL + product.images[0] : null
+          }
+        />
       </Box>
       <Box className='product-element-title'>
         <Typography>{product.title}</Typography>
@@ -118,4 +83,4 @@ function ProductsElement({ product, navigate, onAddToCart, onDeleteProduct }) {
   )
 }
 
-export default ProductsElement
+export default Product

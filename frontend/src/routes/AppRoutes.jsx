@@ -4,8 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 import PrivateRoutes from './PrivateRoutes'
 import PublicRoutes from './PublicRoutes'
 
-import Products from '../views/Products'
-import Product from '../views/Product'
+import Products from '../views/products/Products'
+import ProductDetails from '../views/products/ProductDetails'
 import Catalog from '../views/account/Catalog'
 import AddProduct from '../forms/products/AddProduct'
 import EditProduct from '../forms/products/EditProduct'
@@ -23,7 +23,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path='/' element={<Products />} />
-      <Route path='product/:id' element={<Product />} />
+      <Route path='product/:id' element={<ProductDetails />} />
 
       <Route element={<PublicRoutes />}>
         <Route path='login' element={<Login />} />
@@ -39,7 +39,7 @@ function AppRoutes() {
 
         <Route path='/account' element={<Account />} />
         <Route path='/account/catalog' element={<Catalog />} />
-        <Route path='/account/catalog/product/:id' element={<Product />} />
+        <Route path='/account/catalog/product/:id' element={<ProductDetails />} />
         <Route path='/account/profile' element={<Profile />} />
         <Route path='/account/profile/edit' element={<EditUser />} />
         <Route path='/account/profile/password' element={<PasswordChangeForm />} />

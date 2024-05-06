@@ -1,10 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchUser } from '../../api/userApi'
-import { updateUser } from '../../api/userApi'
-import { Box, Typography, Avatar, IconButton, Button, Divider, TextField } from '@mui/material'
+import { fetchUser, updateUser } from '../../api/userApi'
+import {
+  Box,
+  Typography,
+  Avatar,
+  IconButton,
+  Button,
+  Divider,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import ImageDisplay from '../../components/ImageDisplay'
 
 import './Profile.css'
 
@@ -17,10 +29,13 @@ function Profile() {
     email: false,
     phone_number: false,
     city: false,
+    street: false,
     country: false,
     zip_code: false,
   })
   const [activeField, setActiveField] = useState(null)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -35,17 +50,15 @@ function Profile() {
     loadData()
   }, [])
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        // Check if the clicked target is not a descendant of TextField
-        if (!event.target.closest('.MuiInputBase-root')) {
-          // Clicked outside the editable area, discard changes
-          discardChanges()
-        }
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      if (!event.target.closest('.MuiInputBase-root')) {
+        discardChanges()
       }
     }
+  }
 
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
@@ -61,30 +74,23 @@ function Profile() {
       [field]: true,
     }))
   }
+
   const handleSubmit = async (field) => {
     try {
-      const updatedValue = user[field] // Get the updated value from user state
-
-      // Call updateUser function to update the specific field
+      const updatedValue = user[field]
       await updateUser(localStorage.getItem('id'), { [field]: updatedValue })
-
-      // Disable edit mode after successful update
       setEditMode((prevMode) => ({
         ...prevMode,
         [field]: false,
       }))
-      setActiveField(null) // Reset activeField after submission
-
-      // Optional: Fetch updated user data after submission
-      loadData() // Assuming this function reloads user data
+      setActiveField(null)
+      loadData()
     } catch (error) {
       console.error('Failed to update user:', error)
-      // Handle error (e.g., show error message to the user)
     }
   }
 
   const discardChanges = () => {
-    // Reset edit mode and active field
     setEditMode({
       name: false,
       email: false,
@@ -94,14 +100,25 @@ function Profile() {
       zip_code: false,
     })
     setActiveField(null)
-    // Refetch user data to discard changes made
-    loadData() // Assuming this function reloads user data
+    loadData()
   }
 
   const handleTextFieldKeyDown = (event, field) => {
     if (event.key === 'Enter') {
       handleSubmit(field)
     }
+  }
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0]
+    setSelectedImage(file)
+  }
+
+  const handleImageUpload = async () => {
+    // Implement your logic to upload selectedImage as the new profile photo
+    // Example: You can use an API call to upload the image file
+    setOpenDialog(false)
+    setSelectedImage(null) // Clear selected image after upload
   }
 
   const renderField = (label, value, field) => {
@@ -119,7 +136,7 @@ function Profile() {
     } else {
       return (
         <>
-          <Typography variant='h6'>{label}</Typography>
+          <Typography>{label}</Typography>
           <Typography>{value}</Typography>
         </>
       )
@@ -131,9 +148,7 @@ function Profile() {
       <Box className='profile-list-element-text' ref={ref}>
         {renderField(label, value, field)}
       </Box>
-      {editMode[field] && activeField === field ? (
-        <Box></Box>
-      ) : (
+      {!editMode[field] || activeField !== field ? (
         <IconButton
           className='profile-list-element-icon'
           onClick={() => handleEditClick(field)}
@@ -141,7 +156,7 @@ function Profile() {
         >
           <FontAwesomeIcon icon={faEdit} />
         </IconButton>
-      )}
+      ) : null}
     </Box>
   )
 
@@ -149,11 +164,15 @@ function Profile() {
     <Box className='profile-container'>
       {user && (
         <>
-          <Avatar className='profile-avatar' src={baseURL + user.image} />
+          <Box className='profile-image' onClick={() => setOpenDialog(true)}>
+            <ImageDisplay
+              imageURL={user.image && user.image.length > 0 ? baseURL + user.image : null}
+            />
+          </Box>
           <Box className='profile-list'>
-            {renderEditableField('Name:', user.name, 'name')}
-            <Divider />
             {renderEditableField('Email:', user.email, 'email')}
+            <Divider />
+            {renderEditableField('Name:', user.name, 'name')}
             <Divider />
             {renderEditableField('Phone:', user.phone_number, 'phone_number')}
             <Divider />
@@ -161,9 +180,23 @@ function Profile() {
             <Divider />
             {renderEditableField('City:', user.city, 'city')}
             <Divider />
+            {renderEditableField('Street:', user.street, 'street')}
+            <Divider />
             {renderEditableField('Zip Code:', user.zip_code, 'zip_code')}
             <Divider />
           </Box>
+          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+            <DialogTitle>Change Profile Photo</DialogTitle>
+            <DialogContent>
+              <input type='file' onChange={handleImageChange} />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+              <Button onClick={handleImageUpload} disabled={!selectedImage}>
+                Upload
+              </Button>
+            </DialogActions>
+          </Dialog>
         </>
       )}
     </Box>

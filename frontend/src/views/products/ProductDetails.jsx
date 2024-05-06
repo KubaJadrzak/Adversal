@@ -2,12 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { fetchProduct } from '../api/productApi'
+import { fetchProduct } from '../../api/productApi'
 import { Container, Typography, Box, ImageList, ImageListItem, Button, Avatar } from '@mui/material'
-import useAlert from '../components/alerts/useAlert'
-import './Product.css'
+import useAlert from '../../components/alerts/useAlert'
+import './ProductDetails.css'
 
-function Product() {
+function ProductDetails() {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const { setAlert } = useAlert()
   const { id } = useParams()
@@ -77,4 +77,4 @@ function Product() {
   )
 }
 
-export default Product
+export default ProductDetails

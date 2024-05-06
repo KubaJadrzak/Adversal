@@ -48,14 +48,16 @@ const theme = createTheme({
             backgroundColor: '#F3D250',
             outline: 'none',
             '&:hover': {
-              backgroundColor: '#CAA330', // Darker color on hover when selected
+              backgroundColor: '#F3D250', // Darker color on hover when selected
+              filter: 'brightness(80%)',
             },
             '&:active': {
               outline: 'none',
             },
           },
           '&:hover': {
-            backgroundColor: '#E1C642', // Slightly darker color on hover
+            backgroundColor: '#F3D250', // Slightly darker color on hover
+            filter: 'brightness(90%)',
           },
           '&:active': {
             outline: 'none',

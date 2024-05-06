@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { fetchAllProducts } from '../../api/productApi'
-import ProductsElement from '../../components/ProductsElement'
+import Product from '../products/Product'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button } from '@mui/material'
 import './Catalog.css'
@@ -50,11 +50,7 @@ function Catalog() {
         {products.length > 0 &&
           products.map((product) => (
             <Box key={product.id}>
-              <ProductsElement
-                product={product}
-                navigate={navigate}
-                onDeleteProduct={onDeleteProduct}
-              />
+              <Product product={product} navigate={navigate} onDeleteProduct={onDeleteProduct} />
             </Box>
           ))}
       </Box>

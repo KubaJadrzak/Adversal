@@ -1,14 +1,18 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 50px 100px 50px 100px;
 }
 
-.profile-avatar {
-  width: 150px;
-  height: 150px;
-  margin-bottom: 25px;
+.profile-image {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.profile-image:hover {
+  filter: brightness(80%);
 }
 
 .profile-list {

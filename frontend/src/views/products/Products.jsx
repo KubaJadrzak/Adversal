@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAllProducts } from '../api/productApi'
-import { fetchCategory } from '../api/categoryApi'
+import { fetchAllProducts } from '../../api/productApi'
+import { fetchCategory } from '../../api/categoryApi'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
-import ProductsElement from '../components/ProductsElement'
-import Sidebar from '../components/Sidebar'
+import Product from './Product'
+import Sidebar from '../../components/Sidebar'
 import './Products.css'
 
 function Products() {
@@ -68,7 +68,7 @@ function Products() {
       <Box className='products-elements'>
         {products.map((product) => (
           <Box key={product.id}>
-            <ProductsElement product={product} navigate={navigate} />
+            <Product product={product} navigate={navigate} />
           </Box>
         ))}
       </Box>
