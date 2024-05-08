@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :listed_products, class_name: :Product, inverse_of: :seller, foreign_key: :seller_id, dependent: :destroy
   has_one_attached :image
 
+  validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :phone_number, presence: true
   validates :country, presence: true

@@ -31,6 +31,7 @@ function EditUser() {
       image: newImage,
     }
     try {
+      console.log(updatedData)
       await updateUser(id, updatedData)
       navigate(`/account/profile`)
       setAlert('User profile updated successfully!', 'success')

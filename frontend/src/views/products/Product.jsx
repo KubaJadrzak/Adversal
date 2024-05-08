@@ -9,7 +9,7 @@ import useAlert from '../../components/alerts/useAlert'
 
 import './Product.css'
 
-function Product({ product, navigate, onAddToCart, onDeleteProduct }) {
+function Product({ product, navigate, onDeleteProduct }) {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
   const { setAlert } = useAlert()

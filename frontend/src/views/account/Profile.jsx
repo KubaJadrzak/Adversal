@@ -36,19 +36,31 @@ function Profile() {
   const [activeField, setActiveField] = useState(null)
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
   const ref = useRef(null)
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const data = await fetchUser(localStorage.getItem('id'))
-        setUser(data)
-      } catch (error) {
-        console.error('Failed to load user: ', error)
-      }
+  const loadData = async () => {
+    try {
+      const data = await fetchUser(localStorage.getItem('id'))
+      setUser(data)
+    } catch (error) {
+      console.error('Failed to load user: ', error)
     }
-    loadData()
+  }
+
+  useEffect(() => {
+    loadData() // Initial load of user data
   }, [])
+
+  useEffect(() => {
+    if (user && user.image && user.image.length > 0) {
+      // Set imagePreview to the URL of the existing user image
+      setImagePreview(baseURL + user.image)
+    } else {
+      // Clear imagePreview if user does not have an image
+      setImagePreview(null)
+    }
+  }, [user, baseURL])
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -84,7 +96,7 @@ function Profile() {
         [field]: false,
       }))
       setActiveField(null)
-      loadData()
+      loadData() // Refresh user data after successful update
     } catch (error) {
       console.error('Failed to update user:', error)
     }
@@ -100,7 +112,7 @@ function Profile() {
       zip_code: false,
     })
     setActiveField(null)
-    loadData()
+    loadData() // Refresh user data to discard changes
   }
 
   const handleTextFieldKeyDown = (event, field) => {
@@ -112,13 +124,25 @@ function Profile() {
   const handleImageChange = (event) => {
     const file = event.target.files[0]
     setSelectedImage(file)
+    setImagePreview(URL.createObjectURL(file)) // Create a preview URL for the selected image
   }
 
   const handleImageUpload = async () => {
-    // Implement your logic to upload selectedImage as the new profile photo
-    // Example: You can use an API call to upload the image file
-    setOpenDialog(false)
-    setSelectedImage(null) // Clear selected image after upload
+    try {
+      if (!selectedImage) {
+        return // No image selected, do nothing
+      }
+
+      await updateUser(localStorage.getItem('id'), { image: selectedImage })
+
+      loadData() // Refresh user data after successful image upload
+
+      setOpenDialog(false)
+      setSelectedImage(null)
+      setImagePreview(null)
+    } catch (error) {
+      console.error('Failed to upload image:', error)
+    }
   }
 
   const renderField = (label, value, field) => {
@@ -185,14 +209,75 @@ function Profile() {
             {renderEditableField('Zip Code:', user.zip_code, 'zip_code')}
             <Divider />
           </Box>
-          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+          <Dialog
+            open={openDialog}
+            onClose={() => {
+              setOpenDialog(false)
+              setSelectedImage(null) // Clear selected image if dialog is closed
+              setImagePreview(null) // Clear image preview if dialog is closed
+            }}
+          >
             <DialogTitle>Change Profile Photo</DialogTitle>
             <DialogContent>
-              <input type='file' onChange={handleImageChange} />
+              <input
+                style={{
+                  marginBottom: '20px',
+                  width: '100%',
+                  overflow: 'hidden',
+                }}
+                type='file'
+                onChange={handleImageChange}
+              />
+              {imagePreview && (
+                <div
+                  style={{
+                    marginBottom: '20px',
+                    width: '100%',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '100%',
+                      paddingBottom: '100%',
+                      position: 'relative',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={imagePreview}
+                      alt='Preview'
+                      style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+              <Typography>Please upload a square (1:1) photo for best results.</Typography>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-              <Button onClick={handleImageUpload} disabled={!selectedImage}>
+              <Button
+                variant='contained'
+                onClick={() => {
+                  setOpenDialog(false)
+                  setSelectedImage(null) // Clear selected image if dialog is closed
+                  setImagePreview(null) // Clear image preview if dialog is closed
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant='outlined'
+                color='secondary'
+                onClick={handleImageUpload}
+                disabled={!selectedImage}
+              >
                 Upload
               </Button>
             </DialogActions>
