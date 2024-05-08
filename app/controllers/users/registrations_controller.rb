@@ -14,7 +14,7 @@ module Users
     end
 
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: %i[name image])
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[name email image])
     end
 
     def change_password

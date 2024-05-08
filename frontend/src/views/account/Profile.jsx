@@ -160,8 +160,22 @@ function Profile() {
     } else {
       return (
         <>
-          <Typography>{label}</Typography>
-          <Typography>{value}</Typography>
+          {/* Check if field is 'email' and 'unconfirmed_email' is present */}
+          {field === 'email' && user['unconfirmed_email'] ? (
+            <>
+              <Typography>
+                {label} {value}
+              </Typography>
+              <Typography variant='caption' color='error'>
+                <strong>New Email (Unconfirmed):</strong> {user['unconfirmed_email']}
+              </Typography>
+            </>
+          ) : (
+            <Box>
+              <Typography>{label}</Typography>
+              <Typography>{value}</Typography>
+            </Box>
+          )}
         </>
       )
     }
