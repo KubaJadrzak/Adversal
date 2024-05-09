@@ -44,9 +44,6 @@ export async function updateUser(id, data) {
     if (data.image) {
       formData.append('user[image]', data.image)
     }
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1])
-    }
     const response = await api.put(`/users/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',

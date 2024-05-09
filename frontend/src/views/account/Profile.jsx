@@ -15,6 +15,7 @@ import {
   DialogActions,
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import PasswordChangeDialog from './PasswordChangeDialog'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import ImageDisplay from '../../components/ImageDisplay'
 
@@ -34,7 +35,8 @@ function Profile() {
     zip_code: false,
   })
   const [activeField, setActiveField] = useState(null)
-  const [openDialog, setOpenDialog] = useState(false)
+  const [openImageDialog, setOpenImageDialog] = useState(false)
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
   const ref = useRef(null)
@@ -85,6 +87,9 @@ function Profile() {
       ...prevMode,
       [field]: true,
     }))
+  }
+  const handlePasswordChangeClick = () => {
+    setOpenPasswordDialog(true)
   }
 
   const handleSubmit = async (field) => {
@@ -137,7 +142,7 @@ function Profile() {
 
       loadData() // Refresh user data after successful image upload
 
-      setOpenDialog(false)
+      setOpenImageDialog(false)
       setSelectedImage(null)
       setImagePreview(null)
     } catch (error) {
@@ -164,7 +169,7 @@ function Profile() {
           {field === 'email' && user['unconfirmed_email'] ? (
             <>
               <Typography>
-                {label} {value}
+                <strong>{label}</strong> {value}
               </Typography>
               <Typography variant='caption' color='error'>
                 <strong>New Email (Unconfirmed):</strong> {user['unconfirmed_email']}
@@ -172,7 +177,9 @@ function Profile() {
             </>
           ) : (
             <Box>
-              <Typography>{label}</Typography>
+              <Typography>
+                <strong>{label}</strong>
+              </Typography>
               <Typography>{value}</Typography>
             </Box>
           )}
@@ -187,13 +194,26 @@ function Profile() {
         {renderField(label, value, field)}
       </Box>
       {!editMode[field] || activeField !== field ? (
-        <IconButton
-          className='profile-list-element-icon'
-          onClick={() => handleEditClick(field)}
-          disabled={activeField && activeField !== field}
-        >
-          <FontAwesomeIcon icon={faEdit} />
-        </IconButton>
+        // Conditionally render either an edit IconButton or a "Change Password" button
+        field !== 'password' ? (
+          <IconButton
+            className='profile-list-element-icon'
+            onClick={() => handleEditClick(field)}
+            disabled={activeField && activeField !== field}
+          >
+            <FontAwesomeIcon icon={faEdit} />
+          </IconButton>
+        ) : (
+          // Render "Change Password" button for password field
+          <Button
+            className='profile-list-element-button'
+            variant='contained'
+            onClick={() => handlePasswordChangeClick()}
+            disabled={activeField && activeField !== field}
+          >
+            Change Password
+          </Button>
+        )
       ) : null}
     </Box>
   )
@@ -202,7 +222,7 @@ function Profile() {
     <Box className='profile-container'>
       {user && (
         <>
-          <Box className='profile-image' onClick={() => setOpenDialog(true)}>
+          <Box className='profile-image' onClick={() => setOpenImageDialog(true)}>
             <ImageDisplay
               imageURL={user.image && user.image.length > 0 ? baseURL + user.image : null}
             />
@@ -222,11 +242,19 @@ function Profile() {
             <Divider />
             {renderEditableField('Zip Code:', user.zip_code, 'zip_code')}
             <Divider />
+            {renderEditableField('Password:', '***********', 'password')}
+            <Divider />
+            <PasswordChangeDialog
+              open={openPasswordDialog}
+              onClose={() => setOpenPasswordDialog(false)}
+              updateUser={updateUser} // Pass updateUser function
+              loadData={loadData} // Pass loadData function
+            />
           </Box>
           <Dialog
-            open={openDialog}
+            open={openImageDialog}
             onClose={() => {
-              setOpenDialog(false)
+              setOpenImageDialog(false)
               setSelectedImage(null) // Clear selected image if dialog is closed
               setImagePreview(null) // Clear image preview if dialog is closed
             }}
@@ -279,7 +307,7 @@ function Profile() {
               <Button
                 variant='contained'
                 onClick={() => {
-                  setOpenDialog(false)
+                  setOpenImageDialog(false)
                   setSelectedImage(null) // Clear selected image if dialog is closed
                   setImagePreview(null) // Clear image preview if dialog is closed
                 }}

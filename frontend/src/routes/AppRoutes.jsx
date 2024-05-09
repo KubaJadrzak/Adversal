@@ -15,7 +15,6 @@ import EditUser from '../forms/users/EditUser'
 import Login from '../views/login/Login'
 import SignUp from '../views/login/SignUp'
 import PasswordReset from '../views/login/PasswordReset'
-import PasswordChangeForm from '../forms/users/PasswordChangeForm'
 import PasswordResetForm from '../views/login/PasswordResetForm'
 import EmailAlert from '../views/login/EmailAlert'
 
@@ -42,7 +41,6 @@ function AppRoutes() {
         <Route path='/account/catalog/product/:id' element={<ProductDetails />} />
         <Route path='/account/profile' element={<Profile />} />
         <Route path='/account/profile/edit' element={<EditUser />} />
-        <Route path='/account/profile/password' element={<PasswordChangeForm />} />
       </Route>
     </Routes>
   )
