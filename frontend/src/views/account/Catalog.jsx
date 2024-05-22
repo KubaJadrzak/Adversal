@@ -35,8 +35,7 @@ function Catalog() {
 
   return (
     <Box>
-      <Box className='catalog-sidebar'></Box>
-      <Box className='catalog-new-product-button'>
+      <Box className='catalog-button'>
         <Button
           variant='contained'
           onClick={() => {
@@ -46,7 +45,7 @@ function Catalog() {
           Create new product
         </Button>
       </Box>
-      <Box className='catalog-products-container'>
+      <Box className='catalog-elements'>
         {products.length > 0 &&
           products.map((product) => (
             <Box key={product.id}>

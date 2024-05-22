@@ -32,12 +32,12 @@ function Product({ product, navigate, onDeleteProduct }) {
 
   return (
     <Box
-      className='products-element-container'
+      className='product-element-container'
       onClick={() => {
         navigate(`product/${product.id}`)
       }}
     >
-      <Box className='products-element-image'>
+      <Box className='product-element-image'>
         <ImageDisplay
           imageURL={
             product.images && product.images.length > 0 ? baseURL + product.images[0] : null
@@ -49,17 +49,18 @@ function Product({ product, navigate, onDeleteProduct }) {
       </Box>
 
       {!isFromAccount ? (
-        <Box className='products-element-footer'>
+        <Box className='product-element-footer'>
           <Typography>${product.price}</Typography>
           <IconButton className='products-element-footer-icon'>
             <FontAwesomeIcon icon={faRegularHeart} />
           </IconButton>
         </Box>
       ) : (
-        <Box className='products-element-footer'>
+        <Box className='product-element-footer'>
+          <Typography>${product.price}</Typography>
           <Button
             variant='contained'
-            className='products-element-footer-button'
+            className='product-element-footer-button'
             onClick={(e) => {
               e.stopPropagation()
               navigate(`/product/${product.id}/edit`)
@@ -67,16 +68,6 @@ function Product({ product, navigate, onDeleteProduct }) {
           >
             Edit
           </Button>
-          <Button
-            variant='contained'
-            className='products-element-footer-button'
-            onClick={handleDeleteProduct}
-          >
-            Delete
-          </Button>
-          <Typography className='products-element-footer-button'>
-            STATUS: {product.status}
-          </Typography>
         </Box>
       )}
     </Box>
