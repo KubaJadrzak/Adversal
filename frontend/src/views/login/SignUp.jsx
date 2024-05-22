@@ -11,6 +11,7 @@ function SignUp() {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault() // Prevent default form submission behavior
@@ -21,8 +22,10 @@ function SignUp() {
         name,
         password,
         password_confirmation: confirmPassword,
+        phone_number: phoneNumber,
       },
     }
+    console.log(data)
     try {
       await signupUser(data)
       navigate('/login/email')
@@ -52,6 +55,13 @@ function SignUp() {
         <TextField
           required
           className='login-form-element'
+          id='phone-number'
+          label='Phone Number'
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <TextField
+          required
+          className='login-form-element'
           id='password'
           label='Password'
           type='password'
@@ -60,11 +70,12 @@ function SignUp() {
         <TextField
           required
           className='login-form-element'
-          id='confirm password'
+          id='confirm-password'
           label='Confirm Password'
           type='password'
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+
         <Button
           className='login-form-button'
           variant='outlined'

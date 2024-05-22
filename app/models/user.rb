@@ -24,10 +24,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :phone_number, presence: true
-  validates :country, presence: true
-  validates :city, presence: true
-  validates :street, presence: true
-  validates :zip_code, presence: true
 
   def full_address
     "#{street}, #{city}, #{zip_code}, #{country}"

@@ -4,7 +4,7 @@ import { Box, Typography, Button } from '@mui/material'
 import Adversal from '../../assets/adversal-yellow.png'
 import './Login.css'
 
-function EmailAlert() {
+function PasswordResetEmail() {
   const navigate = useNavigate()
 
   return (
@@ -28,4 +28,4 @@ function EmailAlert() {
   )
 }
 
-export default EmailAlert
+export default PasswordResetEmail

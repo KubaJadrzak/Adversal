@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { resetPasswordRequest } from '../../api/authApi'
+import { resetPassword } from '../../api/authApi'
 import { Box, TextField, Button } from '@mui/material'
 import useAlert from '../../components/alerts/useAlert'
 import Adversal from '../../assets/adversal-yellow.png'
@@ -9,41 +9,70 @@ import './Login.css'
 function PasswordReset() {
   const { setAlert } = useAlert()
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const navigate = useNavigate()
+
+  function extractTokenFromURL() {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get('reset_token')
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (password !== passwordConfirmation) {
+      console.error('Passwords do not match')
+      return
+    }
+
+    const resetToken = extractTokenFromURL()
+
+    if (!resetToken) {
+      console.error('Reset token not found')
+      return
+    }
+
     try {
-      await resetPasswordRequest({
+      await resetPassword({
         user: {
-          email: login,
+          reset_password_token: resetToken,
+          password: password,
+          password_confirmation: passwordConfirmation,
         },
       })
-
-      navigate('/login/email')
-      setAlert('Password reset request sent!', 'success')
+      navigate('/login')
+      setAlert('Password reset successfully!', 'success')
     } catch (error) {
-      console.error('Password reset error:', error)
-      setAlert('Password reset request failed!', 'error')
+      console.error('Error resetting password:', error)
+      setAlert('Error resetting password!', 'error')
     }
   }
 
   return (
     <Box className='login-container'>
-      <img src={Adversal} alt='logo' className='login-logo' />
       <form className='login-form' onSubmit={handleSubmit}>
+        <img src={Adversal} alt='logo' className='login-logo' />
         <TextField
           required
           className='login-form-element'
-          id='Email'
-          label='Email'
+          id='password'
+          label='New Password'
+          type='password'
           onChange={(e) => setPassword(e.target.value)}
+        ></TextField>
+        <TextField
+          required
+          className='login-form-element'
+          id='confirm password'
+          label='Confirm New Password'
+          type='password'
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
         ></TextField>
         <Button
           className='login-form-button'
           variant='outlined'
           color='secondary'
+          type='button'
           onClick={() => {
             navigate(`/login`)
           }}
@@ -51,7 +80,7 @@ function PasswordReset() {
           Back to login
         </Button>
         <Button className='login-form-button' variant='contained' type='submit'>
-          Reset Password
+          Change Password
         </Button>
       </form>
     </Box>

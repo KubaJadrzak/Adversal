@@ -9,7 +9,7 @@ const AlertPopup = () => {
       <div
         style={{
           position: 'fixed',
-          top: '12%',
+          top: '10%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: 10,

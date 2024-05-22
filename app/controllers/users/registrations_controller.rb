@@ -10,7 +10,7 @@ module Users
     protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name image])
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email phone_number])
     end
 
     def configure_account_update_params

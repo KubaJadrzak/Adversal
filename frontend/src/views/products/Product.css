@@ -19,6 +19,7 @@
 .products-element-image {
   width: 320px;
   height: 240px;
+  margin-bottom: 5px;
 }
 
 .products-element-footer {

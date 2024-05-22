@@ -18,12 +18,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PasswordChangeDialog from './PasswordChangeDialog'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import ImageDisplay from '../../components/ImageDisplay'
+import useAlert from '../../components/alerts/useAlert'
 
 import './Profile.css'
 
 function Profile() {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const navigate = useNavigate()
+  const { setAlert } = useAlert()
   const [user, setUser] = useState(null)
   const [editMode, setEditMode] = useState({
     name: false,
@@ -52,7 +54,7 @@ function Profile() {
 
   useEffect(() => {
     loadData() // Initial load of user data
-  }, [])
+  }, [setAlert])
 
   useEffect(() => {
     if (user && user.image && user.image.length > 0) {
@@ -102,7 +104,9 @@ function Profile() {
       }))
       setActiveField(null)
       loadData() // Refresh user data after successful update
+      setAlert('User profile updated successfully!', 'success')
     } catch (error) {
+      setAlert('Failed to update user profile!', 'error')
       console.error('Failed to update user:', error)
     }
   }
@@ -145,7 +149,9 @@ function Profile() {
       setOpenImageDialog(false)
       setSelectedImage(null)
       setImagePreview(null)
+      setAlert('Profile image updated successfully!', 'success')
     } catch (error) {
+      setAlert('Failed to update profile image!', 'error')
       console.error('Failed to upload image:', error)
     }
   }

@@ -14,9 +14,9 @@ import Profile from '../views/account/Profile'
 import EditUser from '../forms/users/EditUser'
 import Login from '../views/login/Login'
 import SignUp from '../views/login/SignUp'
+import PasswordResetRequest from '../views/login/PasswordResetRequest'
 import PasswordReset from '../views/login/PasswordReset'
-import PasswordResetForm from '../views/login/PasswordResetForm'
-import EmailAlert from '../views/login/EmailAlert'
+import PasswordResetEmail from '../views/login/PasswordResetEmail'
 
 function AppRoutes() {
   return (
@@ -26,10 +26,10 @@ function AppRoutes() {
 
       <Route element={<PublicRoutes />}>
         <Route path='login' element={<Login />} />
-        <Route path='/login/reset' element={<PasswordReset />} />
+        <Route path='/login/reset' element={<PasswordResetRequest />} />
         <Route path='/login/signup' element={<SignUp />} />
-        <Route path='/login/email' element={<EmailAlert />} />
-        <Route path='password/reset' element={<PasswordResetForm />} />
+        <Route path='/login/email' element={<PasswordResetEmail />} />
+        <Route path='password/reset' element={<PasswordReset />} />
       </Route>
 
       <Route element={<PrivateRoutes />}>

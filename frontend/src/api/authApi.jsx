@@ -12,9 +12,10 @@ export async function signupUser(data) {
   })
 
   if (response.ok) {
-    return response.data
+    return await response.json()
   } else {
-    throw new Error('Invalid email or password')
+    const errorData = await response.json()
+    throw new Error(errorData.error || 'Invalid email or password')
   }
 }
 export async function logoutUser() {

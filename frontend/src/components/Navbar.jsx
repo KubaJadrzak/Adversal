@@ -17,6 +17,7 @@ function Navbar() {
   const location = useLocation()
 
   const isLoginPage = location.pathname.includes('login')
+  const isPasswordResetPage = location.pathname.includes('reset')
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -60,7 +61,7 @@ function Navbar() {
     }
   }
 
-  if (isLoginPage) {
+  if (isLoginPage || isPasswordResetPage) {
     return null
   }
 
@@ -75,7 +76,7 @@ function Navbar() {
           </Box>
           <img src={Adversal} alt='logo' style={{ width: '60px', height: '60px' }} />
           <Box className='navbar-top-icon'>
-            <IconButton onClick={() => navigate(`/account`)}>
+            <IconButton onClick={() => navigate(`/account?view=profile`)}>
               <FontAwesomeIcon icon={faUser} />
             </IconButton>
           </Box>

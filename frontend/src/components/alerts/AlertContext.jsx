@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-const ALERT_TIME = 6000
+const ALERT_TIME = 3000
 const initialState = {
   text: '',
   type: '',
