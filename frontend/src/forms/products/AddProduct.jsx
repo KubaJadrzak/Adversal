@@ -34,7 +34,7 @@ function AddProduct() {
     }
     try {
       const response = await createProduct(data)
-      navigate(`/account/catalog`)
+      navigate(`/account?view=catalog`)
       setAlert('Product was successfully created', 'success')
     } catch (e) {
       console.error('Failed to create a product: ', e)
@@ -42,7 +42,7 @@ function AddProduct() {
     }
   }
 
-  if (!categories || categories.length === 0) return <div></div>
+  if (!categories || categories.length === 0) return <div>Loading...</div>
 
   const data = {
     title: '',

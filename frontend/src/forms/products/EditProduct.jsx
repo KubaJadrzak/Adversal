@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { fetchAllCategories } from '../../api/categoryApi'
 import { updateProduct, fetchProduct } from '../../api/productApi'
 import ProductForm from './ProductForm'
 import './ProductForm.css'
 
-function EditProduct() {
-  const { id } = useParams()
+function EditProduct({ productId }) {
   const [categories, setCategories] = useState([])
   const [product, setProduct] = useState({})
   const navigate = useNavigate()
@@ -16,7 +15,7 @@ function EditProduct() {
     async function loadData() {
       try {
         const categoriesData = await fetchAllCategories()
-        const productData = await fetchProduct(id)
+        const productData = await fetchProduct(productId)
         setCategories(categoriesData)
         setProduct(productData)
       } catch (error) {
@@ -26,7 +25,7 @@ function EditProduct() {
     }
 
     loadData()
-  }, [id])
+  }, [productId])
 
   const handleSubmit = async ({ title, price, category_id, description, newImages }) => {
     const updatedData = {
@@ -38,8 +37,8 @@ function EditProduct() {
     }
 
     try {
-      await updateProduct(id, updatedData)
-      navigate(`/account/catalog`)
+      await updateProduct(productId, updatedData)
+      navigate(`/account?view=catalog`)
     } catch (error) {
       console.error('Failed to update a product: ', error)
     }
@@ -49,10 +48,10 @@ function EditProduct() {
     return <div>Loading...</div>
   }
 
-  const { id: productId, title, price, category, description, images } = product
+  const { id, title, price, category, description, images } = product
 
   const data = {
-    id: productId,
+    id,
     title,
     price,
     category_id: category.id,

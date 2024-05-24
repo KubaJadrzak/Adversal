@@ -22,7 +22,7 @@ function Login() {
           password: password,
         },
       })
-      navigate('/account')
+      navigate('/account?view=profile')
     } catch (error) {
       console.error('Failed to login!', error)
       setAlert('Failed to login! Invalid email or password', 'error')

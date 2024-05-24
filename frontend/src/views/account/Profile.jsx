@@ -266,48 +266,28 @@ function Profile() {
             }}
           >
             <DialogTitle>Change Profile Photo</DialogTitle>
-            <DialogContent>
+            <DialogContent style={{ width: '320px' }}>
               <input
                 style={{
                   marginBottom: '20px',
-                  width: '100%',
-                  overflow: 'hidden',
                 }}
                 type='file'
                 onChange={handleImageChange}
               />
               {imagePreview && (
-                <div
+                <img
+                  src={imagePreview}
+                  alt='Preview'
                   style={{
-                    marginBottom: '20px',
-                    width: '100%',
-                    overflow: 'hidden',
+                    top: '0',
+                    left: '0',
+                    width: '320px',
+                    height: '240px',
+                    objectFit: 'cover',
                   }}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                      paddingBottom: '100%',
-                      position: 'relative',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <img
-                      src={imagePreview}
-                      alt='Preview'
-                      style={{
-                        position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-                </div>
+                />
               )}
-              <Typography>Please upload a square (1:1) photo for best results.</Typography>
+              <Typography>Please upload a photo with 3:4 aspect ratio.</Typography>
             </DialogContent>
             <DialogActions>
               <Button

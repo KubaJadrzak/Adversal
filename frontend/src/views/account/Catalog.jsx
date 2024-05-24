@@ -39,7 +39,7 @@ function Catalog() {
         <Button
           variant='contained'
           onClick={() => {
-            navigate(`/product/add`)
+            navigate(`/account?view=addProduct`)
           }}
         >
           Create new product

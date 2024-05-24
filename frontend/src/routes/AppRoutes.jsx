@@ -6,12 +6,9 @@ import PublicRoutes from './PublicRoutes'
 
 import Products from '../views/products/Products'
 import ProductDetails from '../views/products/ProductDetails'
-import Catalog from '../views/account/Catalog'
 import AddProduct from '../forms/products/AddProduct'
 import EditProduct from '../forms/products/EditProduct'
 import Account from '../views/account/Account'
-import Profile from '../views/account/Profile'
-import EditUser from '../forms/users/EditUser'
 import Login from '../views/login/Login'
 import SignUp from '../views/login/SignUp'
 import PasswordResetRequest from '../views/login/PasswordResetRequest'
@@ -37,10 +34,6 @@ function AppRoutes() {
         <Route path='/product/:id/edit' element={<EditProduct />} />
 
         <Route path='/account' element={<Account />} />
-        <Route path='/account/catalog' element={<Catalog />} />
-        <Route path='/account/catalog/product/:id' element={<ProductDetails />} />
-        <Route path='/account/profile' element={<Profile />} />
-        <Route path='/account/profile/edit' element={<EditUser />} />
       </Route>
     </Routes>
   )

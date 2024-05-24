@@ -63,7 +63,7 @@ function Product({ product, navigate, onDeleteProduct }) {
             className='product-element-footer-button'
             onClick={(e) => {
               e.stopPropagation()
-              navigate(`/product/${product.id}/edit`)
+              navigate(`/account?view=editProduct&productId=${product.id}`)
             }}
           >
             Edit

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { Card, Button, TextField, MenuItem, Box, Typography } from '@mui/material'
+import { Button, TextField, MenuItem, Box, Typography } from '@mui/material'
 import { deleteProductImage } from '../../api/productApi'
 import './ProductForm.css'
 
@@ -12,18 +12,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
   const [description, setDescription] = useState(data.description)
   const [images, setImages] = useState(data.images)
   const [newImages, setNewImages] = useState([])
-
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  })
 
   const handleDeleteNewImage = (index) => {
     const updatedImages = [...newImages]
@@ -47,7 +35,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
   }
 
   return (
-    <Card className='product-form-container'>
+    <Box>
       <form
         className='product-form'
         onSubmit={(e) => {
@@ -57,7 +45,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
       >
         <TextField
           required
-          className='product-form-element'
           id='title'
           label='Title'
           value={title}
@@ -67,7 +54,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           required
           autoComplete='off'
           type='number'
-          className='product-form-element'
           id='price'
           label='Price'
           value={price}
@@ -75,7 +61,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         ></TextField>
         <TextField
           required
-          className='product-form-element'
           id='category'
           label='Category'
           value={category_id}
@@ -84,15 +69,14 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         >
           {data.categories.map((category) => (
             <MenuItem key={category.id} value={category.id}>
-              <Box className='product-form-category'>
-                <Typography className='product-form-category-item'>{category.name}</Typography>
+              <Box>
+                <Typography>{category.name}</Typography>
               </Box>
             </MenuItem>
           ))}
         </TextField>
         <TextField
           required
-          className='product-form-element'
           id='description'
           label='Description'
           value={description}
@@ -100,42 +84,12 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           minRows={6}
           onChange={(e) => setDescription(e.target.value)}
         ></TextField>
-        <Box className='product-form-image-container'>
-          {images &&
-            images.length !== 0 &&
-            images.map((image, index) => (
-              <Box key={index} className='product-form-image-element'>
-                <Box
-                  component='img'
-                  className='product-form-image'
-                  src={'http://localhost:3000' + image}
-                  loading='lazy'
-                />
-                <Button onClick={() => handleDeleteImage({ index })}>delete</Button>
-              </Box>
-            ))}
-          {newImages.length !== 0 &&
-            Array.from(newImages).map((image, index) => (
-              <Box key={index} className='product-form-image-element'>
-                <Box
-                  component='img'
-                  className='product-form-image'
-                  src={URL.createObjectURL(image)}
-                  loading='lazy'
-                />
-                <Button onClick={() => handleDeleteNewImage(index)}>delete</Button>
-              </Box>
-            ))}
-        </Box>
-        <Button component='label' variant='contained' className='product-form-upload'>
-          Upload Image
-          <VisuallyHiddenInput type='file' onChange={handleUploadNewImages} multiple />
-        </Button>
+
         <Button variant='contained' type='submit'>
           {buttonMessage}
         </Button>
       </form>
-    </Card>
+    </Box>
   )
 }
 

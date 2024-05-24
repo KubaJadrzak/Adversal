@@ -6,8 +6,8 @@
 }
 
 .profile-image {
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 240px;
   cursor: pointer;
   transition: filter 0.3s ease;
 }
@@ -52,5 +52,6 @@
 @media only screen and (max-width: 600px) {
   .profile-container {
     margin: 25px;
+    align-items: center;
   }
 }
