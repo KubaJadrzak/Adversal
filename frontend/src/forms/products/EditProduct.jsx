@@ -5,11 +5,13 @@ import { fetchAllCategories } from '../../api/categoryApi'
 import { updateProduct, fetchProduct } from '../../api/productApi'
 import ProductForm from './ProductForm'
 import './ProductForm.css'
+import useAlert from '../../components/alerts/useAlert' // Step 1
 
 function EditProduct({ productId }) {
   const [categories, setCategories] = useState([])
   const [product, setProduct] = useState({})
   const navigate = useNavigate()
+  const { setAlert } = useAlert() // Step 2
 
   useEffect(() => {
     async function loadData() {
@@ -27,20 +29,23 @@ function EditProduct({ productId }) {
     loadData()
   }, [productId])
 
-  const handleSubmit = async ({ title, price, category_id, description, newImages }) => {
+  const handleSubmit = async ({ title, price, category_id, description, status, newImages }) => {
     const updatedData = {
       title,
       price,
       category_id,
       description,
+      status,
       images: newImages,
     }
 
     try {
       await updateProduct(productId, updatedData)
       navigate(`/account?view=catalog`)
+      setAlert('Product was successfully updated', 'success') // Step 3
     } catch (error) {
       console.error('Failed to update a product: ', error)
+      setAlert('Failed to update a product', 'error') // Step 3
     }
   }
 
@@ -48,7 +53,7 @@ function EditProduct({ productId }) {
     return <div>Loading...</div>
   }
 
-  const { id, title, price, category, description, images } = product
+  const { id, title, price, category, description, status, images } = product
 
   const data = {
     id,
@@ -56,6 +61,7 @@ function EditProduct({ productId }) {
     price,
     category_id: category.id,
     description,
+    status,
     images,
     categories,
   }

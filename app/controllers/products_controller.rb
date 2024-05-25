@@ -16,15 +16,18 @@ class ProductsController < ApplicationController
 
       @products = @products.where(category_id: category_ids).distinct
     end
+
     @products = @products.only_listed_products if params[:only_listed_products].to_s == 'true'
-
     @products = @products.without_listed_products if params[:without_listed_products].to_s == 'true'
-
     @products = @products.without_deleted_products if params[:with_deleted_products].to_s != 'true'
 
-    return unless params[:query].present? && params[:query].is_a?(String)
+    if params[:status].present?
+      @products = @products.where(status: Product.statuses[params[:status].upcase])
+    end
 
-    @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
+    if params[:query].present? && params[:query].is_a?(String)
+      @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
+    end
   end
 
   # GET /products/1
@@ -87,7 +90,7 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(
       :title, :price, :description, :category_id,
-      :seller_id, :with_seller, :only_listed_products,
+      :seller_id, :status, :with_seller, :only_listed_products,
       :without_listed_products, :with_ordered_products, :with_deleted_products, :category, :query, images: []
     )
   end

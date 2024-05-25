@@ -1,9 +1,15 @@
-.catalog-button {
+.catalog-topbar {
   display: flex;
   margin-bottom: 10px;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-right: 30px;
+  margin-left: 30px;
 }
+
+.catalog-toggle > .MuiToggleButton-root {
+  width: 108px; /* Adjust the width as needed */
+}
+
 .catalog-elements {
   flex: 1;
   display: grid;
@@ -12,15 +18,18 @@
 }
 
 @media only screen and (max-width: 1000px) {
-  .catalog-button {
+  .catalog-topbar {
+    flex-direction: column;
     justify-content: center;
     margin: 10px;
     margin-top: 20px;
+    gap: 20px;
   }
-}
-
-@media only screen and (max-width: 600px) {
-  .profile-container {
-    margin: 25px;
+  .catalog-toggle {
+    justify-content: center;
+  }
+  .catalog-button {
+    margin: auto;
+    width: 320px;
   }
 }

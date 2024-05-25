@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   validates :seller_id, presence: true
   validates_length_of :title, :maximum => 64
 
-  enum status: { AVAILABLE: 1, SOLD: 2, HIDDEN: 3, DELETED: 4 }
+  enum status: { LIVE: 1, SOLD: 2, HIDDEN: 3, DELETED: 4 }
   belongs_to :category
   belongs_to :seller, class_name: :User, inverse_of: :listed_products, foreign_key: :seller_id, default: lambda {
                                                                                                            Current.user

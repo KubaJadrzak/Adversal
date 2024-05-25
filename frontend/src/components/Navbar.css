@@ -45,6 +45,9 @@
     width: 100%;
     padding: 10px 0px 10px 0px;
   }
+  .navbar-bottom-toggle-button {
+    flex: 1 33%;
+  }
 }
 @media only screen and (max-width: 400px) {
   .navbar-bottom {
