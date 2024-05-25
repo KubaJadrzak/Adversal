@@ -5,3 +5,9 @@
   margin-top: 0px;
   gap: 20px;
 }
+
+@media only screen and (max-width: 1000px) {
+  .product-form {
+    margin-top: 20px;
+  }
+}

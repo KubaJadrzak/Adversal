@@ -287,7 +287,7 @@ function Profile() {
                   }}
                 />
               )}
-              <Typography>Please upload a photo with 3:4 aspect ratio.</Typography>
+              <Typography>Please upload photo with 3:4 aspect ratio.</Typography>
             </DialogContent>
             <DialogActions>
               <Button

@@ -39,7 +39,7 @@
 }
 
 .profile-list-element-button {
-  width: 300px;
+  min-width: 200px;
   height: 40px;
 }
 
