@@ -6,8 +6,20 @@
   gap: 20px;
 }
 
+.product-form-images {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 @media only screen and (max-width: 1000px) {
   .product-form {
     margin-top: 20px;
+  }
+  @media only screen and (max-width: 600px) {
+    .product-form-images {
+      flex-direction: column;
+      margin: 20px;
+    }
   }
 }

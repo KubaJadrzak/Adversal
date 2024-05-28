@@ -43,6 +43,14 @@
   height: 40px;
 }
 
+.profile-dialog-buttons {
+  justify-content: space-between;
+}
+
+.profile-dialog-button {
+  margin: 2px;
+}
+
 @media only screen and (max-width: 1000px) {
   .profile-container {
     margin: 50px 50px 50px 50px;

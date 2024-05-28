@@ -13,30 +13,31 @@ function EditProduct({ productId }) {
   const navigate = useNavigate()
   const { setAlert } = useAlert() // Step 2
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const categoriesData = await fetchAllCategories()
-        const productData = await fetchProduct(productId)
-        setCategories(categoriesData)
-        setProduct(productData)
-      } catch (error) {
-        console.error('Failed to load: ', error)
-        // Handle error feedback to the user
-      }
+  // Define loadData function here
+  const loadData = async () => {
+    try {
+      const categoriesData = await fetchAllCategories()
+      const productData = await fetchProduct(productId)
+      setCategories(categoriesData)
+      setProduct(productData)
+    } catch (error) {
+      console.error('Failed to load: ', error)
+      // Handle error feedback to the user
     }
+  }
 
+  useEffect(() => {
+    // Call loadData function inside useEffect
     loadData()
   }, [productId])
 
-  const handleSubmit = async ({ title, price, category_id, description, status, newImages }) => {
+  const handleSubmit = async ({ title, price, category_id, description, status }) => {
     const updatedData = {
       title,
       price,
       category_id,
       description,
       status,
-      images: newImages,
     }
 
     try {
@@ -68,7 +69,12 @@ function EditProduct({ productId }) {
 
   return (
     <Box>
-      <ProductForm buttonMessage={'Edit Product'} data={data} handleSubmit={handleSubmit} />
+      <ProductForm
+        buttonMessage={'Edit Product'}
+        data={data}
+        handleSubmit={handleSubmit}
+        loadData={loadData}
+      />
     </Box>
   )
 }

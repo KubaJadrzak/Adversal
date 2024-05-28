@@ -78,9 +78,9 @@ export async function fetchProduct(id, params) {
   }
 }
 
-export async function deleteProductImage(id, image_id) {
+export async function deleteProductImage(id, image_index) {
   try {
-    await api.delete(`/products/${id}/delete_image/${image_id}`)
+    await api.delete(`/products/${id}/delete_image/${image_index}`)
   } catch (error) {
     throw error
   }

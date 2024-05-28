@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   Button,
   TextField,
@@ -11,14 +11,15 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
-import { deleteProductImage } from '../../api/productApi'
-import { deleteProduct } from '../../api/productApi'
+import { deleteProductImage, deleteProduct, updateProduct } from '../../api/productApi' // Import deleteProduct and updateProduct functions
 import useAlert from '../../components/alerts/useAlert'
 import { useLocation, useNavigate } from 'react-router-dom'
+import ImageDisplay from '../../components/ImageDisplay'
 
 import './ProductForm.css'
 
-function ProductForm({ buttonMessage, data, handleSubmit }) {
+function ProductForm({ buttonMessage, data, handleSubmit, loadData }) {
+  const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
   const isAddProduct = location.search.includes('view=addProduct')
   const { setAlert } = useAlert()
@@ -28,13 +29,18 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
   const [parentCategoryId, setParentCategoryId] = useState('')
   const [childCategoryId, setChildCategoryId] = useState('')
   const [description, setDescription] = useState(data.description)
-  const [status, setStatus] = useState(data.status) // State for status
-  const [images, setImages] = useState(data.images)
-  const [newImages, setNewImages] = useState([])
+  const [status, setStatus] = useState(data.status)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const [newImages, setNewImages] = useState([])
+  const [images, setImages] = useState(data.images || [])
+  const [currentImage, setCurrentImage] = useState(null)
+  const [openImageDialog, setOpenImageDialog] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [imagePreview, setImagePreview] = useState(null)
+  const ref = useRef(null)
+  const imageDialogRef = useRef(null)
 
   useEffect(() => {
-    // Preselect parent and child categories based on data
     const parentCategory = data.categories.find((category) =>
       category.subcategories.some((sub) => sub.id === data.category_id)
     )
@@ -46,39 +52,94 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
     }
   }, [data])
 
-  const handleDeleteNewImage = (index) => {
-    const updatedImages = [...newImages]
-    updatedImages.splice(index, 1)
-    setNewImages(updatedImages)
-  }
-
-  const handleDeleteImage = async ({ index }) => {
-    const updatedImages = [...images]
-    updatedImages.splice(index, 1)
-    setImages(updatedImages)
-    deleteProductImage(data.id, index)
-  }
-
-  const handleUploadNewImages = (e) => {
-    setNewImages((prevImages) => [...prevImages, ...e.target.files])
-  }
+  useEffect(() => {
+    if (currentImage) {
+      setImagePreview(baseURL + currentImage)
+    } else {
+      setImagePreview(null)
+    }
+  }, [currentImage, baseURL])
 
   const selectedParentCategory = data.categories.find(
     (category) => category.id === parentCategoryId
   )
 
-  const handleDeleteProduct = () => {
-    // Your delete product logic here
+  const handleDeleteProduct = async () => {
     try {
-      deleteProduct(data.id)
+      await deleteProduct(data.id)
       navigate(`/account?view=catalog`)
       setAlert('Product was successfully deleted', 'success')
     } catch (e) {
-      console.error('Failed to delete  a product: ', e)
+      console.error('Failed to delete a product: ', e)
       setAlert('Failed to delete a product', 'error')
     }
     setOpenDeleteDialog(false)
   }
+
+  const handleImageClick = (image) => {
+    setCurrentImage(image)
+    setOpenImageDialog(true)
+  }
+
+  const handleClickOutside = (event) => {
+    if (imageDialogRef.current && !imageDialogRef.current.contains(event.target)) {
+      if (!event.target.closest('.MuiInputBase-root')) {
+        discardChanges()
+      }
+    }
+  }
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0]
+    setSelectedImage(file)
+    setImagePreview(URL.createObjectURL(file))
+  }
+
+  const handleImageUpload = async () => {
+    try {
+      if (!selectedImage) {
+        return
+      }
+
+      await updateProduct(data.id, { image: selectedImage })
+
+      loadData()
+      setSelectedImage(null)
+      setImagePreview(null)
+      setOpenImageDialog(false)
+      setAlert('Product image updated successfully!', 'success')
+    } catch (error) {
+      setAlert('Failed to update product image!', 'error')
+      console.error('Failed to upload image:', error)
+    }
+  }
+
+  const handleImageDelete = async () => {
+    try {
+      if (currentImage) {
+        await deleteProductImage(data.id, images.indexOf(currentImage)) // Pass index of the current image
+
+        // Update images state by filtering out the deleted image
+        const updatedImages = images.filter((image) => image !== currentImage)
+        setImages(updatedImages)
+
+        // Reload data if necessary, but you may not need this if the deleted image is removed from the state.
+        // loadData()
+
+        setSelectedImage(null)
+        setImagePreview(null)
+        setOpenImageDialog(false)
+
+        setAlert('Product image deleted successfully!', 'success')
+      }
+    } catch (error) {
+      setAlert('Failed to delete product image!', 'error')
+      console.error('Failed to delete image:', error)
+    }
+  }
+
+  // Create an array with exactly 5 items, filling with placeholder if necessary
+  const displayImages = [...images, ...Array(5 - images.length).fill(null)]
 
   return (
     <Box>
@@ -115,7 +176,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         />
         <TextField
           required
-          id='parent-category'
           label='Category'
           value={parentCategoryId}
           select
@@ -135,7 +195,6 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         {selectedParentCategory && selectedParentCategory.subcategories.length > 0 && (
           <TextField
             required
-            id='child-category'
             label='Subcategory'
             value={childCategoryId}
             select
@@ -171,6 +230,13 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           minRows={6}
           onChange={(e) => setDescription(e.target.value)}
         />
+        <Box className='product-form-images'>
+          {displayImages.map((image, index) => (
+            <Box key={index} className='profile-form-image' onClick={() => handleImageClick(image)}>
+              <ImageDisplay imageURL={image ? baseURL + image : null} />
+            </Box>
+          ))}
+        </Box>
 
         <Button variant='contained' type='submit'>
           {buttonMessage}
@@ -195,6 +261,70 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           <Button onClick={handleDeleteProduct} color='error' variant='outlined'>
             Delete
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog ref={imageDialogRef} open={openImageDialog} onClose={() => setOpenImageDialog(false)}>
+        <DialogTitle>Image Preview</DialogTitle>
+        <DialogContent style={{ width: '320px' }}>
+          <input
+            style={{
+              marginBottom: '20px',
+            }}
+            type='file'
+            onChange={handleImageChange}
+          />
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt='Preview'
+              style={{
+                top: '0',
+                left: '0',
+                width: '320px',
+                height: '240px',
+                objectFit: 'cover',
+              }}
+            />
+          )}
+          <Typography>Please upload photo with 3:4 aspect ratio.</Typography>
+        </DialogContent>
+
+        <DialogActions className='profile-dialog-buttons'>
+          <Box>
+            {currentImage && (
+              <Button
+                className='profile-dialog-button'
+                variant='outlined'
+                color='error'
+                onClick={handleImageDelete}
+              >
+                Delete
+              </Button>
+            )}
+          </Box>
+          <Box>
+            <Button
+              className='profile-dialog-button'
+              variant='contained'
+              onClick={() => {
+                setOpenImageDialog(false)
+                setSelectedImage(null)
+                setImagePreview(null)
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              className='profile-dialog-button'
+              variant='outlined'
+              color='secondary'
+              onClick={handleImageUpload}
+              disabled={!selectedImage}
+            >
+              Upload
+            </Button>
+          </Box>
         </DialogActions>
       </Dialog>
     </Box>

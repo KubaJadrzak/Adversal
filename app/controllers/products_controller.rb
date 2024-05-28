@@ -68,15 +68,24 @@ class ProductsController < ApplicationController
   end
 
   def delete_image
-    @product = Product.find(params[:id])
-
-    index_to_delete = params[:index].to_i
-    if @product.images[index_to_delete].present?
-      @product.images[index_to_delete].purge
-      render json: { message: 'Image deleted successfully' }, status: :ok
-    else
-      render json: { error: 'Invalid image index' }, status: :unprocessable_entity
+    @product = Product.find_by(id: params[:id])
+  
+    unless @product
+      return render json: { error: 'Product not found' }, status: :not_found
     end
+  
+    index_to_delete = params[:index].to_i
+    image_to_delete = @product.images[index_to_delete]
+  
+    unless image_to_delete
+      return render json: { error: 'Invalid image index or image not found' }, status: :unprocessable_entity
+    end
+
+  
+    # Purge the image from Active Storage
+    image_to_delete.purge
+  
+    render json: { message: 'Image deleted successfully' }, status: :ok
   end
 
   private
