@@ -11,6 +11,7 @@ import {
 import useAlert from '../../components/alerts/useAlert'
 import { updateUser, deleteUserImage } from '../../api/userApi'
 import ImageDisplay from '../../components/ImageDisplay'
+import './ProfileImage.css'
 
 const ProfileImage = ({ user, loadData, baseURL }) => {
   const { setAlert } = useAlert()
