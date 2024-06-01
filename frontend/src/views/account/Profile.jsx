@@ -1,24 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchUser, updateUser, deleteUserImage } from '../../api/userApi' // Ensure deleteProductImage is imported
-import {
-  Box,
-  Typography,
-  Avatar,
-  IconButton,
-  Button,
-  Divider,
-  TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material'
+import { fetchUser, updateUser } from '../../api/userApi'
+import { Box, Typography, IconButton, Button, Divider, TextField } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import ImageDisplay from '../../components/ImageDisplay'
 import useAlert from '../../components/alerts/useAlert'
 import PasswordChangeDialog from './PasswordChangeDialog'
+import ProfileImage from './ProfileImage'
 import './Profile.css'
 
 function Profile() {
@@ -36,12 +24,8 @@ function Profile() {
     zip_code: false,
   })
   const [activeField, setActiveField] = useState(null)
-  const [openImageDialog, setOpenImageDialog] = useState(false)
-  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false) // Added state for password dialog
   const ref = useRef(null)
-  const imageDialogRef = useRef(null)
 
   const loadData = async () => {
     try {
@@ -55,14 +39,6 @@ function Profile() {
   useEffect(() => {
     loadData()
   }, [setAlert])
-
-  useEffect(() => {
-    if (user && user.image && user.image.length > 0) {
-      setImagePreview(baseURL + user.image)
-    } else {
-      setImagePreview(null)
-    }
-  }, [user, baseURL])
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
@@ -122,50 +98,10 @@ function Profile() {
   }
 
   const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== 'INPUT') {
-      discardChanges()
-    }
-  }
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    setSelectedImage(file)
-    setImagePreview(URL.createObjectURL(file))
-  }
-
-  const handleImageUpload = async () => {
-    try {
-      if (!selectedImage) {
-        return
+    if (ref.current && !ref.current.contains(event.target)) {
+      if (!event.target.closest('.MuiInputBase-root')) {
+        discardChanges()
       }
-
-      await updateUser(localStorage.getItem('id'), { image: selectedImage })
-      console.log(selectedImage)
-      loadData()
-      setSelectedImage(null)
-      setImagePreview(null)
-      setOpenImageDialog(false)
-      setAlert('Profile image updated successfully!', 'success')
-    } catch (error) {
-      setAlert('Failed to update profile image!', 'error')
-      console.error('Failed to upload image:', error)
-    }
-  }
-
-  const handleImageDelete = async () => {
-    try {
-      if (user && user.image) {
-        await deleteUserImage(user.id) // Assume user.image_id exists
-        loadData()
-        setSelectedImage(null)
-        setImagePreview(null)
-        setOpenImageDialog(false)
-
-        setAlert('Profile image deleted successfully!', 'success')
-      }
-    } catch (error) {
-      setAlert('Failed to delete profile image!', 'error')
-      console.error('Failed to delete image:', error)
     }
   }
 
@@ -238,11 +174,7 @@ function Profile() {
     <Box className='profile-container'>
       {user && (
         <>
-          <Box className='profile-image' onClick={() => setOpenImageDialog(true)}>
-            <ImageDisplay
-              imageURL={user.image && user.image.length > 0 ? baseURL + user.image : null}
-            />
-          </Box>
+          <ProfileImage user={user} loadData={loadData} baseURL={baseURL} />
           <Box className='profile-list'>
             {renderEditableField('Email:', user.email, 'email')}
             <Divider />
@@ -267,76 +199,6 @@ function Profile() {
               loadData={loadData}
             />
           </Box>
-          <Dialog
-            open={openImageDialog}
-            ref={imageDialogRef}
-            onClose={() => {
-              setOpenImageDialog(false)
-              setSelectedImage(null)
-              setImagePreview(null)
-            }}
-          >
-            <DialogTitle>Change Profile Photo</DialogTitle>
-            <DialogContent style={{ width: '320px' }}>
-              <input
-                style={{
-                  marginBottom: '20px',
-                }}
-                type='file'
-                onChange={handleImageChange}
-              />
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt='Preview'
-                  style={{
-                    top: '0',
-                    left: '0',
-                    width: '320px',
-                    height: '240px',
-                    objectFit: 'cover',
-                  }}
-                />
-              )}
-              <Typography>Please upload photo with 3:4 aspect ratio.</Typography>
-            </DialogContent>
-            <DialogActions className='profile-dialog-buttons'>
-              <Box>
-                {user.image && (
-                  <Button
-                    className='profile-dialog-button'
-                    variant='outlined'
-                    color='error'
-                    onClick={handleImageDelete}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </Box>
-              <Box>
-                <Button
-                  className='profile-dialog-button'
-                  variant='contained'
-                  onClick={() => {
-                    setOpenImageDialog(false)
-                    setSelectedImage(null)
-                    setImagePreview(null)
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  className='profile-dialog-button'
-                  variant='outlined'
-                  color='secondary'
-                  onClick={handleImageUpload}
-                  disabled={!selectedImage}
-                >
-                  Upload
-                </Button>
-              </Box>
-            </DialogActions>
-          </Dialog>
         </>
       )}
     </Box>
