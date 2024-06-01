@@ -24,13 +24,14 @@ function AddProduct() {
     loadData()
   }, [])
 
-  const handleSubmit = async ({ title, price, category_id, description, status }) => {
+  const handleSubmit = async ({ title, price, category_id, description, status, newImages }) => {
     const data = {
       title,
       price,
       category_id,
       description,
       status,
+      images: newImages,
     }
     try {
       const response = await createProduct(data)
@@ -42,7 +43,7 @@ function AddProduct() {
     }
   }
 
-  if (!categories || categories.length === 0) return <div>Loading...</div>
+  if (!categories || categories.length === 0) return <div></div>
 
   const data = {
     title: '',

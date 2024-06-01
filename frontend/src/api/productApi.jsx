@@ -35,6 +35,10 @@ export async function createProduct(data) {
 export async function updateProduct(id, data) {
   try {
     const formData = new FormData()
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value)
+      console.log('xd')
+    }
     Object.entries(data).forEach(([key, value]) => {
       if (key !== 'images') {
         formData.append(`product[${key}]`, value)

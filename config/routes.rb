@@ -26,7 +26,6 @@ Rails.application.routes.draw do
     resources :products do
       delete 'delete_image/:index', to: 'products#delete_image', on: :member, as: :delete_image
     end
-
     # Other resources and routes in your application
     resources :cart_products
     resources :categories

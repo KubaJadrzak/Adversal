@@ -1,0 +1,25 @@
+.product-form-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.product-form-image {
+  flex: 1;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.product-form-image:hover {
+  filter: brightness(80%);
+}
+
+@media only screen and (max-width: 1000px) {
+  .product-form-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}

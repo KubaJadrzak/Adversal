@@ -32,13 +32,12 @@ api.interceptors.response.use(
         return Promise.reject(error)
       }
 
-      if (data.exception.includes("Couldn't find User")) {
+      if (data.exception && data.exception.includes("Couldn't find User")) {
         localStorage.removeItem('token')
         localStorage.removeItem('id')
         localStorage.removeItem('email')
         window.location.href = '/login'
       }
-
       console.error('Error status:', status)
       console.error('Error data:', data)
       console.error('Full error response:', error.response)

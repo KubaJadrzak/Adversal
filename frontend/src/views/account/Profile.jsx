@@ -40,8 +40,6 @@ function Profile() {
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
-  const ref = useRef(null)
-  const imageDialogRef = useRef(null)
 
   const loadData = async () => {
     try {
@@ -63,13 +61,6 @@ function Profile() {
       setImagePreview(null)
     }
   }, [user, baseURL])
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
 
   const handleEditClick = (field) => {
     if (!activeField) {
@@ -121,14 +112,6 @@ function Profile() {
     }
   }
 
-  const handleClickOutside = (event) => {
-    if (imageDialogRef.current && !imageDialogRef.current.contains(event.target)) {
-      if (!event.target.closest('.MuiInputBase-root')) {
-        discardChanges()
-      }
-    }
-  }
-
   const handleImageChange = (event) => {
     const file = event.target.files[0]
     setSelectedImage(file)
@@ -142,7 +125,7 @@ function Profile() {
       }
 
       await updateUser(localStorage.getItem('id'), { image: selectedImage })
-
+      console.log(selectedImage)
       loadData()
       setSelectedImage(null)
       setImagePreview(null)
@@ -210,9 +193,7 @@ function Profile() {
 
   const renderEditableField = (label, value, field) => (
     <Box key={field} className='profile-list-element'>
-      <Box className='profile-list-element-text' ref={ref}>
-        {renderField(label, value, field)}
-      </Box>
+      <Box className='profile-list-element-text'>{renderField(label, value, field)}</Box>
       {!editMode[field] || activeField !== field ? (
         field !== 'password' ? (
           <IconButton
@@ -271,7 +252,6 @@ function Profile() {
           </Box>
           <Dialog
             open={openImageDialog}
-            ref={imageDialogRef}
             onClose={() => {
               setOpenImageDialog(false)
               setSelectedImage(null)

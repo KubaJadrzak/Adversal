@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show update destroy]
-  before_action :authenticate_user!, only: %i[index], if: :authentication_required?
-  before_action :authenticate_user!, only: %i[update destroy]
+  before_action :set_product, only: %i[show update destroy update_images delete_image]
+  before_action :authenticate_user!, only: %i[index update destroy update_images delete_image], if: :authentication_required?
   load_and_authorize_resource
 
   # GET /products
@@ -56,10 +55,11 @@ class ProductsController < ApplicationController
       render json: @product.errors, status: :unprocessable_entity
     end
   end
+  # PATCH /products/1/update_images
 
+
+  # DELETE /products/1
   def destroy
-    @product = Product.find(params[:id])
-
     if @product.update(status: 4)
       render json: { message: 'Product status changed to DELETED successfully' }, status: :ok
     else
@@ -67,24 +67,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  # DELETE /products/1/delete_image
   def delete_image
-    @product = Product.find_by(id: params[:id])
-  
-    unless @product
-      return render json: { error: 'Product not found' }, status: :not_found
-    end
-  
     index_to_delete = params[:index].to_i
     image_to_delete = @product.images[index_to_delete]
-  
+
     unless image_to_delete
       return render json: { error: 'Invalid image index or image not found' }, status: :unprocessable_entity
     end
 
-  
     # Purge the image from Active Storage
     image_to_delete.purge
-  
+
     render json: { message: 'Image deleted successfully' }, status: :ok
   end
 
