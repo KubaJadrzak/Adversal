@@ -91,6 +91,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           id='price'
           label='Price'
           value={price}
+          inputProps={{ maxLength: 7 }}
           onChange={(e) => setPrice(e.target.value)}
         />
         <TextField
@@ -146,7 +147,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           label='Description'
           value={description}
           multiline
-          minRows={6}
+          minRows={4}
           onChange={(e) => setDescription(e.target.value)}
         />
         <ProductFormImages

@@ -13,7 +13,8 @@ import { updateUser, deleteUserImage } from '../../api/userApi'
 import ImageDisplay from '../../components/ImageDisplay'
 import './ProfileImage.css'
 
-const ProfileImage = ({ user, loadData, baseURL }) => {
+const ProfileImage = ({ user, loadData }) => {
+  const baseURL = import.meta.env.VITE_API_BASE_URL
   const { setAlert } = useAlert()
   const [openImageDialog, setOpenImageDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
@@ -24,7 +25,7 @@ const ProfileImage = ({ user, loadData, baseURL }) => {
     if (user && user.image) {
       setImagePreview(baseURL + user.image)
     }
-  }, [user, baseURL])
+  }, [user])
 
   const handleImageChange = (event) => {
     const file = event.target.files[0]

@@ -16,6 +16,13 @@ const theme = createTheme({
     // You can customize typography here
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          wordBreak: 'break-word', // Add word break
+        },
+      },
+    },
     MuiTextField: {
       defaultProps: {
         InputProps: {
