@@ -40,6 +40,8 @@ function Profile() {
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
+  const ref = useRef(null)
+  const imageDialogRef = useRef(null)
 
   const loadData = async () => {
     try {
@@ -61,6 +63,13 @@ function Profile() {
       setImagePreview(null)
     }
   }, [user, baseURL])
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleEditClick = (field) => {
     if (!activeField) {
@@ -109,6 +118,12 @@ function Profile() {
   const handleTextFieldKeyDown = (event, field) => {
     if (event.key === 'Enter') {
       handleSubmit(field)
+    }
+  }
+
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== 'INPUT') {
+      discardChanges()
     }
   }
 
@@ -193,7 +208,9 @@ function Profile() {
 
   const renderEditableField = (label, value, field) => (
     <Box key={field} className='profile-list-element'>
-      <Box className='profile-list-element-text'>{renderField(label, value, field)}</Box>
+      <Box className='profile-list-element-text' ref={ref}>
+        {renderField(label, value, field)}
+      </Box>
       {!editMode[field] || activeField !== field ? (
         field !== 'password' ? (
           <IconButton
@@ -252,6 +269,7 @@ function Profile() {
           </Box>
           <Dialog
             open={openImageDialog}
+            ref={imageDialogRef}
             onClose={() => {
               setOpenImageDialog(false)
               setSelectedImage(null)
