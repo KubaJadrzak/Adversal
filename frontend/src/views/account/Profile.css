@@ -40,15 +40,17 @@
   margin: 2px;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
   .profile-container {
-    margin: 50px 50px 50px 50px;
+    margin: 25px;
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 710px) {
   .profile-container {
-    margin: 25px;
     align-items: center;
+  }
+  .profile-list {
+    width: 320px;
   }
 }

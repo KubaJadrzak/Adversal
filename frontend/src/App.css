@@ -6,16 +6,8 @@
 }
 .app-content,
 .app-navbar {
-  padding-left: 14vw;
-  padding-right: 14vw;
-}
-
-@media only screen and (max-width: 1400px) {
-  .app-content,
-  .app-navbar {
-    padding-left: 7vw;
-    padding-right: 7vw;
-  }
+  padding-left: 8vw;
+  padding-right: 8vw;
 }
 
 @media only screen and (max-width: 1200px) {

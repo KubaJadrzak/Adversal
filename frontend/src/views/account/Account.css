@@ -12,7 +12,7 @@
   width: 18%;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
   .account-container {
     flex-direction: column;
   }

@@ -10,15 +10,11 @@
 }
 
 .navbar-bottom {
-  padding-top: 10px;
-  padding-left: 1vw;
-  padding-right: 1vw;
-}
-
-.navbar-bottom {
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 .navbar-bottom-search {
@@ -26,35 +22,56 @@
   padding: 10px;
 }
 
-.navbar-bottom-toggle-group {
+.navbar-bottom-categories-group {
   flex: 1;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
-.navbar-bottom-toggle-button {
+.navbar-bottom-categories-button {
   flex: 1 20%;
 }
 
-@media only screen and (max-width: 1000px) {
-  .navbar-bottom {
-    flex-direction: column;
-  }
+@media only screen and (max-width: 1200px) {
   .navbar-bottom-search {
-    width: 100%;
+    width: 45%;
     padding: 10px 0px 10px 0px;
   }
-  .navbar-bottom-toggle-button {
-    flex: 1 33%;
+  .navbar-bottom-categories-menu {
+    height: 40px;
+    display: flex;
+    width: 45%;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s; /* Add transition for background color */
+    gap: 10px;
+  }
+
+  .navbar-bottom-categories-menu:hover {
+    background-color: #f0f0f0; /* Change to a light grey on hover */
+  }
+
+  .navbar-bottom-categories-menu > * {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon */
+  }
+  .navbar-bottom-categories-menu-icon {
+    width: 40px;
+    height: 40px;
+    border-right: 1px solid #ccc;
   }
 }
-@media only screen and (max-width: 400px) {
+
+@media only screen and (max-width: 710px) {
   .navbar-bottom {
     flex-direction: column;
   }
   .navbar-bottom-search {
     width: 100%;
     padding: 10px 0px 10px 0px;
+  }
+  .navbar-bottom-categories-menu {
+    width: 100%;
   }
 }
