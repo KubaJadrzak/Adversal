@@ -31,17 +31,18 @@
 
 .navbar-bottom-categories-button {
   flex: 1 20%;
+  border: 0px !important;
 }
 
 @media only screen and (max-width: 1200px) {
   .navbar-bottom-search {
-    width: 45%;
+    width: 48%;
     padding: 10px 0px 10px 0px;
   }
   .navbar-bottom-categories-menu {
     height: 40px;
     display: flex;
-    width: 45%;
+    width: 48%;
     border: 1px solid #ccc;
     transition: background-color 0.3s; /* Add transition for background color */
     gap: 10px;

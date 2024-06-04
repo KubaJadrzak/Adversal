@@ -46,11 +46,26 @@ const theme = createTheme({
         },
       },
     },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        grouped: {
+          marginTop: 0,
+          borderTop: '1px solid #ccc',
+          borderBottom: '1px solid #ccc',
+          borderLeft: '1px solid #ccc',
+          borderRight: '1px solid #ccc',
+          '&:not(:first-of-type)': {
+            marginTop: 0,
+            borderTop: '1px solid #ccc',
+          },
+        },
+      },
+    },
     MuiToggleButton: {
       styleOverrides: {
         root: {
           borderRadius: 0,
-          border: 'none', // Remove border completely
+          border: '1px solid #ccc',
           '&.Mui-selected': {
             backgroundColor: '#F3D250',
             outline: 'none',

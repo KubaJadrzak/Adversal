@@ -1,53 +1,17 @@
-.sidebar-container {
+.sidebar-toggle-group {
   display: flex;
-  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap; /* Allow wrapping */
 }
 
-.sidebar-items-group {
-  display: flex;
-  width: 100%;
-}
-
-@media only screen and (max-width: 900px) {
-  .sidebar-items-menu {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    margin: 0px 30px 10px 30px;
-    border: 1px solid #ccc;
-    transition: background-color 0.3s; /* Add transition for background color */
-    gap: 10px;
-  }
-
-  .sidebar-items-menu:hover {
-    background-color: #f0f0f0; /* Change to a light grey on hover */
-  }
-
-  .sidebar-items-menu > * {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the icon */
-  }
-  .sidebar-items-menu-icon {
-    width: 40px;
-    height: 40px;
-    border-right: 1px solid #ccc;
-  }
-}
-@media only screen and (max-width: 710px) {
-  .sidebar-items-group {
+@media only screen and (max-width: 1000px) {
+  .sidebar-toggle-group {
     flex-direction: row;
-    flex: 1;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
   }
 
-  .sidebar-items-menu {
-    width: 320px;
-  }
-
-  .sidebar-items-button {
-    flex: 1 33%;
-    color: black;
+  .sidebar-toggle-button {
+    flex: 0 1 auto; /* Allow the button to take up as much space as its content */
+    border: 1px solid #ccc;
   }
 }

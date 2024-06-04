@@ -12,10 +12,10 @@
 }
 
 .products-sidebar {
-  width: 18%;
+  width: 20%;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
   .products {
     flex-direction: column;
   }

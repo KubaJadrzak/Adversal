@@ -25,9 +25,9 @@ function Account() {
     } else if (paramValue === 'catalog') {
       setAlignment(2)
     } else if (paramValue === 'addProduct') {
-      setAlignment(3)
-    } else if (paramValue === 'editProduct') {
       setAlignment(4)
+    } else if (paramValue === 'editProduct') {
+      setAlignment(5)
       setProductId(id)
     }
   }, [location.search])
@@ -44,6 +44,7 @@ function Account() {
   const sidebarItems = [
     { id: 1, name: 'Profile', onClick: () => navigate('/account?view=profile') },
     { id: 2, name: 'Catalog', onClick: () => navigate('/account?view=catalog') },
+    { id: 3, name: 'Reviews', onClick: () => navigate('/account?view=reviews') },
     { id: 9, name: 'Logout', onClick: handleLogout },
   ]
 
@@ -69,8 +70,8 @@ function Account() {
       <Box className='account-content'>
         {alignment === 1 && <Profile />}
         {alignment === 2 && <Catalog />}
-        {alignment === 3 && <AddProduct />}
-        {alignment === 4 && <EditProduct productId={productId} />}
+        {alignment === 4 && <AddProduct />}
+        {alignment === 5 && <EditProduct productId={productId} />}
       </Box>
     </Box>
   )
