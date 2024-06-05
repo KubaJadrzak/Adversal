@@ -19,8 +19,8 @@ class Product < ApplicationRecord
   private
 
   def validate_images_limit
-    if images.size > 5
-      errors.add(:images, "You can attach up to 5 images only.")
+    if images.size > 6
+      errors.add(:images, "You can attach up to 6 images only.")
     end
   end
 end

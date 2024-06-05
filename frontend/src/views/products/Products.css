@@ -1,13 +1,13 @@
 .products {
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .products-elements {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 340px);
+  grid-template-columns: repeat(auto-fill, 345px);
   justify-content: space-around;
 }
 

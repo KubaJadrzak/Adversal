@@ -1,59 +1,93 @@
-.product-card {
+.product-details-container {
   display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin: auto;
+  flex-direction: row;
+  gap: 30px;
   margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 5%;
 }
 
-.product-title {
+.product-details-images {
   display: flex;
-  justify-self: center;
-  align-self: center;
-  margin-bottom: 20px;
+  flex: 1;
+  flex-direction: column;
+  flex-basis: 40%; /* Ensures that the images section takes up 50% of the container */
+  border: 1px solid #ccc;
+  padding: 10px;
+  padding-bottom: 0px;
 }
-.product-price-seller {
+
+.product-details-content {
+  flex: 1;
+  flex-basis: 55%; /* Ensures that the content section takes up 50% of the container */
+  border: 1px solid #ccc;
+}
+
+.large-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.large-image {
+  width: 100%;
+  height: auto;
+}
+
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10; /* Add this line */
+}
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.small-images-list {
+  width: 100%;
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-.product-image-container {
-  display: flex;
-  height: 600px;
-  margin: 20px 0px 20px 0px;
-  justify-content: center;
-  align-items: center;
+.small-image {
+  cursor: pointer;
+  width: calc(33% - 6px); /* To ensure 3 images per row with 10px gap */
+  border: 2px solid transparent;
+}
+.small-image:hover {
+  border-color: #000;
 }
 
-.product-image-list {
-  width: 90%;
-  height: 90%;
-  object-fit: contain;
+@media only screen and (max-width: 1000px) {
+  .product-details-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .small-images-list {
+    display: none;
+  }
+  .product-details-images {
+    width: 60%;
+  }
+  .product-details-content {
+    width: 60%;
+  }
 }
 
-.product-description {
-  margin-bottom: 20px;
-}
-
-.product-button {
-  width: 30%;
-}
-
-.product-element-seller {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-@media (max-width: 900px) {
-  .product-card {
+@media only screen and (max-width: 710px) {
+  .product-details-images {
     width: 90%;
   }
-  .product-button {
-    width: 50%;
+  .product-details-content {
+    width: 90%;
   }
 }

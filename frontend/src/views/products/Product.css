@@ -1,37 +1,39 @@
-.product-element-container {
+.product-container {
   display: flex;
   flex-direction: column;
   width: 320px;
   height: 340px;
   padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
 }
 
-.product-element-container:hover {
+.product-container:hover {
   cursor: pointer;
   background-color: white;
 }
 
-.product-element-title {
+.product-title {
   display: flex;
   flex: 1;
 }
 
-.product-element-image {
+.product-image {
   width: 320px;
   min-height: 240px;
   max-height: 240px;
   margin-bottom: 5px;
 }
 
-.product-element-footer {
+.product-footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
 }
-.product-element-footer-icon {
+.product-footer-icon {
   margin-top: 10px;
 }
-.product-element-footer-button {
+.product-footer-button {
   width: 200px;
 }

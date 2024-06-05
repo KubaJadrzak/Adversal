@@ -1,17 +1,17 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { fetchProduct } from '../../api/productApi'
-import { Container, Typography, Box, ImageList, ImageListItem, Button, Avatar } from '@mui/material'
+import { Box, ImageList, ImageListItem, Button } from '@mui/material'
 import useAlert from '../../components/alerts/useAlert'
+import ImageDisplay from '../../components/ImageDisplay'
 import './ProductDetails.css'
 
 function ProductDetails() {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const { setAlert } = useAlert()
   const { id } = useParams()
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState(null)
+  const [largeImageIndex, setLargeImageIndex] = useState(0)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,54 +26,58 @@ function ProductDetails() {
     }
     loadData()
   }, [id])
-  const isFromCart = location.pathname.includes('/cart')
-  const isFromAccount = location.pathname.includes('account')
+
+  const handleNext = () => {
+    setLargeImageIndex((prevIndex) => (prevIndex + 1) % product.images.length)
+  }
+
+  const handlePrev = () => {
+    setLargeImageIndex(
+      (prevIndex) => (prevIndex - 1 + product.images.length) % product.images.length
+    )
+  }
+
+  const handleImageClick = (index) => {
+    setLargeImageIndex(index)
+  }
 
   if (!product || product.length === 0) return <div></div>
 
   return (
-    <Container className='product-container'>
-      <Box className='product-card'>
-        <Typography variant='h4' className='product-title'>
-          {product.title}
-        </Typography>
-        <Container className='product-price-seller'>
-          <Typography variant='h6' className='product-price'>
-            ${product.price}
-          </Typography>
-          <Box className='product-element-seller'>
-            <Avatar
-              className='product-list-element-seller-avatar'
-              src={baseURL + product.seller.image}
-            />
-            <Typography variant='h6' className='product-seller'>
-              {product.seller.name}
-            </Typography>
-          </Box>
-        </Container>
-        <Box className='product-image-container'>
-          {product.images ? (
-            <ImageList cols={2} className='product-image-list'>
-              {product.images.map((image, index) => (
-                <ImageListItem key={index} className='product-image'>
-                  <img src={baseURL + image} loading='lazy' />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          ) : (
-            <Box>
-              <Typography variant='overline'>no image available</Typography>
-            </Box>
-          )}
-        </Box>
-        <Typography className='product-description'>{product.description}</Typography>
-        {!isFromCart && !isFromAccount && (
-          <Button className='product-button' variant='contained' onClick={handleAddToCart}>
-            Add to cart
+    <Box className='product-details-container'>
+      <Box className='product-details-images'>
+        <Box className='large-image-container'>
+          <Button className='prev-button' onClick={handlePrev}>
+            ‹
           </Button>
+          <ImageDisplay
+            imageURL={
+              product.images && product.images.length > 0
+                ? `${baseURL}/${product.images[largeImageIndex]}`
+                : null
+            }
+          />
+          <Button className='next-button' onClick={handleNext}>
+            ›
+          </Button>
+        </Box>
+        {product.images && product.images.length > 0 && (
+          <ImageList className='small-images-list' cols={3}>
+            {product.images.map((image, index) => (
+              <ImageListItem
+                key={index}
+                onClick={() => handleImageClick(index)}
+                className='small-image'
+              >
+                <ImageDisplay imageURL={`${baseURL}/${image}`} />
+              </ImageListItem>
+            ))}
+          </ImageList>
         )}
       </Box>
-    </Container>
+
+      <Box className='product-details-content'></Box>
+    </Box>
   )
 }
 

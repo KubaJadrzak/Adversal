@@ -2,16 +2,28 @@
   display: flex;
   gap: 5px;
   flex-wrap: wrap; /* Allow wrapping */
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 1000px) {
   .sidebar-toggle-group {
     flex-direction: row;
     margin-bottom: 20px;
+    margin-top: 0px;
   }
 
   .sidebar-toggle-button {
     flex: 0 1 auto; /* Allow the button to take up as much space as its content */
     border: 1px solid #ccc;
+  }
+}
+
+.sidebar-account .sidebar-toggle-button {
+  flex: 1 1 20%; /* Each button takes up 25% of the container width */
+}
+
+@media only screen and (max-width: 500px) {
+  .sidebar-account .sidebar-toggle-button {
+    flex: 1 1 40%; /* Each button takes up 25% of the container width */
   }
 }

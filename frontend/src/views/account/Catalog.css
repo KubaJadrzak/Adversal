@@ -1,7 +1,7 @@
 .catalog-topbar {
   display: flex;
   justify-content: space-between;
-  margin: 0px 30px 10px 30px;
+  margin: 10px 30px 10px 30px;
 }
 
 .catalog-toggle > .MuiToggleButton-root {

@@ -9,8 +9,10 @@ function Sidebar({ items, onAlignmentChange, alignment }) {
     }
   }
 
+  const isAccountPage = window.location.pathname.includes('/account')
+
   return (
-    <Box className='sidebar-container'>
+    <Box className={`sidebar-container ${isAccountPage ? 'sidebar-account' : ''}`}>
       <ToggleButtonGroup
         orientation='vertical'
         value={alignment}

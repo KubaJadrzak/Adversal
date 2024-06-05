@@ -9,7 +9,7 @@ import useAlert from '../../components/alerts/useAlert'
 
 import './Product.css'
 
-function Product({ product, navigate, onDeleteProduct }) {
+function Product({ product, navigate }) {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
   const { setAlert } = useAlert()
@@ -17,50 +17,38 @@ function Product({ product, navigate, onDeleteProduct }) {
   const isFromAccount = location.pathname.includes('/account')
   if (!product || product.length === 0) return <div></div>
 
-  const handleDeleteProduct = async (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-    try {
-      deleteProduct(product.id)
-      onDeleteProduct(product.id)
-      setAlert('Product was successfully deleted!', 'success')
-    } catch (e) {
-      console.error('Failed to delete the product:', e)
-      setAlert('Failed to delete the product!', 'error')
-    }
-  }
-
   return (
     <Box
-      className='product-element-container'
+      className='product-container'
       onClick={() => {
-        navigate(`product/${product.id}`)
+        navigate(`/product/${product.id}`)
       }}
     >
-      <Box className='product-element-image'>
+      <Box className='product-image'>
         <ImageDisplay
           imageURL={
             product.images && product.images.length > 0 ? baseURL + product.images[0] : null
           }
         />
       </Box>
-      <Box className='product-element-title'>
+      <Typography variant='caption'>{product.seller.name}</Typography>
+      <Box className='product-title'>
         <Typography>{product.title}</Typography>
       </Box>
 
       {!isFromAccount ? (
-        <Box className='product-element-footer'>
+        <Box className='product-footer'>
           <Typography>${product.price}</Typography>
-          <IconButton className='products-element-footer-icon'>
+          <IconButton className='products-footer-icon'>
             <FontAwesomeIcon icon={faRegularHeart} />
           </IconButton>
         </Box>
       ) : (
-        <Box className='product-element-footer'>
+        <Box className='product-footer'>
           <Typography>${product.price}</Typography>
           <Button
             variant='contained'
-            className='product-element-footer-button'
+            className='product-footer-button'
             onClick={(e) => {
               e.stopPropagation()
               navigate(`/account?view=editProduct&productId=${product.id}`)

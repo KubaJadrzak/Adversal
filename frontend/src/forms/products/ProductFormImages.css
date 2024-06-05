@@ -6,12 +6,6 @@
   transition: filter 0.3s ease;
 }
 
-.product-form-image {
-  flex: 1;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-}
-
 .product-form-image:hover {
   filter: brightness(80%);
 }
