@@ -1,21 +1,15 @@
 .sidebar-toggle-group {
   display: flex;
-  gap: 5px;
-  flex-wrap: wrap; /* Allow wrapping */
-  margin-top: 10px;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 1000px) {
-  .sidebar-toggle-group {
-    flex-direction: row;
-    margin-bottom: 20px;
-    margin-top: 0px;
-  }
-
-  .sidebar-toggle-button {
-    flex: 0 1 auto; /* Allow the button to take up as much space as its content */
-    border: 1px solid #ccc;
-  }
+.sidebar-toggle-button {
+  flex: 0 1 auto; /* Allow the button to take up as much space as its content */
+  border: 1px solid #ccc;
 }
 
 .sidebar-account .sidebar-toggle-button {

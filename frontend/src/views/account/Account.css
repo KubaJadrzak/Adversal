@@ -1,25 +1,11 @@
 .account-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 10px;
 }
-
 .account-content {
-  flex: 1;
+  width: 100%;
 }
-
 .account-sidebar {
-  width: 20%;
-}
-
-@media only screen and (max-width: 1000px) {
-  .account-container {
-    flex-direction: column;
-  }
-  .account-content {
-    width: 100%;
-  }
-  .account-sidebar {
-    width: 100%;
-  }
+  width: 100%;
 }

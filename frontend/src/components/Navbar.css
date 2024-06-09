@@ -64,7 +64,7 @@
   }
 }
 
-@media only screen and (max-width: 710px) {
+@media only screen and (max-width: 700px) {
   .navbar-bottom {
     flex-direction: column;
   }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { fetchProduct } from '../../api/productApi'
-import { Box, ImageList, ImageListItem, Button } from '@mui/material'
+import { Box, ImageList, ImageListItem, Button, Typography } from '@mui/material'
 import useAlert from '../../components/alerts/useAlert'
 import ImageDisplay from '../../components/ImageDisplay'
 import './ProductDetails.css'
@@ -76,7 +76,34 @@ function ProductDetails() {
         )}
       </Box>
 
-      <Box className='product-details-content'></Box>
+      <Box className='product-details-content'>
+        <Box className='product-details-product'>
+          <Typography variant='h4' className='product-title'>
+            {product.title}
+          </Typography>
+          <Typography className='product-description'>{product.description}</Typography>
+          <Typography className='product-price'>${product.price}</Typography>
+          <Typography variant='body2' className='product-status'>
+            Status: {product.status}
+          </Typography>
+          <Typography variant='body2' className='product-category'>
+            Category: {product.category.name}
+          </Typography>
+        </Box>
+        <Box className='product-details-seller'>
+          <Typography variant='h6'>Seller Information:</Typography>
+          <Typography variant='body2'>Name: {product.seller.name}</Typography>
+          <Typography variant='body2'>Email: {product.seller.email}</Typography>
+          <Typography variant='body2'>Phone: {product.seller.phone_number}</Typography>
+          <Typography variant='body2'>
+            Address: {product.seller.street}, {product.seller.city}, {product.seller.zip_code},{' '}
+            {product.seller.country}
+          </Typography>
+        </Box>
+        <Button variant='contained' color='primary' onClick={() => alert('Contact Seller')}>
+          Contact Seller
+        </Button>
+      </Box>
     </Box>
   )
 }

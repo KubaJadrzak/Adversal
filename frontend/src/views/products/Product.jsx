@@ -3,7 +3,6 @@ import { Box, Typography, Button, IconButton } from '@mui/material'
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import ImageDisplay from '../../components/ImageDisplay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { deleteProduct } from '../../api/productApi'
 import { useLocation } from 'react-router-dom'
 import useAlert from '../../components/alerts/useAlert'
 
@@ -12,7 +11,6 @@ import './Product.css'
 function Product({ product, navigate }) {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
-  const { setAlert } = useAlert()
 
   const isFromAccount = location.pathname.includes('/account')
   if (!product || product.length === 0) return <div></div>
@@ -31,33 +29,39 @@ function Product({ product, navigate }) {
           }
         />
       </Box>
-      <Typography variant='caption'>{product.seller.name}</Typography>
-      <Box className='product-title'>
-        <Typography>{product.title}</Typography>
-      </Box>
+      <Box className='product-details'>
+        <Typography variant='caption'>
+          {product.seller.street}, {product.seller.city}, {product.seller.zip_code},{' '}
+          {product.seller.country}
+        </Typography>
+        <Box className='product-title'>
+          <Typography>{product.title}</Typography>
+        </Box>
 
-      {!isFromAccount ? (
-        <Box className='product-footer'>
-          <Typography>${product.price}</Typography>
-          <IconButton className='products-footer-icon'>
-            <FontAwesomeIcon icon={faRegularHeart} />
-          </IconButton>
-        </Box>
-      ) : (
-        <Box className='product-footer'>
-          <Typography>${product.price}</Typography>
-          <Button
-            variant='contained'
-            className='product-footer-button'
-            onClick={(e) => {
-              e.stopPropagation()
-              navigate(`/account?view=editProduct&productId=${product.id}`)
-            }}
-          >
-            Edit
-          </Button>
-        </Box>
-      )}
+        {!isFromAccount ? (
+          <Box className='product-footer'>
+            <Typography>${product.price}</Typography>
+            <IconButton className='products-footer-icon'>
+              <FontAwesomeIcon icon={faRegularHeart} />
+            </IconButton>
+          </Box>
+        ) : (
+          <Box className='product-footer'>
+            <Typography>${product.price}</Typography>
+            <Button
+              variant='contained'
+              size='small'
+              className='product-footer-button'
+              onClick={(e) => {
+                e.stopPropagation()
+                navigate(`/account?view=editProduct&productId=${product.id}`)
+              }}
+            >
+              Edit
+            </Button>
+          </Box>
+        )}
+      </Box>
     </Box>
   )
 }

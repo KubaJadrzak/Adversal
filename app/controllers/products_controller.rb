@@ -42,20 +42,29 @@ class ProductsController < ApplicationController
       render json: @product.errors, status: :unprocessable_entity
     end
   end
+# PATCH/PUT /products/1
+def update
+  @product = Product.find(params[:id])
 
-  # PATCH/PUT /products/1
-  def update
-    @product = Product.find(params[:id])
+  if product_params[:images].present?
+    new_images_count = product_params[:images].count
+    total_images_count = @product.images.size + new_images_count
 
-    @product.images.attach(product_params[:images]) if product_params[:images].present?
-
-    if @product.update(product_params.except(:images))
-      render json: @product
-    else
-      render json: @product.errors, status: :unprocessable_entity
+    if total_images_count > 6
+      render json: { errors: "You can attach up to 6 images only." }, status: :unprocessable_entity
+      return
     end
+
+    @product.images.attach(product_params[:images])
   end
-  # PATCH /products/1/update_images
+
+  if @product.update(product_params.except(:images))
+    render json: @product
+  else
+    render json: @product.errors, status: :unprocessable_entity
+  end
+end
+
 
 
   # DELETE /products/1

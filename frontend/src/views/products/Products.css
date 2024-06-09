@@ -1,28 +1,8 @@
 .products {
   display: flex;
-  flex-direction: row;
-  margin-top: 10px;
+  flex-direction: column;
 }
 
 .products-elements {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 345px);
-  justify-content: space-around;
-}
-
-.products-sidebar {
-  width: 20%;
-}
-
-@media only screen and (max-width: 1000px) {
-  .products {
-    flex-direction: column;
-  }
-  .products-elements {
-    width: 100%;
-  }
-  .products-sidebar {
-    width: 100%;
-  }
 }
