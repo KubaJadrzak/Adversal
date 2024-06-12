@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { fetchProduct } from '../../api/productApi'
-import { Box, Button, Divider, Link, Typography, Rating } from '@mui/material'
+import { Box, Button, Divider, Link, Typography, Rating, useMediaQuery } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneIcon from '@mui/icons-material/Phone'
 import useAlert from '../../components/alerts/useAlert'
@@ -16,6 +16,7 @@ function ProductDetails() {
   const [largeImageIndex, setLargeImageIndex] = useState(0)
   const navigate = useNavigate()
   const location = useLocation()
+  const isSmallScreen = useMediaQuery('(max-width:1200px)')
 
   useEffect(() => {
     async function loadData() {
@@ -66,34 +67,58 @@ function ProductDetails() {
             ›
           </Button>
         </Box>
-        <Divider />
-        <Box className='product-description'>
+        {!isSmallScreen ? (
           <Typography>{product.description}</Typography>
-        </Box>
+        ) : (
+          <Box className='product-details-title'>
+            <Typography variant='h6'>{product.title}</Typography>
+
+            <Typography variant='h6'>${product.price}</Typography>
+            <Box className='contact-buttons'>
+              <Button
+                variant='contained'
+                startIcon={<EmailIcon />}
+                href={`mailto:${product.seller.email}`}
+              >
+                {product.seller.email}
+              </Button>
+              <Button
+                variant='contained'
+                startIcon={<PhoneIcon />}
+                href={`tel:${product.seller.phone_number}`}
+              >
+                {product.seller.phone_number}
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Box>
       <Box className='product-details-right'>
-        <Box>
-          <Typography variant='h6'>{product.title}</Typography>
+        {!isSmallScreen ? (
+          <Box className='product-details-title'>
+            <Typography variant='h6'>{product.title}</Typography>
 
-          <Typography variant='h6'>${product.price}</Typography>
-          <Box className='contact-buttons'>
-            <Button
-              variant='contained'
-              startIcon={<EmailIcon />}
-              href={`mailto:${product.seller.email}`}
-            >
-              {product.seller.email}
-            </Button>
-            <Button
-              variant='contained'
-              startIcon={<PhoneIcon />}
-              href={`tel:${product.seller.phone_number}`}
-            >
-              {product.seller.phone_number}
-            </Button>
+            <Typography variant='h6'>${product.price}</Typography>
+            <Box className='contact-buttons'>
+              <Button
+                variant='contained'
+                startIcon={<EmailIcon />}
+                href={`mailto:${product.seller.email}`}
+              >
+                {product.seller.email}
+              </Button>
+              <Button
+                variant='contained'
+                startIcon={<PhoneIcon />}
+                href={`tel:${product.seller.phone_number}`}
+              >
+                {product.seller.phone_number}
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <Divider />
+        ) : (
+          <Typography>{product.description}</Typography>
+        )}
         <Box>
           <Box className='seller-image'>
             <ImageDisplay
@@ -118,7 +143,6 @@ function ProductDetails() {
             </Link>
           </Box>
         </Box>
-        <Divider />
       </Box>
     </Box>
   )

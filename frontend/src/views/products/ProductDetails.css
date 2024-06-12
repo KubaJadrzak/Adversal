@@ -1,16 +1,24 @@
 .product-details-container {
   display: flex;
+  flex: 1;
   flex-direction: row;
   gap: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .product-details-left {
   display: flex;
-  flex-direction: column;
   width: 60%;
-  padding: 10px;
-  gap: 10px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-details-left > * {
   border: 1px solid #ccc;
+}
+
+.product-details-left > :nth-child(2) {
+  padding: 20px;
 }
 
 .product-details-image {
@@ -23,47 +31,48 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
   padding: 20px;
   cursor: pointer;
   z-index: 10;
 }
 .prev-button {
-  left: 10px;
+  left: 0px;
 }
 
 .next-button {
-  right: 10px;
+  right: 0px;
 }
 
 .image-overlay {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 0px;
+  right: 0px;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 5px 10px;
-  border-radius: 5px;
   z-index: 10;
 }
 
 .product-details-right {
   display: flex;
+  width: 40%;
   flex-direction: column;
-  flex: 1;
   gap: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
 }
 
-.product-details-right > :nth-child(1) {
+.product-details-right > * {
   display: flex;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.product-details-title {
+  display: flex;
+  flex: 0;
   flex-direction: column;
   gap: 20px;
 }
-
-.product-details-right > :nth-child(3) {
+.product-details-right > :nth-child(2) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -85,16 +94,28 @@
 }
 
 .seller-link {
-  margin-left: 8px;
+  margin-left: 6px;
   font-size: 0.75rem; /* Smaller font size */
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1200px) {
   .product-details-container {
     flex-direction: column;
     align-items: center;
   }
-  .product-details-images {
-    width: 90%;
+  .product-details-left {
+    width: 80%;
+  }
+  .product-details-right {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .product-details-left {
+    width: 95%;
+  }
+  .product-details-right {
+    width: 95%;
   }
 }
