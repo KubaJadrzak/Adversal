@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   defaults format: :json, protocol: 'https' do
     # Devise routes for user authentication
     devise_for :users, path: '', path_names: {

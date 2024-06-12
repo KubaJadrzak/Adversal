@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { fetchProduct } from '../../api/productApi'
-import { Box, ImageList, ImageListItem, Button, Typography } from '@mui/material'
+import { Box, Button, Divider, Link, Typography, Rating } from '@mui/material'
+import EmailIcon from '@mui/icons-material/Email'
+import PhoneIcon from '@mui/icons-material/Phone'
 import useAlert from '../../components/alerts/useAlert'
 import ImageDisplay from '../../components/ImageDisplay'
 import './ProductDetails.css'
@@ -45,8 +47,8 @@ function ProductDetails() {
 
   return (
     <Box className='product-details-container'>
-      <Box className='product-details-images'>
-        <Box className='large-image-container'>
+      <Box className='product-details-left'>
+        <Box className='product-details-image'>
           <Button className='prev-button' onClick={handlePrev}>
             ‹
           </Button>
@@ -57,52 +59,66 @@ function ProductDetails() {
                 : null
             }
           />
+          <div className='image-overlay'>
+            {largeImageIndex + 1} / {product.images.length}
+          </div>
           <Button className='next-button' onClick={handleNext}>
             ›
           </Button>
         </Box>
-        {product.images && product.images.length > 0 && (
-          <ImageList className='small-images-list' cols={3}>
-            {product.images.map((image, index) => (
-              <ImageListItem
-                key={index}
-                onClick={() => handleImageClick(index)}
-                className='small-image'
-              >
-                <ImageDisplay imageURL={`${baseURL}/${image}`} />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        )}
+        <Divider />
+        <Box className='product-description'>
+          <Typography>{product.description}</Typography>
+        </Box>
       </Box>
+      <Box className='product-details-right'>
+        <Box>
+          <Typography variant='h6'>{product.title}</Typography>
 
-      <Box className='product-details-content'>
-        <Box className='product-details-product'>
-          <Typography variant='h4' className='product-title'>
-            {product.title}
-          </Typography>
-          <Typography className='product-description'>{product.description}</Typography>
-          <Typography className='product-price'>${product.price}</Typography>
-          <Typography variant='body2' className='product-status'>
-            Status: {product.status}
-          </Typography>
-          <Typography variant='body2' className='product-category'>
-            Category: {product.category.name}
-          </Typography>
+          <Typography variant='h6'>${product.price}</Typography>
+          <Box className='contact-buttons'>
+            <Button
+              variant='contained'
+              startIcon={<EmailIcon />}
+              href={`mailto:${product.seller.email}`}
+            >
+              {product.seller.email}
+            </Button>
+            <Button
+              variant='contained'
+              startIcon={<PhoneIcon />}
+              href={`tel:${product.seller.phone_number}`}
+            >
+              {product.seller.phone_number}
+            </Button>
+          </Box>
         </Box>
-        <Box className='product-details-seller'>
-          <Typography variant='h6'>Seller Information:</Typography>
-          <Typography variant='body2'>Name: {product.seller.name}</Typography>
-          <Typography variant='body2'>Email: {product.seller.email}</Typography>
-          <Typography variant='body2'>Phone: {product.seller.phone_number}</Typography>
-          <Typography variant='body2'>
-            Address: {product.seller.street}, {product.seller.city}, {product.seller.zip_code},{' '}
-            {product.seller.country}
-          </Typography>
+        <Divider />
+        <Box>
+          <Box className='seller-image'>
+            <ImageDisplay
+              imageURL={product.seller.image ? `${baseURL}/${product.seller.image}` : null}
+            />
+          </Box>
+          <Box>
+            <Box className='seller-name'>
+              <Typography variant='h6'>{product.seller.name}</Typography>
+            </Box>
+            <Box className='seller-rating'>
+              <Rating
+                name='seller-rating'
+                value={product.seller.average_rating}
+                precision={0.5}
+                readOnly
+                size='large'
+              />
+            </Box>
+            <Link className='seller-link' href='#' color='inherit'>
+              More from this seller
+            </Link>
+          </Box>
         </Box>
-        <Button variant='contained' color='primary' onClick={() => alert('Contact Seller')}>
-          Contact Seller
-        </Button>
+        <Divider />
       </Box>
     </Box>
   )

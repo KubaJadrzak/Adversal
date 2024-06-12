@@ -3,7 +3,7 @@
 class Product < ApplicationRecord
   validates :category_id, presence: true
   validates :seller_id, presence: true
-  validates_length_of :title, maximum: 64
+  validates_length_of :title, maximum: 100
 
   enum status: { LIVE: 1, SOLD: 2, HIDDEN: 3, DELETED: 4 }
   belongs_to :category

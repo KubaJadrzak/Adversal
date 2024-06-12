@@ -87,6 +87,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#F3D250', // Change link color to primary color on hover
+          },
+        },
+      },
+    },
   },
 })
 

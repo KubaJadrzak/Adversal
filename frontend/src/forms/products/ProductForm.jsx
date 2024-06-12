@@ -81,7 +81,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           id='title'
           label='Title'
           value={title}
-          inputProps={{ maxLength: 64 }}
+          inputProps={{ maxLength: 100 }}
           onChange={(e) => setTitle(e.target.value)}
         />
         <TextField

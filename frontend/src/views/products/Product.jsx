@@ -35,7 +35,7 @@ function Product({ product, navigate }) {
           {product.seller.country}
         </Typography>
         <Box className='product-title'>
-          <Typography>{product.title}</Typography>
+          <Typography variant='h6'>{product.title}</Typography>
         </Box>
 
         {!isFromAccount ? (

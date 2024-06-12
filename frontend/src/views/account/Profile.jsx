@@ -115,6 +115,7 @@ function Profile() {
           variant='outlined'
           onChange={(e) => setUser({ ...user, [field]: e.target.value })}
           onKeyDown={(e) => handleTextFieldKeyDown(e, field)}
+          inputProps={field === 'name' ? { maxLength: 32 } : {}}
         />
       )
     } else {

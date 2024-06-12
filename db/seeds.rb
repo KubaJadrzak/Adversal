@@ -76,10 +76,31 @@ users_data = [
     jti: SecureRandom.uuid 
   }
 ]
+# Define review data
+reviews_data = [
+  { text: 'Great service!', rating: 5 },
+  { text: 'Not bad.', rating: 3 },
+  { text: 'Could be better.', rating: 2 },
+  { text: 'Excellent!', rating: 5 },
+  { text: 'Satisfactory.', rating: 4 },
+  { text: 'Terrible experience.', rating: 1 }
+]
 
 users_data.each do |user_data|
-  user_data[:confirmed_at] = Time.now # Set confirmed_at attribute to mark user as confirmed
-  User.create(user_data)
+  # Find or create a user instance based on user_data
+  user = User.find_or_create_by(email: user_data[:email]) do |user_instance|
+    user_instance.attributes = user_data
+  end
+
+  # Set confirmed_at attribute to mark user as confirmed
+  user.update(confirmed_at: Time.now)
+
+  # Create at least 2 reviews for each user
+  2.times do
+    review_data = reviews_data.sample # Pick a random review data
+    review_data[:user_id] = user.id # Associate the review with the current user
+    Review.create(review_data)
+  end
 end
 
 # Seed data for Categories

@@ -42,6 +42,7 @@ class ProductsController < ApplicationController
       render json: @product.errors, status: :unprocessable_entity
     end
   end
+
 # PATCH/PUT /products/1
 def update
   @product = Product.find(params[:id])
