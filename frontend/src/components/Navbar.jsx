@@ -10,7 +10,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material'
-import { faUser, faHome, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHeart, faBars, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { fetchAllCategories } from '../api/categoryApi'
@@ -95,13 +95,17 @@ function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <Box>
         <Box className='navbar-top'>
-          <Box className='navbar-top-icon'>
+          <Box className='navbar-top-icons'></Box>
+          <Box className='navbar-top-logo'>
+            <img src={Adversal} alt='logo' style={{ width: '60px', height: '60px' }} />
+          </Box>
+          <Box className='navbar-top-icons'>
             <IconButton onClick={() => navigate(`/`)}>
               <FontAwesomeIcon icon={faHome} />
             </IconButton>
-          </Box>
-          <img src={Adversal} alt='logo' style={{ width: '60px', height: '60px' }} />
-          <Box className='navbar-top-icon'>
+            <IconButton>
+              <FontAwesomeIcon icon={faHeart} />
+            </IconButton>
             <IconButton onClick={() => navigate(`/account?view=profile`)}>
               <FontAwesomeIcon icon={faUser} />
             </IconButton>

@@ -23,13 +23,10 @@ function Product({ product, navigate, isFavorite: initialIsFavorite }) {
     e.stopPropagation()
     try {
       if (isFavorite) {
-        console.log(product.id)
         await deleteFavoriteProduct(product.id)
-        console.log(product.id)
         setIsFavorite(false)
       } else {
         await addFavoriteProduct(product.id)
-        console.log(product.id)
         setIsFavorite(true)
       }
     } catch (error) {
@@ -61,7 +58,6 @@ function Product({ product, navigate, isFavorite: initialIsFavorite }) {
         <Box className='product-title'>
           <Typography variant={isSmallScreen ? 'subtitle1' : 'h6'}>{product.title}</Typography>
         </Box>
-        {console.log(isFavorite)}
         {!isFromAccount ? (
           <Box className='product-footer'>
             <Typography>${product.price}</Typography>

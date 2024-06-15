@@ -22,28 +22,38 @@ function Products() {
         const searchParams = new URLSearchParams(location.search)
         const categoryId = searchParams.get('category')
         const subcategoryId = searchParams.get('subcategory')
+        const query = searchParams.get('query')
         const params = new URLSearchParams()
         params.set('without_listed_products', 'true')
 
         if (categoryId) {
           params.set('category', categoryId)
-          const categoryData = await fetchCategory(categoryId)
-          setCategory(categoryData)
+          const category = await fetchCategory(categoryId)
+          setCategory(category)
 
           if (subcategoryId) {
-            params.set('subcategory', subcategoryId)
+            params.set('category', subcategoryId)
             setAlignment(parseInt(subcategoryId, 10))
           }
         } else {
           setCategory(null)
         }
 
+        if (query) {
+          params.set('query', query)
+        }
+
         const fetchedProducts = await fetchAllProducts(params)
         setProducts(fetchedProducts)
 
-        const favorites = await fetchUserFavorites()
-        setUserFavorites(favorites)
-        console.log(favorites)
+        // Check if there's a logged-in user (id in localStorage)
+        const loggedInUserId = localStorage.getItem('id')
+        if (loggedInUserId) {
+          const favorites = await fetchUserFavorites()
+          setUserFavorites(favorites)
+        } else {
+          setUserFavorites([]) // If no logged-in user, set empty array
+        }
       } catch (error) {
         console.error('Failed to load products: ', error)
       }
@@ -60,8 +70,8 @@ function Products() {
   }
 
   // Render loading state until products are loaded
-  if (!products.length || !userFavorites) {
-    return <div>Loading...</div>
+  if (!products.length || userFavorites === null) {
+    return <div></div>
   }
 
   return (
