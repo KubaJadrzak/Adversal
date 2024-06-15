@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :favorites, only: [:create, :destroy] do
+    collection do
+      get :user_favorites
+    end
+  end
   resources :reviews
   defaults format: :json, protocol: 'https' do
     # Devise routes for user authentication
@@ -27,6 +32,7 @@ Rails.application.routes.draw do
     resources :products do
       delete 'delete_image/:index', to: 'products#delete_image', on: :member, as: :delete_image
     end
+
     # Other resources and routes in your application
     resources :cart_products
     resources :categories

@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   has_many :listed_products, class_name: :Product, inverse_of: :seller, foreign_key: :seller_id, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :favorites
+  has_many :favorite_products, through: :favorites, source: :product
   has_one_attached :image
 
   validates :email, presence: true, uniqueness: true

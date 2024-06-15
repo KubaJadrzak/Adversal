@@ -9,6 +9,8 @@ class Product < ApplicationRecord
   belongs_to :category
   belongs_to :seller, class_name: :User, inverse_of: :listed_products, foreign_key: :seller_id, default: -> { Current.user }
   has_many_attached :images
+  has_many :favorites
+  has_many :favorited_by_users, through: :favorites, source: :user
 
   scope :only_listed_products, -> { where(seller_id: Current.user) }
   scope :without_listed_products, -> { where.not(seller_id: Current.user) }
