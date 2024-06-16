@@ -103,7 +103,7 @@ function Navbar() {
             <IconButton onClick={() => navigate(`/`)}>
               <FontAwesomeIcon icon={faHome} />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => navigate(`/favorites`)}>
               <FontAwesomeIcon icon={faHeart} />
             </IconButton>
             <IconButton onClick={() => navigate(`/account?view=profile`)}>

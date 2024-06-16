@@ -5,12 +5,11 @@ import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import ImageDisplay from '../../components/ImageDisplay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
-import useAlert from '../../components/alerts/useAlert'
 import { addFavoriteProduct, deleteFavoriteProduct } from '../../api/userApi'
 
 import './Product.css'
 
-function Product({ product, navigate, isFavorite: initialIsFavorite }) {
+function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFavorite }) {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const location = useLocation()
   const isFromAccount = location.pathname.includes('/account')
@@ -25,6 +24,9 @@ function Product({ product, navigate, isFavorite: initialIsFavorite }) {
       if (isFavorite) {
         await deleteFavoriteProduct(product.id)
         setIsFavorite(false)
+        if (onRemoveFavorite) {
+          onRemoveFavorite(product.id)
+        }
       } else {
         await addFavoriteProduct(product.id)
         setIsFavorite(true)

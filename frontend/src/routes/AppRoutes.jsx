@@ -14,6 +14,7 @@ import SignUp from '../views/login/SignUp'
 import PasswordResetRequest from '../views/login/PasswordResetRequest'
 import PasswordReset from '../views/login/PasswordReset'
 import PasswordResetEmail from '../views/login/PasswordResetEmail'
+import Favorites from '../views/account/Favorites'
 
 function AppRoutes() {
   return (
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path='/product/:id/edit' element={<EditProduct />} />
 
         <Route path='/account' element={<Account />} />
+        <Route path='/favorites' element={<Favorites />} />
       </Route>
     </Routes>
   )

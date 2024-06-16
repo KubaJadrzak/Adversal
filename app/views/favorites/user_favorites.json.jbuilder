@@ -1,3 +1,3 @@
 json.array!(@favorites) do |favorite|
-    json.id favorite.id
-  end
+  json.partial! 'products/product', product: favorite
+end
