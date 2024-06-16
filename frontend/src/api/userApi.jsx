@@ -99,3 +99,12 @@ export async function fetchUserFavorites() {
     throw error
   }
 }
+
+export async function fetchUserReviews() {
+  try {
+    const response = await api.get('/reviews/user_reviews')
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

@@ -3,8 +3,9 @@ import { Box } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { logoutUser } from '../../api/authApi'
 import Sidebar from '../../components/Sidebar'
-import Profile from './Profile'
+import Profile from './profile/Profile'
 import Catalog from './Catalog'
+import Reviews from './reviews/Reviews'
 import './Account.css'
 import AddProduct from '../../forms/products/AddProduct'
 import EditProduct from '../../forms/products/EditProduct'
@@ -24,6 +25,8 @@ function Account() {
       setAlignment(1)
     } else if (paramValue === 'catalog') {
       setAlignment(2)
+    } else if (paramValue === 'reviews') {
+      setAlignment(3)
     } else if (paramValue === 'addProduct') {
       setAlignment(4)
     } else if (paramValue === 'editProduct') {
@@ -53,6 +56,8 @@ function Account() {
       navigate('/account?view=profile')
     } else if (newAlignment === 2) {
       navigate('/account?view=catalog')
+    } else if (newAlignment === 3) {
+      navigate('/account?view=reviews')
     } else if (newAlignment === 9) {
       handleLogout()
     }
@@ -70,6 +75,7 @@ function Account() {
       <Box className='account-content'>
         {alignment === 1 && <Profile />}
         {alignment === 2 && <Catalog />}
+        {alignment === 3 && <Reviews />}
         {alignment === 4 && <AddProduct />}
         {alignment === 5 && <EditProduct productId={productId} />}
       </Box>

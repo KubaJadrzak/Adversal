@@ -8,6 +8,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# Define user data
 users_data = [
   { 
     name: 'John Doe',
@@ -76,6 +77,7 @@ users_data = [
     jti: SecureRandom.uuid 
   }
 ]
+
 # Define review data
 reviews_data = [
   { text: 'Great service!', rating: 5 },
@@ -86,22 +88,40 @@ reviews_data = [
   { text: 'Terrible experience.', rating: 1 }
 ]
 
-users_data.each do |user_data|
-  # Find or create a user instance based on user_data
+# Create users first
+users = users_data.map do |user_data|
   user = User.find_or_create_by(email: user_data[:email]) do |user_instance|
     user_instance.attributes = user_data
   end
+  user.update(confirmed_at: Time.now) # Confirm the user
+  user
+end
 
-  # Set confirmed_at attribute to mark user as confirmed
-  user.update(confirmed_at: Time.now)
+# Create reviews and associate them with users
+users.each do |user|
+  other_users = users - [user] # Exclude the current user from other users
 
-  # Create at least 2 reviews for each user
+  # Create 2 reviews where the user is the reviewer
   2.times do
-    review_data = reviews_data.sample # Pick a random review data
-    review_data[:user_id] = user.id # Associate the review with the current user
-    Review.create(review_data)
+    review_data = reviews_data.sample
+    subject_user = other_users.sample
+    Review.create(
+      review_data.merge(reviewer_id: user.id, subject_id: subject_user.id)
+    )
+  end
+
+  # Create 2 reviews where the user is the subject
+  2.times do
+    review_data = reviews_data.sample
+    reviewer_user = other_users.sample
+    Review.create(
+      review_data.merge(reviewer_id: reviewer_user.id, subject_id: user.id)
+    )
   end
 end
+
+
+
 
 # Seed data for Categories
 categories_data = [

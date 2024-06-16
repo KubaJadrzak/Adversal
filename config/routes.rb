@@ -4,6 +4,12 @@ Rails.application.routes.draw do
       get :user_favorites
     end
   end
+
+  resources :reviews do
+    collection do
+      get :user_reviews
+    end
+  end
   resources :reviews
   defaults format: :json, protocol: 'https' do
     # Devise routes for user authentication

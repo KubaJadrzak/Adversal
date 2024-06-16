@@ -77,7 +77,6 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
             <Typography>${product.price}</Typography>
             <Button
               variant='contained'
-              size='small'
               className='product-footer-button'
               onClick={(e) => {
                 e.stopPropagation()

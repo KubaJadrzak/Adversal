@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog, DialogTitle, DialogContent, Box, Button, TextField } from '@mui/material'
-import { changePassword } from '../../api/authApi'
-import useAlert from '../../components/alerts/useAlert'
+import { changePassword } from '../../../api/authApi'
+import useAlert from '../../../components/alerts/useAlert'
 import './PasswordChangeDialog.css' // Import CSS for custom styling
 
 function PasswordChangeDialog({ open, onClose, updateUser, loadData }) {

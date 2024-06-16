@@ -1,0 +1,14 @@
+.reviews-topbar {
+  display: flex;
+  margin: 10px 30px 20px 30px;
+}
+
+.reviews-topbar > .MuiToggleButton-root {
+  width: 200px;
+}
+@media only screen and (max-width: 700px) {
+  .reviews-topbar {
+    justify-content: center;
+    margin: 10px;
+  }
+}

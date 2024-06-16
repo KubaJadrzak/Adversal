@@ -8,9 +8,9 @@ import {
   Box,
   Typography,
 } from '@mui/material'
-import useAlert from '../../components/alerts/useAlert'
-import { updateUser, deleteUserImage } from '../../api/userApi'
-import ImageDisplay from '../../components/ImageDisplay'
+import useAlert from '../../../components/alerts/useAlert'
+import { updateUser, deleteUserImage } from '../../../api/userApi'
+import ImageDisplay from '../../../components/ImageDisplay'
 import './ProfileImage.css'
 
 const ProfileImage = ({ user, loadData }) => {

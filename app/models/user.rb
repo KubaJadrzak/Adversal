@@ -19,7 +19,8 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :listed_products, class_name: :Product, inverse_of: :seller, foreign_key: :seller_id, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  has_many :written_reviews, class_name: 'Review', foreign_key: 'reviewer_id'
+  has_many :received_reviews, class_name: 'Review', foreign_key: 'subject_id'
   has_many :favorites
   has_many :favorite_products, through: :favorites, source: :product
   has_one_attached :image
@@ -33,8 +34,8 @@ class User < ApplicationRecord
   end
 
   def average_rating
-    if reviews.exists?
-      reviews.average(:rating).to_f
+    if received_reviews.exists?
+      received_reviews.average(:rating).to_f
     else
       0.0
     end

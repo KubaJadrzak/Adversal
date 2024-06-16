@@ -1,0 +1,50 @@
+.review-container {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #ccc;
+  min-width: 400px;
+  margin-top: 10px;
+}
+
+.review-title {
+  display: flex;
+  flex: 1;
+}
+
+.review-image {
+  width: 20%;
+  min-width: 150px;
+  align-self: center;
+}
+
+.review-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px 10px 0px 10px;
+}
+
+.review-footer {
+  display: flex;
+  flex: 0 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1400px) {
+  .review-image {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .review-image {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .review-image {
+    width: 40%;
+  }
+}
