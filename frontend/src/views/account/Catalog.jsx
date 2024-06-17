@@ -41,7 +41,7 @@ function Catalog() {
   }
 
   return (
-    <Box>
+    <Box className='catalog-container'>
       <Box className='catalog-topbar'>
         <ToggleButtonGroup
           className='catalog-toggle'

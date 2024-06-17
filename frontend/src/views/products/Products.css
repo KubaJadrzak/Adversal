@@ -1,6 +1,7 @@
 .products {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .products-elements {

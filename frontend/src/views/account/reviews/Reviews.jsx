@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { fetchUserReviews } from '../../../api/userApi'
+import { fetchUserReviews, deleteUserReview } from '../../../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import Review from './Review'
 import './Reviews.css'
@@ -42,12 +42,21 @@ function Reviews() {
     }
   }
 
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      await deleteUserReview(reviewId)
+      setUserReviews(userReviews.filter((review) => review.id !== reviewId))
+    } catch (error) {
+      console.error('Error deleting review:', error)
+    }
+  }
+
   if (userReviews === null) {
     return <Box></Box>
   }
 
   return (
-    <Box>
+    <Box className='reviews-container'>
       <ToggleButtonGroup
         className='reviews-topbar'
         value={reviewType}
@@ -67,7 +76,12 @@ function Reviews() {
       ) : (
         <Box>
           {filteredReviews.map((review) => (
-            <Review key={review.id} review={review} reviewType={reviewType} />
+            <Review
+              key={review.id}
+              review={review}
+              reviewType={reviewType}
+              onDelete={handleDeleteReview}
+            />
           ))}
         </Box>
       )}

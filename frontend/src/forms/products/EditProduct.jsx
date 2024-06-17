@@ -48,7 +48,6 @@ function EditProduct({ productId }) {
       status,
       images: newImages,
     }
-    console.log(updatedData)
 
     try {
       // Delete each image in deletedImages array
@@ -89,7 +88,6 @@ function EditProduct({ productId }) {
     images,
     categories,
   }
-  console.log(data)
 
   return (
     <Box>

@@ -1,3 +1,7 @@
+.catalog-container {
+  margin-bottom: 20px;
+}
+
 .catalog-topbar {
   display: flex;
   justify-content: space-between;

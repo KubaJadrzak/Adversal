@@ -108,3 +108,15 @@ export async function fetchUserReviews() {
     throw error
   }
 }
+export async function deleteUserReview(id) {
+  try {
+    const response = await api.delete(`/reviews/${id}`)
+    if (response.status === 204) {
+      return null
+    } else {
+      return response.data
+    }
+  } catch (error) {
+    throw error
+  }
+}
