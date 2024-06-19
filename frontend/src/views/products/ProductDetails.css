@@ -85,15 +85,15 @@
   gap: 10px;
 }
 
-.seller-name {
+.product-details-seller-name {
   margin-left: 5px;
 }
 
-.seller-image {
+.product-details-seller-image {
   min-width: 140px;
 }
 
-.seller-link {
+.product-details-seller-link {
   margin-left: 6px;
   font-size: 0.75rem; /* Smaller font size */
 }

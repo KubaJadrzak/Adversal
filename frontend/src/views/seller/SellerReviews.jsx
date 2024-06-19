@@ -25,7 +25,7 @@ function SellerReviews({ sellerId }) {
   }
 
   return (
-    <Box className='reviews-container'>
+    <Box>
       {userReviews.length === 0 ? (
         <Box></Box>
       ) : (

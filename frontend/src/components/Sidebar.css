@@ -1,7 +1,6 @@
 .sidebar-toggle-group {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
   margin-bottom: 10px;
   gap: 10px;
   flex-wrap: wrap;

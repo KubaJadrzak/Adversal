@@ -1,7 +1,6 @@
 .account-container {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
 }
 .account-content {
   width: 100%;

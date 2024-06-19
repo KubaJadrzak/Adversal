@@ -6,7 +6,6 @@ import { Box } from '@mui/material'
 
 function SellerCatalog({ sellerId }) {
   const [products, setProducts] = useState([])
-  const [filter, setFilter] = useState('LIVE') // State for filter
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -19,13 +18,13 @@ function SellerCatalog({ sellerId }) {
       }
     }
     loadData()
-  }, [filter]) // Re-fetch products when filter changes
+  }, []) // Re-fetch products when filter changes
 
   if (!products) return <div></div>
 
   return (
-    <Box className='catalog-container'>
-      <Box className='catalog-elements'>
+    <Box>
+      <Box>
         {products.length > 0 &&
           products.map((product) => (
             <Box key={product.id}>

@@ -138,16 +138,16 @@ function ProductDetails() {
           <Typography>{product.description}</Typography>
         )}
         <Box>
-          <Box className='seller-image'>
+          <Box className='product-details-seller-image'>
             <ImageDisplay
               imageURL={product.seller.image ? `${baseURL}/${product.seller.image}` : null}
             />
           </Box>
           <Box>
-            <Box className='seller-name'>
+            <Box className='product-details-seller-name'>
               <Typography variant='h6'>{product.seller.name}</Typography>
             </Box>
-            <Box className='seller-rating'>
+            <Box className='product-details-seller-rating'>
               <Rating
                 name='seller-rating'
                 value={product.seller.average_rating}
@@ -157,7 +157,7 @@ function ProductDetails() {
               />
             </Box>
             <Link
-              className='seller-link'
+              className='product-details-seller-link'
               color='inherit'
               onClick={handleMoreFromSellerClick}
               component='button'

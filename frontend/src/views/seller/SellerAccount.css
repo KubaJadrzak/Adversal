@@ -1,0 +1,40 @@
+.seller-account-sidebar {
+  margin-bottom: 20px;
+}
+.seller-account-content {
+  margin-bottom: 20px;
+}
+.seller-account-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.seller-name {
+  margin-left: 5px;
+}
+
+.seller-image {
+  width: 20%;
+  min-width: 150px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .seller-image {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .seller-image {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .seller-image {
+    width: 40%;
+  }
+}

@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
+import { Box, Rating, Typography, useMediaQuery } from '@mui/material'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import ImageDisplay from '../../components/ImageDisplay'
 import Sidebar from '../../components/Sidebar'
 import SellerCatalog from './SellerCatalog'
 import SellerReviews from './SellerReviews'
+import { fetchUser } from '../../api/userApi' // Import the fetchUser function
 import './SellerAccount.css'
 
 function SellerAccount() {
+  const baseURL = import.meta.env.VITE_API_BASE_URL
   const [alignment, setAlignment] = useState(null)
+  const [seller, setSeller] = useState(null) // State to store seller data
   const navigate = useNavigate()
   const location = useLocation()
   const { id } = useParams() // Get seller ID from URL
+  const isSmallScreen = useMediaQuery('(max-width: 700px)')
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -23,13 +28,50 @@ function SellerAccount() {
     }
   }, [location.search])
 
+  useEffect(() => {
+    // Fetch seller data when the component mounts
+    async function getSeller() {
+      try {
+        const sellerData = await fetchUser(id) // Pass any necessary params here
+        setSeller(sellerData)
+      } catch (error) {
+        console.error('Failed to fetch seller data:', error)
+      }
+    }
+
+    getSeller()
+  }, [id])
+
   const sidebarItems = [
     { id: 1, name: 'Reviews', onClick: () => navigate(`/seller/${id}?view=reviews`) },
     { id: 2, name: 'Catalog', onClick: () => navigate(`/seller/${id}?view=catalog`) },
   ]
 
+  if (!seller) {
+    return <Typography>Loading...</Typography>
+  }
+
   return (
     <Box className='seller-account-container'>
+      <Box className='seller-account-top'>
+        <Box className='seller-image'>
+          <ImageDisplay imageURL={seller.image ? `${baseURL}/${seller.image}` : null} />
+        </Box>
+        <Box>
+          <Box className='seller-name'>
+            <Typography variant={isSmallScreen ? 'subtitle1' : 'h6'}>{seller.name}</Typography>
+          </Box>
+          <Box className='seller-rating'>
+            <Rating
+              name='seller-rating'
+              value={seller.average_rating}
+              precision={0.5}
+              readOnly
+              size={isSmallScreen ? undefined : 'large'}
+            />
+          </Box>
+        </Box>
+      </Box>
       <Box className='seller-account-sidebar'>
         <Sidebar
           items={sidebarItems}
