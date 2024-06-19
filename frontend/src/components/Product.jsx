@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Box, Typography, Button, IconButton, useMediaQuery, useTheme } from '@mui/material'
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
-import ImageDisplay from '../../components/ImageDisplay'
+import ImageDisplay from './ImageDisplay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
-import { addFavoriteProduct, deleteFavoriteProduct } from '../../api/userApi'
+import { addFavoriteProduct, deleteFavoriteProduct } from '../api/favoriteApi'
 
 import './Product.css'
 

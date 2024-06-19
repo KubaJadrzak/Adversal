@@ -2,12 +2,13 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy update_images delete_image]
-  before_action :authenticate_user!, only: %i[index update destroy update_images delete_image], if: :authentication_required?
+  before_action :authenticate_user!, only: %i[index update destroy update_images delete_image current_user_products], if: :authentication_required?
   load_and_authorize_resource
 
   # GET /products
   def index
-    @products = Product.all
+    # Initial filter to exclude products with status other than 1
+    @products = Product.where(status: 1)
 
     if params[:category].present?
       category_id = params[:category].to_i
@@ -16,17 +17,32 @@ class ProductsController < ApplicationController
       @products = @products.where(category_id: category_ids).distinct
     end
 
-    @products = @products.only_listed_products if params[:only_listed_products].to_s == 'true'
-    @products = @products.without_listed_products if params[:without_listed_products].to_s == 'true'
-    @products = @products.without_deleted_products if params[:with_deleted_products].to_s != 'true'
+    if params[:query].present? && params[:query].is_a?(String)
+      @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
+    end
+
+  end
+
+  def current_user_products
+    @products = Product.where(seller_id: current_user.id).where.not(status: 4)
 
     if params[:status].present?
       @products = @products.where(status: Product.statuses[params[:status].upcase])
     end
 
+  end
+
+
+  # GET /user_products/:user_id
+  def user_products
+    user_id = params[:user_id]
+    @products = Product.where(seller_id: user_id, status: 1)
+
     if params[:query].present? && params[:query].is_a?(String)
       @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
     end
+
+
   end
 
   # GET /products/1

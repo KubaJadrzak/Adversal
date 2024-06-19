@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ImageDisplay from '../../../components/ImageDisplay'
+import ImageDisplay from './ImageDisplay'
 import {
   Box,
   Typography,

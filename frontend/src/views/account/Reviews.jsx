@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { fetchUserReviews, deleteUserReview } from '../../../api/userApi'
+import { fetchCurrentUserReviews, deleteUserReview } from '../../api/reviewApi'
 import { useNavigate } from 'react-router-dom'
-import Review from './Review'
+import Review from '../../components/Review'
 import './Reviews.css'
 
 function Reviews() {
@@ -13,7 +13,7 @@ function Reviews() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const reviews = await fetchUserReviews()
+        const reviews = await fetchCurrentUserReviews()
         setUserReviews(reviews)
       } catch (error) {
         console.error('Error fetching user reviews:', error)

@@ -48,8 +48,9 @@ class FavoritesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { success: false, message: 'Favorite not found' }, status: :not_found
   end
-  # GET /favorites/user_favorites
-  def user_favorites
+  
+  # GET /favorites/current_user_favorites
+  def current_user_favorites
     @favorites = current_user.favorite_products
   end
 

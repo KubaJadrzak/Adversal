@@ -1,16 +1,5 @@
 Rails.application.routes.draw do
-  resources :favorites, only: [:create, :destroy] do
-    collection do
-      get :user_favorites
-    end
-  end
-
-  resources :reviews do
-    collection do
-      get :user_reviews
-    end
-  end
-  resources :reviews
+  # Default settings for JSON format and HTTPS protocol
   defaults format: :json, protocol: 'https' do
     # Devise routes for user authentication
     devise_for :users, path: '', path_names: {
@@ -29,14 +18,37 @@ Rails.application.routes.draw do
       put '/change_password', to: 'users/passwords#change_password'
     end
 
+    resources :favorites, only: [:create, :destroy] do
+      collection do
+        get 'current_user_favorites', to: 'favorites#current_user_favorites'
+      end
+    end
+  
+    resources :reviews do
+      collection do
+        get 'current_user_reviews', to: 'reviews#current_user_reviews'
+        get 'user_reviews/:user_id', to: 'reviews#user_reviews', as: :user_reviews
+      end
+    end
+  
+
     # Routes for managing users and deleting user images
     resources :users, only: %i[show edit update] do
-      delete 'delete_image', to: 'users#delete_image', on: :member, as: :delete_image
+      member do
+        delete 'delete_image', to: 'users#delete_image', as: :delete_image
+      end
     end
 
     # Routes for managing products and deleting product images
     resources :products do
-      delete 'delete_image/:index', to: 'products#delete_image', on: :member, as: :delete_image
+      member do
+        delete 'delete_image/:index', to: 'products#delete_image', as: :delete_image
+      end
+
+      collection do
+        get 'current_user_products', to: 'products#current_user_products'
+        get 'user_products/:user_id', to: 'products#user_products', as: :user_products
+      end
     end
 
     # Other resources and routes in your application

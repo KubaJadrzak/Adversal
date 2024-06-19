@@ -5,7 +5,10 @@ class Ability
 
   def initialize(user)
     can :read, :all
+    can :user_products, Product, status: 1
     return unless user.present?
+
+    can :current_user_products, Product, seller_id: user.id
 
     cannot :create, :all
     can :create, Product

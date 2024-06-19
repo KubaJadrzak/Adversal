@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { fetchProduct } from '../../api/productApi'
-import { Box, Button, Divider, Link, Typography, Rating, useMediaQuery } from '@mui/material'
+import { Box, Button, Typography, Rating, Link, useMediaQuery } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneIcon from '@mui/icons-material/Phone'
 import useAlert from '../../components/alerts/useAlert'
@@ -31,26 +31,40 @@ function ProductDetails() {
   }, [id])
 
   const handleNext = () => {
-    setLargeImageIndex((prevIndex) => (prevIndex + 1) % product.images.length)
+    if (product && product.images && product.images.length > 0) {
+      setLargeImageIndex((prevIndex) => (prevIndex + 1) % product.images.length)
+    }
   }
 
   const handlePrev = () => {
-    setLargeImageIndex(
-      (prevIndex) => (prevIndex - 1 + product.images.length) % product.images.length
-    )
+    if (product && product.images && product.images.length > 0) {
+      setLargeImageIndex(
+        (prevIndex) => (prevIndex - 1 + product.images.length) % product.images.length
+      )
+    }
   }
 
   const handleImageClick = (index) => {
-    setLargeImageIndex(index)
+    if (product && product.images && product.images.length > 0) {
+      setLargeImageIndex(index)
+    }
   }
 
-  if (!product || product.length === 0) return <div></div>
+  const handleMoreFromSellerClick = () => {
+    navigate(`/seller/${product.seller.id}?view=reviews`)
+  }
+
+  if (!product) return <div></div>
 
   return (
     <Box className='product-details-container'>
       <Box className='product-details-left'>
         <Box className='product-details-image'>
-          <Button className='prev-button' onClick={handlePrev}>
+          <Button
+            className='prev-button'
+            onClick={handlePrev}
+            disabled={!(product.images && product.images.length > 1)}
+          >
             ‹
           </Button>
           <ImageDisplay
@@ -60,10 +74,16 @@ function ProductDetails() {
                 : null
             }
           />
-          <div className='image-overlay'>
-            {largeImageIndex + 1} / {product.images.length}
-          </div>
-          <Button className='next-button' onClick={handleNext}>
+          {product.images && product.images.length > 0 && (
+            <div className='image-overlay'>
+              {largeImageIndex + 1} / {product.images.length}
+            </div>
+          )}
+          <Button
+            className='next-button'
+            onClick={handleNext}
+            disabled={!(product.images && product.images.length > 1)}
+          >
             ›
           </Button>
         </Box>
@@ -72,7 +92,6 @@ function ProductDetails() {
         ) : (
           <Box className='product-details-title'>
             <Typography variant='h6'>{product.title}</Typography>
-
             <Typography variant='h6'>${product.price}</Typography>
             <Box className='contact-buttons'>
               <Button
@@ -97,7 +116,6 @@ function ProductDetails() {
         {!isSmallScreen ? (
           <Box className='product-details-title'>
             <Typography variant='h6'>{product.title}</Typography>
-
             <Typography variant='h6'>${product.price}</Typography>
             <Box className='contact-buttons'>
               <Button
@@ -138,7 +156,12 @@ function ProductDetails() {
                 size='large'
               />
             </Box>
-            <Link className='seller-link' href='#' color='inherit'>
+            <Link
+              className='seller-link'
+              color='inherit'
+              onClick={handleMoreFromSellerClick}
+              component='button'
+            >
               More from this seller
             </Link>
           </Box>

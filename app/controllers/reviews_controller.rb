@@ -43,10 +43,17 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/user_reviews
   # GET /reviews/user_reviews.json
-  def user_reviews
+  def current_user_reviews
     @reviews = Review.where(reviewer_id: current_user.id).or(Review.where(subject_id: current_user.id))
   end
 
+  # GET /reviews/user_reviews/:user_id
+  # GET /reviews/user_reviews/:user_id.json
+  def user_reviews
+    user_id = params[:user_id]
+    @reviews = Review.where(subject_id: user_id)
+
+  end
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
-import Product from './../products/Product'
-import { fetchUserFavorites } from '../../api/userApi'
+import Product from '../../components/Product'
+import { fetchCurrentUserFavorites } from '../../api/favoriteApi'
 import { useNavigate } from 'react-router-dom'
 
 function Favorites() {
@@ -11,7 +11,7 @@ function Favorites() {
   useEffect(() => {
     const getUserFavorites = async () => {
       try {
-        const favorites = await fetchUserFavorites()
+        const favorites = await fetchCurrentUserFavorites()
         setUserFavorites(favorites)
       } catch (error) {
         console.error('Error fetching user favorites:', error)

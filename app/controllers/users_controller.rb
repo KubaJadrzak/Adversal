@@ -3,6 +3,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:show]
   load_and_authorize_resource
 
   # GET /users

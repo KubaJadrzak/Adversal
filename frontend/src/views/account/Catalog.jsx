@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { fetchAllProducts } from '../../api/productApi'
-import Product from '../products/Product'
+import { fetchCurrentUserProducts } from '../../api/productApi'
+import Product from '../../components/Product'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import './Catalog.css'
@@ -14,11 +14,9 @@ function Catalog() {
     async function loadData() {
       try {
         const params = new URLSearchParams({
-          only_listed_products: 'true',
-          with_ordered_products: 'true',
           status: filter, // Add filter to the query parameters
         })
-        const data = await fetchAllProducts(params)
+        const data = await fetchCurrentUserProducts(params)
         setProducts(data)
       } catch (e) {
         console.error('Failed to load product: ', e)

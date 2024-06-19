@@ -15,12 +15,14 @@ import PasswordResetRequest from '../views/login/PasswordResetRequest'
 import PasswordReset from '../views/login/PasswordReset'
 import PasswordResetEmail from '../views/login/PasswordResetEmail'
 import Favorites from '../views/account/Favorites'
+import SellerAccount from '../views/seller/SellerAccount'
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path='/' element={<Products />} />
       <Route path='product/:id' element={<ProductDetails />} />
+      <Route path='seller/:id' element={<SellerAccount />} />
 
       <Route element={<PublicRoutes />}>
         <Route path='login' element={<Login />} />

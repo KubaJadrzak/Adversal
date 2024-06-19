@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { fetchAllProducts } from '../../api/productApi'
 import { fetchCategory } from '../../api/categoryApi'
-import { fetchUserFavorites } from '../../api/userApi'
+import { fetchCurrentUserFavorites } from '../../api/favoriteApi'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
-import Product from './Product'
+import Product from '../../components/Product'
 import Sidebar from '../../components/Sidebar'
 import './Products.css'
 
@@ -24,7 +24,6 @@ function Products() {
         const subcategoryId = searchParams.get('subcategory')
         const query = searchParams.get('query')
         const params = new URLSearchParams()
-        params.set('without_listed_products', 'true')
 
         if (categoryId) {
           params.set('category', categoryId)
@@ -49,7 +48,8 @@ function Products() {
         // Check if there's a logged-in user (id in localStorage)
         const loggedInUserId = localStorage.getItem('id')
         if (loggedInUserId) {
-          const favorites = await fetchUserFavorites()
+          const favorites = await fetchCurrentUserFavorites()
+          console.log(favorites)
           setUserFavorites(favorites)
         } else {
           setUserFavorites([]) // If no logged-in user, set empty array
