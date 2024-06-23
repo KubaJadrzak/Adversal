@@ -14,13 +14,15 @@ import {
   Button,
 } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
 import './Review.css'
 
-function Review({ review, reviewType, onDelete }) {
+function Review({ review, reviewType, onDelete, currentUserId }) {
   const [open, setOpen] = useState(false)
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const isSmallScreen = useMediaQuery('(max-width: 700px)')
+  const navigate = useNavigate()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -73,33 +75,17 @@ function Review({ review, reviewType, onDelete }) {
               For: {review.subject.name}
             </Typography>
           )}
-          {reviewType === 'written' && (
-            <>
-              <IconButton onClick={handleClickOpen} aria-label='delete' color='error'>
-                <FontAwesomeIcon icon={faTrash} size={isSmallScreen ? 'sm' : undefined} />
-              </IconButton>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby='alert-dialog-title'
-                aria-describedby='alert-dialog-description'
-              >
-                <DialogTitle id='alert-dialog-title'>{'Delete Review'}</DialogTitle>
-                <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
-                    Are you sure you want to delete this review?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color='primary' variant='contained'>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleDelete} color='error' variant='outlined' autoFocus>
-                    Delete
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </>
+          {review.reviewer.id == currentUserId && (
+            <Button
+              className='review-footer-button'
+              variant='contained'
+              color='primary'
+              onClick={() => {
+                navigate(`/review/${review.id}/edit`)
+              }}
+            >
+              Edit
+            </Button>
           )}
         </Box>
       </Box>

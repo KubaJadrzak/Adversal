@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Rating, Typography, useMediaQuery } from '@mui/material'
+import { Box, Button, Rating, Typography, useMediaQuery } from '@mui/material'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import ImageDisplay from '../../components/ImageDisplay'
 import Sidebar from '../../components/Sidebar'
 import SellerCatalog from './SellerCatalog'
 import SellerReviews from './SellerReviews'
-import { fetchUser } from '../../api/userApi' // Import the fetchUser function
+import { fetchUser } from '../../api/userApi'
 import './SellerAccount.css'
 
 function SellerAccount() {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const [alignment, setAlignment] = useState(null)
-  const [seller, setSeller] = useState(null) // State to store seller data
+  const [seller, setSeller] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
-  const { id } = useParams() // Get seller ID from URL
+  const { id } = useParams()
   const isSmallScreen = useMediaQuery('(max-width: 700px)')
 
   useEffect(() => {
@@ -29,10 +29,9 @@ function SellerAccount() {
   }, [location.search])
 
   useEffect(() => {
-    // Fetch seller data when the component mounts
     async function getSeller() {
       try {
-        const sellerData = await fetchUser(id) // Pass any necessary params here
+        const sellerData = await fetchUser(id)
         setSeller(sellerData)
       } catch (error) {
         console.error('Failed to fetch seller data:', error)
@@ -42,9 +41,17 @@ function SellerAccount() {
     getSeller()
   }, [id])
 
+  const handleAlignmentChange = (newAlignment) => {
+    if (newAlignment === 1) {
+      navigate(`/seller/${id}?view=reviews`)
+    } else if (newAlignment === 2) {
+      navigate(`/seller/${id}?view=catalog`)
+    }
+  }
+
   const sidebarItems = [
-    { id: 1, name: 'Reviews', onClick: () => navigate(`/seller/${id}?view=reviews`) },
-    { id: 2, name: 'Catalog', onClick: () => navigate(`/seller/${id}?view=catalog`) },
+    { id: 1, name: 'Reviews', onClick: () => handleAlignmentChange(1) },
+    { id: 2, name: 'Catalog', onClick: () => handleAlignmentChange(2) },
   ]
 
   if (!seller) {
@@ -57,7 +64,7 @@ function SellerAccount() {
         <Box className='seller-image'>
           <ImageDisplay imageURL={seller.image ? `${baseURL}/${seller.image}` : null} />
         </Box>
-        <Box>
+        <Box className='seller-account-info'>
           <Box className='seller-name'>
             <Typography variant={isSmallScreen ? 'subtitle1' : 'h6'}>{seller.name}</Typography>
           </Box>
@@ -75,7 +82,7 @@ function SellerAccount() {
       <Box className='seller-account-sidebar'>
         <Sidebar
           items={sidebarItems}
-          onAlignmentChange={(newAlignment) => setAlignment(newAlignment)}
+          onAlignmentChange={handleAlignmentChange}
           alignment={alignment}
         />
       </Box>

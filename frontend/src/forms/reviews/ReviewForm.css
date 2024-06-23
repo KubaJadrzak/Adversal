@@ -1,0 +1,20 @@
+.review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+  margin-top: 0;
+  gap: 20px;
+}
+
+.review-form > :nth-child(1),
+.review-form > :nth-child(3),
+.review-form > :nth-child(4) {
+  width: 100%;
+}
+@media only screen and (max-width: 1000px) {
+  .review-form {
+    margin: 10px;
+    margin-top: 20px;
+  }
+}

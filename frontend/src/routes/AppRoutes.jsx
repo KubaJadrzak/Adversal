@@ -16,6 +16,8 @@ import PasswordReset from '../views/login/PasswordReset'
 import PasswordResetEmail from '../views/login/PasswordResetEmail'
 import Favorites from '../views/account/Favorites'
 import SellerAccount from '../views/seller/SellerAccount'
+import AddReview from '../forms/reviews/AddReview'
+import EditReview from '../forms/reviews/EditReview'
 
 function AppRoutes() {
   return (
@@ -35,6 +37,9 @@ function AppRoutes() {
       <Route element={<PrivateRoutes />}>
         <Route path='/product/add' element={<AddProduct />} />
         <Route path='/product/:id/edit' element={<EditProduct />} />
+
+        <Route path='seller/:sellerId/review/add' element={<AddReview />} />
+        <Route path='/review/:reviewId/edit' element={<EditReview />} />
 
         <Route path='/account' element={<Account />} />
         <Route path='/favorites' element={<Favorites />} />

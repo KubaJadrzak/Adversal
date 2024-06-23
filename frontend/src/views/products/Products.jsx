@@ -49,7 +49,6 @@ function Products() {
         const loggedInUserId = localStorage.getItem('id')
         if (loggedInUserId) {
           const favorites = await fetchCurrentUserFavorites()
-          console.log(favorites)
           setUserFavorites(favorites)
         } else {
           setUserFavorites([]) // If no logged-in user, set empty array

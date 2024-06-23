@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { fetchCurrentUserReviews, deleteUserReview } from '../../api/reviewApi'
+import { fetchCurrentUserReviews } from '../../api/reviewApi'
 import { useNavigate } from 'react-router-dom'
 import Review from '../../components/Review'
 import './Reviews.css'
 
 function Reviews() {
   const [userReviews, setUserReviews] = useState(null)
-  const [reviewType, setReviewType] = useState('received') // 'received' or 'written'
-  const navigate = useNavigate()
+  const [reviewType, setReviewType] = useState('written') // 'received' or 'written'
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -23,14 +22,14 @@ function Reviews() {
     fetchReviews()
   }, [])
 
-  const idFromLocalStorage = localStorage.getItem('id')
+  const currentUserId = localStorage.getItem('id')
 
   const filteredReviews = userReviews
     ? userReviews.filter((review) => {
         if (reviewType === 'received') {
-          return review.subject.id == idFromLocalStorage
+          return review.subject.id == currentUserId
         } else if (reviewType === 'written') {
-          return review.reviewer.id == idFromLocalStorage
+          return review.reviewer.id == currentUserId
         }
         return false
       })
@@ -39,15 +38,6 @@ function Reviews() {
   const handleReviewTypeChange = (event, newReviewType) => {
     if (newReviewType !== null) {
       setReviewType(newReviewType)
-    }
-  }
-
-  const handleDeleteReview = async (reviewId) => {
-    try {
-      await deleteUserReview(reviewId)
-      setUserReviews(userReviews.filter((review) => review.id !== reviewId))
-    } catch (error) {
-      console.error('Error deleting review:', error)
     }
   }
 
@@ -64,11 +54,11 @@ function Reviews() {
         onChange={handleReviewTypeChange}
         aria-label='review type'
       >
-        <ToggleButton value='received' aria-label='received reviews'>
-          Received Reviews
-        </ToggleButton>
         <ToggleButton value='written' aria-label='written reviews'>
           Written Reviews
+        </ToggleButton>
+        <ToggleButton value='received' aria-label='received reviews'>
+          Received Reviews
         </ToggleButton>
       </ToggleButtonGroup>
       {filteredReviews.length === 0 ? (
@@ -80,7 +70,7 @@ function Reviews() {
               key={review.id}
               review={review}
               reviewType={reviewType}
-              onDelete={handleDeleteReview}
+              currentUserId={currentUserId}
             />
           ))}
         </Box>

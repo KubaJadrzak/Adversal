@@ -18,7 +18,7 @@ export async function fetchUserReviews(userId) {
   }
 }
 
-export async function deleteUserReview(id) {
+export async function deleteReview(id) {
   try {
     const response = await api.delete(`/reviews/${id}`)
     if (response.status === 204) {
@@ -26,6 +26,33 @@ export async function deleteUserReview(id) {
     } else {
       return response.data
     }
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function createReview(data) {
+  try {
+    const response = await api.post('/reviews', data)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function fetchReview(reviewId) {
+  try {
+    const response = await api.get(`/reviews/${reviewId}`)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function updateReview(reviewId, data) {
+  try {
+    const response = await api.put(`/reviews/${reviewId}`, data)
+    return response.data
   } catch (error) {
     throw error
   }

@@ -27,7 +27,6 @@ export async function logoutUser() {
 
     await api.delete('/logout', { user: { email } })
 
-    localStorage.removeItem('email')
     localStorage.removeItem('id')
     localStorage.removeItem('token')
     window.location.href = '/login'

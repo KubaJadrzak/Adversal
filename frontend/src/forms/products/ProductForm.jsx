@@ -15,6 +15,7 @@ import { deleteProduct } from '../../api/productApi'
 import useAlert from '../../components/alerts/useAlert'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ProductFormImages from './ProductFormImages'
+import './ProductForm.css'
 
 function ProductForm({ buttonMessage, data, handleSubmit }) {
   const location = useLocation()

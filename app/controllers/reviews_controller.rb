@@ -44,7 +44,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/user_reviews
   # GET /reviews/user_reviews.json
   def current_user_reviews
-    @reviews = Review.where(reviewer_id: current_user.id).or(Review.where(subject_id: current_user.id))
+    @reviews = Review.where(reviewer_id: current_user.id)
+                     .or(Review.where(subject_id: current_user.id))
+                     .order(created_at: :desc)
   end
 
   # GET /reviews/user_reviews/:user_id

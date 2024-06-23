@@ -27,7 +27,6 @@ api.interceptors.response.use(
       if (status === 401 || data.exception === 'JWT::ExpiredSignature') {
         localStorage.removeItem('token')
         localStorage.removeItem('id')
-        localStorage.removeItem('email')
         window.location.href = '/login'
         return Promise.reject(error)
       }
@@ -35,7 +34,6 @@ api.interceptors.response.use(
       if (data.exception && data.exception.includes("Couldn't find User")) {
         localStorage.removeItem('token')
         localStorage.removeItem('id')
-        localStorage.removeItem('email')
         window.location.href = '/login'
       }
       console.error('Error status:', status)

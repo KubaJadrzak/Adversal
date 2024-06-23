@@ -12,6 +12,11 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.seller-account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .seller-name {
   margin-left: 5px;
 }
