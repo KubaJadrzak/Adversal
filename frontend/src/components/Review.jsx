@@ -68,13 +68,14 @@ function Review({ review, reviewType, onDelete, currentUserId }) {
         <Box className='review-footer'>
           {reviewType === 'received' ? (
             <Typography variant={isSmallScreen ? 'subtitle1' : undefined}>
-              By: {review.reviewer.name}
+              {review.reviewer.id == currentUserId ? <>By: You</> : <>By: {review.reviewer.name}</>}
             </Typography>
           ) : (
             <Typography variant={isSmallScreen ? 'subtitle1' : undefined}>
               For: {review.subject.name}
             </Typography>
           )}
+
           {review.reviewer.id == currentUserId && (
             <Button
               className='review-footer-button'

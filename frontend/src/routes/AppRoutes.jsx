@@ -39,7 +39,7 @@ function AppRoutes() {
         <Route path='/product/:id/edit' element={<EditProduct />} />
 
         <Route path='seller/:sellerId/review/add' element={<AddReview />} />
-        <Route path='/review/:reviewId/edit' element={<EditReview />} />
+        <Route path='review/:reviewId/edit' element={<EditReview />} />
 
         <Route path='/account' element={<Account />} />
         <Route path='/favorites' element={<Favorites />} />

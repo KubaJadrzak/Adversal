@@ -30,7 +30,7 @@ function EditReview() {
 
     try {
       await updateReview(reviewId, updatedData)
-      navigate(`/account?view=reviews`)
+      navigate(`/seller/${review.subject.id}?view=reviews`)
       setAlert('Review was successfully updated', 'success')
     } catch (error) {
       console.error('Failed to update review: ', error)

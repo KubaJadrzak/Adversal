@@ -31,7 +31,7 @@ function ReviewForm({ buttonMessage, data, handleSubmit }) {
   const handleDelete = async () => {
     try {
       await deleteReview(data.id)
-      navigate(`/account?view=reviews`)
+      navigate(`/seller/${data.subject_id}?view=reviews`)
       setAlert('Review was successfully deleted', 'success')
     } catch (e) {
       console.error('Failed to delete a review: ', e)

@@ -14,7 +14,7 @@ function AddReview() {
     const data = { text, rating, subject_id: sellerId }
     try {
       await createReview(data)
-      navigate(`/account?view=reviews`)
+      navigate(`/seller/${sellerId}?view=reviews`)
       setAlert('Review was successfully created', 'success')
     } catch (e) {
       console.error('Failed to create a review: ', e)
