@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fetchAllCategories } from '../../api/categoryApi'
 import { updateProduct, fetchProduct, deleteProductImage } from '../../api/productApi'
 import ProductForm from './ProductForm'
 import './ProductForm.css'
 import useAlert from '../../components/alerts/useAlert' // Step 1
 
-function EditProduct({ productId }) {
+function EditProduct() {
+  const { productId } = useParams() // Step 2: Get productId from URL
   const [categories, setCategories] = useState([])
   const [product, setProduct] = useState({})
   const navigate = useNavigate()
-  const { setAlert } = useAlert() // Step 2
+  const { setAlert } = useAlert() // Step 3
 
   // Define loadData function here
   useEffect(() => {

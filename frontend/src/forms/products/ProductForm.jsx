@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Button,
   TextField,
@@ -19,7 +19,7 @@ import './ProductForm.css'
 
 function ProductForm({ buttonMessage, data, handleSubmit }) {
   const location = useLocation()
-  const isAddProduct = location.search.includes('view=addProduct')
+  const isEditProduct = location.pathname.includes('edit') // Check if 'edit' is present in the URL
   const { setAlert } = useAlert()
   const navigate = useNavigate()
   const [title, setTitle] = useState(data.title)
@@ -51,7 +51,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
   const handleDeleteProduct = async () => {
     try {
       await deleteProduct(data.id)
-      navigate(`/account?view=catalog`)
+      navigate('/account?view=catalog')
       setAlert('Product was successfully deleted', 'success')
     } catch (e) {
       console.error('Failed to delete a product: ', e)
@@ -161,7 +161,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         <Button variant='contained' type='submit'>
           {buttonMessage}
         </Button>
-        {!isAddProduct && (
+        {isEditProduct && ( // Conditionally render the "Delete Product" button
           <Button variant='outlined' color='error' onClick={() => setOpenDeleteDialog(true)}>
             Delete Product
           </Button>

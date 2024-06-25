@@ -80,7 +80,7 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
               className='product-footer-button'
               onClick={(e) => {
                 e.stopPropagation()
-                navigate(`/account?view=editProduct&productId=${product.id}`)
+                navigate(`/product/${product.id}/edit`)
               }}
             >
               Edit

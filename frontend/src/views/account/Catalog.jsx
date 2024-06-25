@@ -63,7 +63,7 @@ function Catalog() {
             sx={{ width: '100%' }}
             variant='contained'
             onClick={() => {
-              navigate(`/account?view=addProduct`)
+              navigate(`/product/add`)
             }}
           >
             Create new product

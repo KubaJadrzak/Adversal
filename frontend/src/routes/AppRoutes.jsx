@@ -36,7 +36,7 @@ function AppRoutes() {
 
       <Route element={<PrivateRoutes />}>
         <Route path='/product/add' element={<AddProduct />} />
-        <Route path='/product/:id/edit' element={<EditProduct />} />
+        <Route path='/product/:productId/edit' element={<EditProduct />} />
 
         <Route path='seller/:sellerId/review/add' element={<AddReview />} />
         <Route path='review/:reviewId/edit' element={<EditReview />} />
