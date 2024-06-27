@@ -12,8 +12,11 @@ class Product < ApplicationRecord
   has_many :favorites
   has_many :favorited_by_users, through: :favorites, source: :user
 
-  scope :only_listed_products, -> { where(seller_id: Current.user) }
-  scope :without_listed_products, -> { where.not(seller_id: Current.user) }
-  scope :without_deleted_products, -> { where.not(status: 4) }
+  private
 
+  def category_must_be_leaf
+    if category && category.subcategories.exists?
+      errors.add(:category, "must be a leaf category (i.e., it should not have any subcategories)")
+    end
+  end
 end

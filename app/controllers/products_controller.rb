@@ -21,6 +21,14 @@ class ProductsController < ApplicationController
       @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
     end
 
+    if params[:min_price].present?
+      @products = @products.where('price >= ?', params[:min_price].to_f)
+    end
+
+    if params[:max_price].present?
+      @products = @products.where('price <= ?', params[:max_price].to_f)
+    end
+
   end
 
   def current_user_products

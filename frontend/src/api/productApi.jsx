@@ -67,11 +67,6 @@ export async function updateProduct(id, data) {
       formData.append(`product[images][]`, data.images[i])
     }
 
-    // Log FormData entries for debugging
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value)
-    }
-
     const response = await api.put(`/products/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',

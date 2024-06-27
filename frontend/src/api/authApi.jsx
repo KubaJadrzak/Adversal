@@ -18,6 +18,7 @@ export async function signupUser(data) {
     throw new Error(errorData.error || 'Invalid email or password')
   }
 }
+
 export async function logoutUser() {
   try {
     const email = localStorage.getItem('email')
@@ -31,6 +32,7 @@ export async function logoutUser() {
     localStorage.removeItem('token')
     window.location.href = '/login'
   } catch (error) {
+    console.error('Error logging out user:', error)
     throw new Error('Error logging out user')
   }
 }
@@ -80,7 +82,8 @@ export async function changePassword(data) {
       throw new Error('Failed to change password. Please try again.')
     }
   } catch (error) {
-    throw new Error('Error changing password:')
+    console.error('Error changing password:', error)
+    throw new Error('Error changing password')
   }
 }
 
@@ -94,6 +97,8 @@ export async function resetPasswordRequest(data) {
   })
 
   if (!response.ok) {
+    const errorData = await response.json()
+    console.error('Failed to request password reset:', errorData)
     throw new Error('Failed to request password reset')
   }
 }
@@ -108,13 +113,8 @@ export async function resetPassword(data) {
   })
 
   if (!response.ok) {
+    const errorData = await response.json()
+    console.error('Failed to reset password:', errorData)
     throw new Error('Failed to reset password')
-  }
-
-  if (response.status === 204) {
-    console.log('Password reset successful.')
-  } else {
-    const responseData = await response.json()
-    console.log('Password reset response:', responseData)
   }
 }

@@ -22,13 +22,15 @@ function Products() {
         const searchParams = new URLSearchParams(location.search)
         const categoryId = searchParams.get('category')
         const subcategoryId = searchParams.get('subcategory')
+        const minPriceParam = searchParams.get('min_price')
+        const maxPriceParam = searchParams.get('max_price')
         const query = searchParams.get('query')
         const params = new URLSearchParams()
 
         if (categoryId) {
           params.set('category', categoryId)
-          const category = await fetchCategory(categoryId)
-          setCategory(category)
+          const fetchedCategory = await fetchCategory(categoryId)
+          setCategory(fetchedCategory)
 
           if (subcategoryId) {
             params.set('category', subcategoryId)
@@ -40,6 +42,13 @@ function Products() {
 
         if (query) {
           params.set('query', query)
+        }
+
+        if (minPriceParam) {
+          params.set('min_price', minPriceParam)
+        }
+        if (maxPriceParam) {
+          params.set('max_price', maxPriceParam)
         }
 
         const fetchedProducts = await fetchAllProducts(params)
@@ -68,9 +77,8 @@ function Products() {
     navigate(`/?category=${categoryId}&subcategory=${newAlignment}`)
   }
 
-  // Render loading state until products are loaded
-  if (!products.length || userFavorites === null) {
-    return <div></div>
+  if (!products || userFavorites === null) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -84,17 +92,19 @@ function Products() {
           />
         </Box>
       )}
-      <Box className='products-elements'>
-        {products.map((product) => (
-          <Box key={product.id}>
-            <Product
-              product={product}
-              navigate={navigate}
-              isFavorite={userFavorites.some((fav) => fav.id === product.id)}
-            />
-          </Box>
-        ))}
-      </Box>
+      {products.length > 0 && (
+        <Box className='products-elements'>
+          {products.map((product) => (
+            <Box key={product.id}>
+              <Product
+                product={product}
+                navigate={navigate}
+                isFavorite={userFavorites.some((fav) => fav.id === product.id)}
+              />
+            </Box>
+          ))}
+        </Box>
+      )}
     </Box>
   )
 }
