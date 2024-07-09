@@ -5,6 +5,7 @@
 .catalog-topbar {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin: 10px 30px 10px 30px;
 }
 
@@ -22,6 +23,7 @@
   .catalog-topbar {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 10px;
     gap: 20px;
   }

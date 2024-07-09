@@ -13,6 +13,7 @@ function Products() {
   const [category, setCategory] = useState(null)
   const [alignment, setAlignment] = useState(null)
   const [userFavorites, setUserFavorites] = useState(null)
+  const [previousCategoryId, setPreviousCategoryId] = useState(null) // Track previous categoryId
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -26,6 +27,12 @@ function Products() {
         const maxPriceParam = searchParams.get('max_price')
         const query = searchParams.get('query')
         const params = new URLSearchParams()
+
+        // Check if categoryId has changed
+        if (categoryId !== previousCategoryId) {
+          setAlignment(null) // Reset alignment if categoryId changes
+          setPreviousCategoryId(categoryId) // Update previousCategoryId
+        }
 
         if (categoryId) {
           params.set('category', categoryId)
@@ -68,7 +75,7 @@ function Products() {
     }
 
     loadData()
-  }, [location.search])
+  }, [location.search, previousCategoryId])
 
   const handleAlignmentChange = (newAlignment) => {
     setAlignment(newAlignment)
