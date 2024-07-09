@@ -3,7 +3,7 @@ import { fetchAllProducts } from '../../api/productApi'
 import { fetchCategory } from '../../api/categoryApi'
 import { fetchCurrentUserFavorites } from '../../api/favoriteApi'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import Product from '../../components/Product'
 import Sidebar from '../../components/Sidebar'
 import './Products.css'
@@ -13,75 +13,87 @@ function Products() {
   const [category, setCategory] = useState(null)
   const [alignment, setAlignment] = useState(null)
   const [userFavorites, setUserFavorites] = useState(null)
-  const [previousCategoryId, setPreviousCategoryId] = useState(null) // Track previous categoryId
+  const [previousCategoryId, setPreviousCategoryId] = useState(null)
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+  })
   const navigate = useNavigate()
   const location = useLocation()
 
   useEffect(() => {
-    async function loadData() {
-      try {
-        const searchParams = new URLSearchParams(location.search)
-        const categoryId = searchParams.get('category')
-        const subcategoryId = searchParams.get('subcategory')
-        const minPriceParam = searchParams.get('min_price')
-        const maxPriceParam = searchParams.get('max_price')
-        const query = searchParams.get('query')
-        const params = new URLSearchParams()
-
-        // Check if categoryId has changed
-        if (categoryId !== previousCategoryId) {
-          setAlignment(null) // Reset alignment if categoryId changes
-          setPreviousCategoryId(categoryId) // Update previousCategoryId
-        }
-
-        if (categoryId) {
-          params.set('category', categoryId)
-          const fetchedCategory = await fetchCategory(categoryId)
-          setCategory(fetchedCategory)
-
-          if (subcategoryId) {
-            params.set('category', subcategoryId)
-            setAlignment(parseInt(subcategoryId, 10))
-          }
-        } else {
-          setCategory(null)
-        }
-
-        if (query) {
-          params.set('query', query)
-        }
-
-        if (minPriceParam) {
-          params.set('min_price', minPriceParam)
-        }
-        if (maxPriceParam) {
-          params.set('max_price', maxPriceParam)
-        }
-
-        const fetchedProducts = await fetchAllProducts(params)
-        setProducts(fetchedProducts)
-
-        // Check if there's a logged-in user (id in localStorage)
-        const loggedInUserId = localStorage.getItem('id')
-        if (loggedInUserId) {
-          const favorites = await fetchCurrentUserFavorites()
-          setUserFavorites(favorites)
-        } else {
-          setUserFavorites([]) // If no logged-in user, set empty array
-        }
-      } catch (error) {
-        console.error('Failed to load products: ', error)
-      }
-    }
-
     loadData()
   }, [location.search, previousCategoryId])
+
+  const loadData = async (page = 1) => {
+    try {
+      const searchParams = new URLSearchParams(location.search)
+      const categoryId = searchParams.get('category')
+      const subcategoryId = searchParams.get('subcategory')
+      const minPriceParam = searchParams.get('min_price')
+      const maxPriceParam = searchParams.get('max_price')
+      const query = searchParams.get('query')
+      const params = new URLSearchParams()
+
+      if (categoryId !== previousCategoryId) {
+        setAlignment(null)
+        setPreviousCategoryId(categoryId)
+      }
+
+      if (categoryId) {
+        params.set('category', categoryId)
+        const fetchedCategory = await fetchCategory(categoryId)
+        setCategory(fetchedCategory)
+
+        if (subcategoryId) {
+          params.set('category', subcategoryId)
+          setAlignment(parseInt(subcategoryId, 10))
+        }
+      } else {
+        setCategory(null)
+      }
+
+      if (query) {
+        params.set('query', query)
+      }
+
+      if (minPriceParam) {
+        params.set('min_price', minPriceParam)
+      }
+      if (maxPriceParam) {
+        params.set('max_price', maxPriceParam)
+      }
+
+      params.set('page', page)
+
+      const fetchedData = await fetchAllProducts(params)
+      setProducts(fetchedData.products)
+      setPagination({
+        currentPage: fetchedData.meta.current_page,
+        totalPages: fetchedData.meta.total_pages,
+      })
+
+      const loggedInUserId = localStorage.getItem('id')
+      if (loggedInUserId) {
+        const favorites = await fetchCurrentUserFavorites()
+        setUserFavorites(favorites)
+      } else {
+        setUserFavorites([])
+      }
+    } catch (error) {
+      console.error('Failed to load products: ', error)
+    }
+  }
 
   const handleAlignmentChange = (newAlignment) => {
     setAlignment(newAlignment)
     const params = new URLSearchParams(location.search)
     const categoryId = params.get('category')
     navigate(`/?category=${categoryId}&subcategory=${newAlignment}`)
+  }
+
+  const handlePageChange = (newPage) => {
+    loadData(newPage)
   }
 
   if (!products || userFavorites === null) {
@@ -110,6 +122,24 @@ function Products() {
               />
             </Box>
           ))}
+        </Box>
+      )}
+      {products.length > 0 && (
+        <Box className='pagination-controls'>
+          <Button
+            disabled={pagination.currentPage === 1}
+            onClick={() => handlePageChange(pagination.currentPage - 1)}
+            variant='contained'
+          >
+            Previous Page
+          </Button>
+          <Button
+            disabled={pagination.currentPage === pagination.totalPages}
+            onClick={() => handlePageChange(pagination.currentPage + 1)}
+            variant='contained'
+          >
+            Next Page
+          </Button>
         </Box>
       )}
     </Box>

@@ -7,3 +7,10 @@
 .products-elements {
   flex: 1;
 }
+
+.pagination-controls {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+  justify-content: flex-end;
+}
