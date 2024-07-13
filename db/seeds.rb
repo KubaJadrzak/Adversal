@@ -16,9 +16,9 @@ users_data = [
     password: 'password123',
     phone_number: '123-456-7890',
     country: 'USA',
-    city: 'Anytown',
-    street: 'Main St',
-    zip_code: '12345',
+    county: 'Los Angeles County',
+    city: 'Los Angeles',
+    postal_code: '90001',
     jti: SecureRandom.uuid 
   },
   { 
@@ -27,9 +27,9 @@ users_data = [
     password: 'password123',
     phone_number: '987-654-3210',
     country: 'Canada',
-    city: 'Maple City',
-    street: 'Elm St',
-    zip_code: '56789',
+    county: 'Greater Toronto Area',
+    city: 'Toronto',
+    postal_code: 'M5V 2H1',
     jti: SecureRandom.uuid 
   },
   { 
@@ -38,9 +38,9 @@ users_data = [
     password: 'password123',
     phone_number: '111-222-3333',
     country: 'UK',
+    county: 'Greater London',
     city: 'London',
-    street: 'Oak Ave',
-    zip_code: '67890',
+    postal_code: 'SW1A 1AA',
     jti: SecureRandom.uuid 
   },
   { 
@@ -49,9 +49,9 @@ users_data = [
     password: 'password123',
     phone_number: '555-444-3333',
     country: 'Australia',
+    county: 'New South Wales',
     city: 'Sydney',
-    street: 'Pine Rd',
-    zip_code: '54321',
+    postal_code: '2000',
     jti: SecureRandom.uuid 
   },
 ]

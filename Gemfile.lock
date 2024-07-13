@@ -72,6 +72,7 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     bcrypt (3.1.20)
+    bigdecimal (3.1.8)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -79,6 +80,7 @@ GEM
     cancancan (3.5.0)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    csv (3.3.0)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -107,6 +109,10 @@ GEM
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -152,6 +158,8 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
+    multi_xml (0.7.1)
+      bigdecimal (~> 3.1)
     net-imap (0.4.2)
       date
       net-protocol
@@ -244,6 +252,7 @@ DEPENDENCIES
   devise
   devise-jwt
   faker
+  httparty
   image_processing (~> 1.2)
   jbuilder
   jsonapi-serializer

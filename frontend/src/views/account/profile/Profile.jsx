@@ -19,12 +19,12 @@ function Profile() {
     email: false,
     phone_number: false,
     city: false,
-    street: false,
+    county: false, // Added county field
     country: false,
-    zip_code: false,
+    postal_code: false,
   })
   const [activeField, setActiveField] = useState(null)
-  const [openPasswordDialog, setOpenPasswordDialog] = useState(false) // Added state for password dialog
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
   const ref = useRef(null)
 
   const loadData = async () => {
@@ -84,8 +84,9 @@ function Profile() {
       email: false,
       phone_number: false,
       city: false,
+      county: false,
       country: false,
-      zip_code: false,
+      postal_code: false,
     })
     setActiveField(null)
     loadData()
@@ -185,11 +186,11 @@ function Profile() {
             <Divider />
             {renderEditableField('Country:', user.country, 'country')}
             <Divider />
+            {renderEditableField('County:', user.county, 'county')}
+            <Divider />
             {renderEditableField('City:', user.city, 'city')}
             <Divider />
-            {renderEditableField('Street:', user.street, 'street')}
-            <Divider />
-            {renderEditableField('Zip Code:', user.zip_code, 'zip_code')}
+            {renderEditableField('Postal Code:', user.postal_code, 'postal_code')}
             <Divider />
             {renderEditableField('Password:', '***********', 'password')}
             <Divider />

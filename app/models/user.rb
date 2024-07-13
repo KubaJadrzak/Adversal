@@ -29,9 +29,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :phone_number, presence: true
 
-  def full_address
-    "#{street}, #{city}, #{zip_code}, #{country}"
-  end
 
   def average_rating
     if received_reviews.exists?

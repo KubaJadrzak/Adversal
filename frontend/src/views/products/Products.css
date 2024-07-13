@@ -8,6 +8,12 @@
   flex: 1;
 }
 
+.products-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .pagination-controls {
   display: flex;
   margin-top: 10px;

@@ -3,7 +3,8 @@ import { fetchAllProducts } from '../../api/productApi'
 import { fetchCategory } from '../../api/categoryApi'
 import { fetchCurrentUserFavorites } from '../../api/favoriteApi'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Divider } from '@mui/material'
+import PriceFilter from '../../components/PriceFilter'
 import Product from '../../components/Product'
 import Sidebar from '../../components/Sidebar'
 import './Products.css'
@@ -22,7 +23,9 @@ function Products() {
   const location = useLocation()
 
   useEffect(() => {
-    loadData()
+    const searchParams = new URLSearchParams(location.search)
+    const page = parseInt(searchParams.get('page'), 10) || 1
+    loadData(page)
   }, [location.search, previousCategoryId])
 
   const loadData = async (page = 1) => {
@@ -67,6 +70,10 @@ function Products() {
       params.set('page', page)
 
       const fetchedData = await fetchAllProducts(params)
+      if (fetchedData.products.length === 0 && page > 1) {
+        navigate(`/?page=1`)
+        return
+      }
       setProducts(fetchedData.products)
       setPagination({
         currentPage: fetchedData.meta.current_page,
@@ -89,10 +96,14 @@ function Products() {
     setAlignment(newAlignment)
     const params = new URLSearchParams(location.search)
     const categoryId = params.get('category')
-    navigate(`/?category=${categoryId}&subcategory=${newAlignment}`)
+    params.set('subcategory', newAlignment)
+    navigate(`/?${params.toString()}`)
   }
 
   const handlePageChange = (newPage) => {
+    const params = new URLSearchParams(location.search)
+    params.set('page', newPage)
+    navigate(`/?${params.toString()}`)
     loadData(newPage)
   }
 
@@ -109,8 +120,11 @@ function Products() {
             alignment={alignment}
             onAlignmentChange={handleAlignmentChange}
           />
+          <Divider />
+          <PriceFilter />
         </Box>
       )}
+
       {products.length > 0 && (
         <Box className='products-elements'>
           {products.map((product) => (

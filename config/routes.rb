@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
     }
 
+    get 'addresses/search', to: 'addresses#search'
+
     # Custom route for changing password
     devise_scope :user do
       put '/change_password', to: 'users/passwords#change_password'

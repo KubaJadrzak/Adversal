@@ -104,9 +104,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_152937) do
     t.string "last_sign_in_ip"
     t.string "phone_number"
     t.string "country"
+    t.string "county"
     t.string "city"
-    t.string "street"
-    t.string "zip_code"
+    t.string "postal_code"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
