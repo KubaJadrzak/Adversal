@@ -15,26 +15,29 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [country, setCountry] = useState(null) // Changed initial state to null
   const [countryCode, setCountryCode] = useState('')
-  const [subdivision, setSubdivision] = useState(null) // Changed initial state to null
   const [subdivisionId, setSubdivisionId] = useState('')
-  const [city, setCity] = useState('')
+  const [place, setPlace] = useState('')
+  const [places, setPlaces] = useState([])
+  const [subdivision, setSubdivision] = useState(null) // Changed initial state to null
+  const [area, setArea] = useState('')
   const [county, setCounty] = useState('')
+  const [counties, setCounties] = useState([])
   const [postalCode, setPostalCode] = useState('')
   const [countries, setCountries] = useState([])
   const [subdivisions, setSubdivisions] = useState([])
-  const [cities, setCities] = useState([])
+  const [areas, setAreas] = useState([])
   const [postalCodes, setPostalCodes] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    fetchAddresses('country', '')
+    fetchAddresses('country')
   }, [])
 
-  const fetchAddresses = async (type, id, query, country_code) => {
+  const fetchAddresses = async (type, query, id, country_code) => {
     setLoading(true)
     try {
       const response = await axios.get(`http://localhost:3000/addresses/search`, {
-        params: { type, id, query, country_code },
+        params: { type, query, id, country_code },
       })
       console.log(`Fetching ${type}:`, response.data)
       switch (type) {
@@ -44,8 +47,14 @@ function SignUp() {
         case 'subdivision':
           setSubdivisions(response.data)
           break
-        case 'city':
-          setCities(response.data)
+        case 'county':
+          setCounties(response.data)
+          break
+        case 'area':
+          setAreas(response.data)
+          break
+        case 'place':
+          setPlaces(response.data)
           break
         case 'postal_code':
           setPostalCodes(response.data)
@@ -73,7 +82,7 @@ function SignUp() {
         address: {
           country,
           subdivision,
-          city,
+          area,
           postal_code: postalCode,
         },
       },
@@ -84,43 +93,6 @@ function SignUp() {
       navigate('/login/email')
     } catch (error) {
       console.error(error)
-    }
-  }
-
-  const handleCountryChange = (e, value) => {
-    if (value) {
-      setCountry(value)
-      setCountryCode(value.countryCode)
-      fetchAddresses('subdivision', value.id)
-      fetchAddresses('postal_code', '', '', value.countryCode)
-      // Clear city, subdivision, and postal code when country changes
-      setSubdivision(null)
-      setSubdivisionId('')
-      setCity('')
-      setCounty('')
-      setPostalCode('')
-    } else {
-      setCountry(null)
-      setCountryCode('')
-      setSubdivisions([])
-      setCities([])
-      setPostalCodes([])
-    }
-  }
-
-  const handleSubdivisionChange = (e, value) => {
-    if (value) {
-      setSubdivision(value)
-      setSubdivisionId(value.adminCode1)
-      fetchAddresses('city', value.adminCode1, '', countryCode)
-      // Clear city and postal code when subdivision changes
-      setCity('')
-      setCounty('')
-      setPostalCode('')
-    } else {
-      setSubdivision(null)
-      setSubdivisionId('')
-      setCities([])
     }
   }
 
@@ -170,7 +142,14 @@ function SignUp() {
           className='login-form-element'
           options={countries}
           getOptionLabel={(option) => option.name}
-          onChange={handleCountryChange}
+          isOptionEqualToValue={(option, value) => option.id == value.id}
+          onChange={(e, value) => {
+            setCountry(value)
+            setCountryCode(value.countryCode)
+            setSubdivisions([])
+            setSubdivision(null)
+            fetchAddresses('subdivision', '', value.id)
+          }}
           value={country}
           renderInput={(params) => (
             <TextField
@@ -184,12 +163,18 @@ function SignUp() {
           )}
         />
 
-        {country && (
+        {country && subdivisions.length > 0 && (
           <Autocomplete
             className='login-form-element'
             options={subdivisions}
             getOptionLabel={(option) => option.name}
-            onChange={handleSubdivisionChange}
+            isOptionEqualToValue={(option, value) => option.id == value.id}
+            onChange={(e, value) => {
+              setSubdivision(value)
+              setCounties([])
+              setCounty(null)
+              fetchAddresses('county', '', value.id)
+            }}
             value={subdivision}
             renderInput={(params) => (
               <TextField
@@ -204,26 +189,22 @@ function SignUp() {
           />
         )}
 
-        {subdivision && (
+        {subdivision && subdivisions.length > 0 && counties.length > 0 && (
           <Autocomplete
             className='login-form-element'
-            options={cities}
-            getOptionLabel={(option) => {
-              if (option.county) {
-                return `${option.name} - ${option.county}`
-              } else {
-                return `${option.name}`
-              }
-            }}
-            onInputChange={(e, value) => fetchAddresses('city', subdivisionId, value, countryCode)}
+            options={counties}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id == value.id}
             onChange={(e, value) => {
-              setCity(value.name)
-              setCounty(value.county)
+              setCounty(value.name)
+              setAreas([])
+              setArea(null)
+              fetchAddresses('area', '', value.id)
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label='City'
+                label='County'
                 variant='outlined'
                 InputProps={{
                   ...params.InputProps,
@@ -232,7 +213,65 @@ function SignUp() {
             )}
           />
         )}
-        {subdivision && (
+
+        {subdivision &&
+          county &&
+          subdivisions.length > 0 &&
+          counties.length > 0 &&
+          areas.length > 0 && (
+            <Autocomplete
+              className='login-form-element'
+              options={areas}
+              getOptionLabel={(option) => option.name}
+              isOptionEqualToValue={(option, value) => option.id == value.id}
+              onChange={(e, value) => {
+                setArea(value.name)
+                setPlaces([])
+                setPlace(null)
+                fetchAddresses('place', '', value.id)
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Area'
+                  variant='outlined'
+                  InputProps={{
+                    ...params.InputProps,
+                  }}
+                />
+              )}
+            />
+          )}
+
+        {subdivision &&
+          county &&
+          area &&
+          subdivisions.length > 0 &&
+          counties.length > 0 &&
+          areas.length > 0 &&
+          places.length > 0 && (
+            <Autocomplete
+              className='login-form-element'
+              options={places}
+              getOptionLabel={(option) => option.name}
+              isOptionEqualToValue={(option, value) => option.id == value.id}
+              onChange={(e, value) => {
+                setArea(value.name)
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Place'
+                  variant='outlined'
+                  InputProps={{
+                    ...params.InputProps,
+                  }}
+                />
+              )}
+            />
+          )}
+
+        {country && postalCodes > 0 && (
           <Autocomplete
             className='login-form-element'
             options={postalCodes}
