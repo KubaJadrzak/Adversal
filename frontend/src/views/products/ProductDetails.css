@@ -72,12 +72,6 @@
   flex-direction: column;
   gap: 20px;
 }
-.product-details-right > :nth-child(2) {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-}
 
 .contact-buttons {
   display: flex;
@@ -87,6 +81,19 @@
 
 .product-details-seller-name {
   margin-left: 5px;
+}
+
+.product-details-seller {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-details-seller > :nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .product-details-seller-image {

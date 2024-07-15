@@ -53,10 +53,7 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
         />
       </Box>
       <Box className='product-details'>
-        <Typography variant='caption'>
-          {product.seller.street}, {product.seller.city}, {product.seller.zip_code},{' '}
-          {product.seller.country}
-        </Typography>
+        <Typography variant='caption'>{product.seller.full_address}</Typography>
         <Box className='product-title'>
           <Typography variant={isSmallScreen ? 'subtitle1' : 'h6'}>{product.title}</Typography>
         </Box>

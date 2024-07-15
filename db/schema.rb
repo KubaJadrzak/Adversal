@@ -103,9 +103,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_152937) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "phone_number"
-    t.string "country"
-    t.string "county"
-    t.string "city"
+    t.string "country_name", null: false
+    t.integer "country_geoname_id", null: false
+    t.string "subdivision_name"
+    t.integer "subdivision_geoname_id"
+    t.string "county_name"
+    t.integer "county_geoname_id"
+    t.string "area_name"
+    t.integer "area_geoname_id"
+    t.string "place_name"
+    t.integer "place_geoname_id"
     t.string "postal_code"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true

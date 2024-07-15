@@ -37,4 +37,17 @@ class User < ApplicationRecord
       0.0
     end
   end
+
+  def full_address
+    address_parts = [
+      place_name,
+      area_name,
+      county_name,
+      subdivision_name,
+      country_name,
+      postal_code
+    ].compact.reject(&:blank?)
+
+    address_parts.join(', ')
+  end
 end

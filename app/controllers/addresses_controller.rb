@@ -40,7 +40,7 @@ class AddressesController < ApplicationController
       end
     when 'postal_code'
       if country_code
-        url = "http://api.geonames.org/postalCodeSearchJSON?formatted=true&postalcode_startsWith=#{query}&country=#{country_code}&maxRows=500&username=kubajadrzak"
+        url = "http://api.geonames.org/postalCodeSearchJSON?country=#{country_code}&postalcode_startsWith=#{query}&maxRows=10&username=kubajadrzak"
       else
         render json: { error: 'Invalid query' }, status: :bad_request
         return
@@ -76,11 +76,10 @@ class AddressesController < ApplicationController
         {
           id: place['geonameId'],
           name: place['toponymName'],
-          adminCode1: place['adminCode1']
         }
       end
     when 'county'
-      response['geonames'].map do |place|
+      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
         {
           id: place['geonameId'],
           name: place['toponymName'],
@@ -88,24 +87,24 @@ class AddressesController < ApplicationController
       end
     when 'postal_code'
       if response['postalCodes']
-        unique_postal_codes = response['postalCodes'].uniq { |pc| pc['postalCode'] }  # Filter duplicates by postalCode
-        unique_postal_codes.map do |postal_code|
+        response['postalCodes'].uniq { |place| place['postalCode'] }.map do |place|
           {
-            postal_code: postal_code['postalCode'],
+            id: place['geonameId'],
+            postal_code: place['postalCode'],
           }
         end
       else
         []  # Empty array if there are no postal codes in the response
       end
     when 'area'
-      response['geonames'].uniq { |place| place['name'] }.map do |place|
+      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
         {
           id: place['geonameId'],
           name: place['toponymName'],
         }
       end
     when 'place'
-      response['geonames'].uniq { |place| place['geonameId'] }.map do |place|
+      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
         {
           id: place['geonameId'],
           name: place['toponymName'],

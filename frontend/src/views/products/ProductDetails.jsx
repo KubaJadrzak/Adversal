@@ -137,33 +137,38 @@ function ProductDetails() {
         ) : (
           <Typography>{product.description}</Typography>
         )}
-        <Box>
-          <Box className='product-details-seller-image'>
-            <ImageDisplay
-              imageURL={product.seller.image ? `${baseURL}/${product.seller.image}` : null}
-            />
-          </Box>
+        <Box className='product-details-seller'>
           <Box>
-            <Box className='product-details-seller-name'>
-              <Typography variant='h6'>{product.seller.name}</Typography>
-            </Box>
-            <Box className='product-details-seller-rating'>
-              <Rating
-                name='seller-rating'
-                value={product.seller.average_rating}
-                precision={0.5}
-                readOnly
-                size='large'
+            <Box className='product-details-seller-image'>
+              <ImageDisplay
+                imageURL={product.seller.image ? `${baseURL}/${product.seller.image}` : null}
               />
             </Box>
-            <Link
-              className='product-details-seller-link'
-              color='inherit'
-              onClick={handleMoreFromSellerClick}
-              component='button'
-            >
-              More from this seller
-            </Link>
+            <Box>
+              <Box className='product-details-seller-name'>
+                <Typography variant='h6'>{product.seller.name}</Typography>
+              </Box>
+              <Box className='product-details-seller-rating'>
+                <Rating
+                  name='seller-rating'
+                  value={product.seller.average_rating}
+                  precision={0.5}
+                  readOnly
+                  size='large'
+                />
+              </Box>
+              <Link
+                className='product-details-seller-link'
+                color='inherit'
+                onClick={handleMoreFromSellerClick}
+                component='button'
+              >
+                More from this seller
+              </Link>
+            </Box>
+          </Box>
+          <Box>
+            <Typography>{product.seller.full_address}</Typography>
           </Box>
         </Box>
       </Box>

@@ -15,9 +15,14 @@ users_data = [
     email: 'john.doe@example.com',
     password: 'password123',
     phone_number: '123-456-7890',
-    country: 'USA',
-    county: 'Los Angeles County',
-    city: 'Los Angeles',
+    country_name: 'United States',
+    country_geoname_id: 6252001,  # Example GeonameID for USA
+    subdivision_name: 'California',
+    subdivision_geoname_id: 5332921,  # Example GeonameID for California
+    county_name: 'Los Angeles County',
+    county_geoname_id: 5368381,  # Example GeonameID for Los Angeles County
+    area_name: 'Los Angeles',
+    area_geoname_id: 5368361,  # Example GeonameID for Los Angeles
     postal_code: '90001',
     jti: SecureRandom.uuid 
   },
@@ -26,10 +31,15 @@ users_data = [
     email: 'jane.smith@example.com',
     password: 'password123',
     phone_number: '987-654-3210',
-    country: 'Canada',
-    county: 'Greater Toronto Area',
-    city: 'Toronto',
-    postal_code: 'M5V 2H1',
+    country_name: 'United States',
+    country_geoname_id: 6252001,  # Example GeonameID for USA
+    subdivision_name: 'California',
+    subdivision_geoname_id: 5332921,  # Example GeonameID for California
+    county_name: 'Los Angeles County',
+    county_geoname_id: 5368381,  # Example GeonameID for Los Angeles County
+    area_name: 'Whittier',
+    area_geoname_id: 5409059,  # Example GeonameID for Los Angeles
+    postal_code: '90210',
     jti: SecureRandom.uuid 
   },
   { 
@@ -37,10 +47,15 @@ users_data = [
     email: 'bob.johnson@example.com',
     password: 'password123',
     phone_number: '111-222-3333',
-    country: 'UK',
-    county: 'Greater London',
-    city: 'London',
-    postal_code: 'SW1A 1AA',
+    country_name: 'United States',
+    country_geoname_id: 6252001,  # Example GeonameID for USA
+    subdivision_name: 'California',
+    subdivision_geoname_id: 5332921,  # Example GeonameID for California
+    county_name: 'Los Angeles County',
+    county_geoname_id: 5368381,  # Example GeonameID for Los Angeles County
+    area_name: 'East La Mirada',
+    area_geoname_id: 5344987,  # Example GeonameID for Los Angeles
+    postal_code: '90006',
     jti: SecureRandom.uuid 
   },
   { 
@@ -48,10 +63,15 @@ users_data = [
     email: 'alice.williams@example.com',
     password: 'password123',
     phone_number: '555-444-3333',
-    country: 'Australia',
-    county: 'New South Wales',
-    city: 'Sydney',
-    postal_code: '2000',
+    country_name: 'United States',
+    country_geoname_id: 6252001,  # Example GeonameID for USA
+    subdivision_name: 'California',
+    subdivision_geoname_id: 5332921,  # Example GeonameID for California
+    county_name: 'Los Angeles County',
+    county_geoname_id: 5368381,  # Example GeonameID for Los Angeles County
+    area_name: 'Del Valle',
+    area_geoname_id: 5342467,  # Example GeonameID for Los Angeles
+    postal_code: '50009',
     jti: SecureRandom.uuid 
   },
 ]

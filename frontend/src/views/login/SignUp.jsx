@@ -13,12 +13,12 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [country, setCountry] = useState(null) // Changed initial state to null
+  const [country, setCountry] = useState(null)
   const [countryCode, setCountryCode] = useState('')
   const [subdivisionId, setSubdivisionId] = useState('')
   const [place, setPlace] = useState('')
   const [places, setPlaces] = useState([])
-  const [subdivision, setSubdivision] = useState(null) // Changed initial state to null
+  const [subdivision, setSubdivision] = useState(null)
   const [area, setArea] = useState('')
   const [county, setCounty] = useState('')
   const [counties, setCounties] = useState([])
@@ -142,13 +142,21 @@ function SignUp() {
           className='login-form-element'
           options={countries}
           getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.id == value.id}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           onChange={(e, value) => {
-            setCountry(value)
-            setCountryCode(value.countryCode)
-            setSubdivisions([])
-            setSubdivision(null)
-            fetchAddresses('subdivision', '', value.id)
+            if (value) {
+              setCountry(value)
+              setCountryCode(value.countryCode)
+              setSubdivisions([])
+              setSubdivision(null)
+              fetchAddresses('subdivision', '', value.id)
+              fetchAddresses('postal_code', '', '', value.countryCode)
+            } else {
+              setCountry(null)
+              setCountryCode(null)
+              setSubdivisions([])
+              setSubdivision(null)
+            }
           }}
           value={country}
           renderInput={(params) => (
@@ -162,18 +170,23 @@ function SignUp() {
             />
           )}
         />
-
         {country && subdivisions.length > 0 && (
           <Autocomplete
             className='login-form-element'
             options={subdivisions}
             getOptionLabel={(option) => option.name}
-            isOptionEqualToValue={(option, value) => option.id == value.id}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(e, value) => {
-              setSubdivision(value)
-              setCounties([])
-              setCounty(null)
-              fetchAddresses('county', '', value.id)
+              if (value) {
+                setSubdivision(value)
+                setCounties([])
+                setCounty(null)
+                fetchAddresses('county', '', value.id)
+              } else {
+                setSubdivision(null)
+                setCounties([])
+                setCounty(null)
+              }
             }}
             value={subdivision}
             renderInput={(params) => (
@@ -189,17 +202,23 @@ function SignUp() {
           />
         )}
 
-        {subdivision && subdivisions.length > 0 && counties.length > 0 && (
+        {subdivision && counties.length > 0 && (
           <Autocomplete
             className='login-form-element'
             options={counties}
             getOptionLabel={(option) => option.name}
-            isOptionEqualToValue={(option, value) => option.id == value.id}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(e, value) => {
-              setCounty(value.name)
-              setAreas([])
-              setArea(null)
-              fetchAddresses('area', '', value.id)
+              if (value) {
+                setCounty(value.name)
+                setAreas([])
+                setArea(null)
+                fetchAddresses('area', '', value.id)
+              } else {
+                setCounty(null)
+                setAreas([])
+                setArea(null)
+              }
             }}
             renderInput={(params) => (
               <TextField
@@ -214,70 +233,76 @@ function SignUp() {
           />
         )}
 
-        {subdivision &&
-          county &&
-          subdivisions.length > 0 &&
-          counties.length > 0 &&
-          areas.length > 0 && (
-            <Autocomplete
-              className='login-form-element'
-              options={areas}
-              getOptionLabel={(option) => option.name}
-              isOptionEqualToValue={(option, value) => option.id == value.id}
-              onChange={(e, value) => {
+        {subdivision && county && areas.length > 0 && (
+          <Autocomplete
+            className='login-form-element'
+            options={areas}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            onChange={(e, value) => {
+              if (value) {
                 setArea(value.name)
                 setPlaces([])
                 setPlace(null)
                 fetchAddresses('place', '', value.id)
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label='Area'
-                  variant='outlined'
-                  InputProps={{
-                    ...params.InputProps,
-                  }}
-                />
-              )}
-            />
-          )}
+              } else {
+                setArea(null)
+                setPlaces([])
+                setPlace(null)
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Area'
+                variant='outlined'
+                InputProps={{
+                  ...params.InputProps,
+                }}
+              />
+            )}
+          />
+        )}
 
-        {subdivision &&
-          county &&
-          area &&
-          subdivisions.length > 0 &&
-          counties.length > 0 &&
-          areas.length > 0 &&
-          places.length > 0 && (
-            <Autocomplete
-              className='login-form-element'
-              options={places}
-              getOptionLabel={(option) => option.name}
-              isOptionEqualToValue={(option, value) => option.id == value.id}
-              onChange={(e, value) => {
-                setArea(value.name)
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label='Place'
-                  variant='outlined'
-                  InputProps={{
-                    ...params.InputProps,
-                  }}
-                />
-              )}
-            />
-          )}
+        {subdivision && county && area && places.length > 0 && (
+          <Autocomplete
+            className='login-form-element'
+            options={places}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            onChange={(e, value) => {
+              if (value) {
+                setPlace(value.name)
+              } else {
+                setPlace(null)
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Place'
+                variant='outlined'
+                InputProps={{
+                  ...params.InputProps,
+                }}
+              />
+            )}
+          />
+        )}
 
-        {country && postalCodes > 0 && (
+        {country && postalCodes.length > 0 && (
           <Autocomplete
             className='login-form-element'
             options={postalCodes}
             getOptionLabel={(option) => option.postal_code}
-            onInputChange={(e, value) => fetchAddresses('postal_code', '', value, countryCode)}
-            onChange={(e, value) => setPostalCode(value.postal_code)}
+            onInputChange={(e, value) => fetchAddresses('postal_code', value, '', countryCode)}
+            onChange={(e, value) => {
+              if (value) {
+                setPostalCode(value.postal_code)
+              } else {
+                setPostalCode('')
+              }
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
