@@ -75,7 +75,6 @@ function PasswordChangeDialog({ open, onClose, updateUser, loadData }) {
             helperText={error}
           />
           <Box className='dialog-actions'>
-            {/* Apply custom class for styling */}
             <Button onClick={onClose} variant='contained'>
               Cancel
             </Button>

@@ -10,7 +10,12 @@ module Users
     protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email phone_number])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [
+        :name, :email, :phone_number, :password, :password_confirmation,
+        :country_name, :country_geoname_id, :subdivision_name, :subdivision_geoname_id,
+        :county_name, :county_geoname_id, :area_name, :area_geoname_id,
+        :place_name, :place_geoname_id, :postal_code
+      ])
     end
 
     def configure_account_update_params
@@ -28,15 +33,15 @@ module Users
       end
     end
 
-    def respond_with(current_user, _opts = {})
+    def respond_with(resource, _opts = {})
       if resource.persisted?
         render json: {
           status: { code: 200, message: 'Signed up successfully.' },
-          data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
+          data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
         }
       else
         render json: {
-          status: { message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}" }
+          status: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }
         }, status: :unprocessable_entity
       end
     end

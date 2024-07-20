@@ -7,30 +7,54 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import useAlert from '../../../components/alerts/useAlert'
 import PasswordChangeDialog from './PasswordChangeDialog'
 import ProfileImage from './ProfileImage'
+import AddressEditDialog from './AddressEditDialog'
 import './Profile.css'
 
 function Profile() {
   const baseURL = import.meta.env.VITE_API_BASE_URL
   const navigate = useNavigate()
   const { setAlert } = useAlert()
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone_number: '',
+    full_address: '',
+    geonameIds: {
+      place: null,
+      area: null,
+      county: null,
+      subdivision: null,
+      country: null,
+    },
+  })
   const [editMode, setEditMode] = useState({
     name: false,
     email: false,
     phone_number: false,
-    city: false,
-    county: false, // Added county field
-    country: false,
-    postal_code: false,
+    full_address: false,
   })
   const [activeField, setActiveField] = useState(null)
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [openAddressDialog, setOpenAddressDialog] = useState(false)
   const ref = useRef(null)
 
   const loadData = async () => {
     try {
       const data = await fetchUser(localStorage.getItem('id'))
-      setUser(data)
+      setUser({
+        name: data.name,
+        email: data.email,
+        phone_number: data.phone_number,
+        full_address: data.full_address,
+        geonameIds: {
+          place: data.place_geoname_id,
+          area: data.area_geoname_id,
+          county: data.county_geoname_id,
+          subdivision: data.subdivision_geoname_id,
+          country: data.country_geoname_id,
+          postal_code: data.postal_code,
+        },
+      })
     } catch (error) {
       console.error('Failed to load user: ', error)
     }
@@ -61,6 +85,14 @@ function Profile() {
     setOpenPasswordDialog(true)
   }
 
+  const handleAddressEditClick = () => {
+    setOpenAddressDialog(true)
+  }
+
+  const handleAddressEditClose = () => {
+    setOpenAddressDialog(false)
+  }
+
   const handleSubmit = async (field) => {
     try {
       const updatedValue = user[field]
@@ -78,20 +110,6 @@ function Profile() {
     }
   }
 
-  const discardChanges = () => {
-    setEditMode({
-      name: false,
-      email: false,
-      phone_number: false,
-      city: false,
-      county: false,
-      country: false,
-      postal_code: false,
-    })
-    setActiveField(null)
-    loadData()
-  }
-
   const handleTextFieldKeyDown = (event, field) => {
     if (event.key === 'Enter') {
       handleSubmit(field)
@@ -104,6 +122,17 @@ function Profile() {
         discardChanges()
       }
     }
+  }
+
+  const discardChanges = () => {
+    setEditMode({
+      name: false,
+      email: false,
+      phone_number: false,
+      full_address: false,
+    })
+    setActiveField(null)
+    loadData()
   }
 
   const renderField = (label, value, field) => {
@@ -121,48 +150,49 @@ function Profile() {
       )
     } else {
       return (
-        <>
-          {field === 'email' && user['unconfirmed_email'] ? (
-            <>
-              <Typography>
-                <strong>{label}</strong> {value}
-              </Typography>
-              <Typography variant='caption' color='error'>
-                <strong>New Email (Unconfirmed):</strong> {user['unconfirmed_email']}
-              </Typography>
-            </>
-          ) : (
-            <Box>
-              <Typography>
-                <strong>{label}</strong>
-              </Typography>
-              <Typography>{value}</Typography>
-            </Box>
-          )}
-        </>
+        <Box>
+          <Typography>
+            <strong>{label}</strong>
+          </Typography>
+          <Typography>{value}</Typography>
+        </Box>
       )
     }
   }
 
   const renderEditableField = (label, value, field) => (
-    <Box key={field} className='profile-list-element'>
+    <Box
+      key={field}
+      className={`profile-list-element ${field === 'full_address' ? 'profile-list-element-address' : field === 'password' ? 'profile-list-element-password' : ''}`}
+    >
       <Box className='profile-list-element-text' ref={ref}>
         {renderField(label, value, field)}
       </Box>
       {!editMode[field] || activeField !== field ? (
         field !== 'password' ? (
-          <IconButton
-            className='profile-list-element-icon'
-            onClick={() => handleEditClick(field)}
-            disabled={activeField && activeField !== field}
-          >
-            <FontAwesomeIcon icon={faEdit} />
-          </IconButton>
+          field !== 'full_address' ? (
+            <IconButton
+              className='profile-list-element-icon'
+              onClick={() => handleEditClick(field)}
+              disabled={activeField && activeField !== field}
+            >
+              <FontAwesomeIcon icon={faEdit} />
+            </IconButton>
+          ) : (
+            <Button
+              className='profile-list-element-button'
+              variant='contained'
+              onClick={handleAddressEditClick}
+              disabled={activeField && activeField !== field}
+            >
+              Edit Address
+            </Button>
+          )
         ) : (
           <Button
             className='profile-list-element-button'
             variant='contained'
-            onClick={() => handlePasswordChangeClick()}
+            onClick={handlePasswordChangeClick}
             disabled={activeField && activeField !== field}
           >
             Change Password
@@ -174,7 +204,7 @@ function Profile() {
 
   return (
     <Box className='profile-container'>
-      {user && (
+      {user && user.geonameIds && user.geonameIds.country && (
         <>
           <ProfileImage user={user} loadData={loadData} baseURL={baseURL} />
           <Box className='profile-list'>
@@ -184,13 +214,7 @@ function Profile() {
             <Divider />
             {renderEditableField('Phone:', user.phone_number, 'phone_number')}
             <Divider />
-            {renderEditableField('Country:', user.country, 'country')}
-            <Divider />
-            {renderEditableField('County:', user.county, 'county')}
-            <Divider />
-            {renderEditableField('City:', user.city, 'city')}
-            <Divider />
-            {renderEditableField('Postal Code:', user.postal_code, 'postal_code')}
+            {renderEditableField('Full Address:', user.full_address, 'full_address')}
             <Divider />
             {renderEditableField('Password:', '***********', 'password')}
             <Divider />
@@ -199,6 +223,12 @@ function Profile() {
               onClose={() => setOpenPasswordDialog(false)}
               updateUser={updateUser}
               loadData={loadData}
+            />
+            <AddressEditDialog
+              open={openAddressDialog}
+              onClose={handleAddressEditClose}
+              user={user}
+              setUser={setUser}
             />
           </Box>
         </>

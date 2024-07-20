@@ -64,54 +64,40 @@ class AddressesController < ApplicationController
   def parse_geonames_response(type, response)
     case type
     when 'country'
-      response['geonames'].map do |place|
-        {
-          id: place['geonameId'],
-          name: place['countryName'],
-          countryCode: place['countryCode']
-        }
-      end
-    when 'subdivision'
-      response['geonames'].map do |place|
-        {
-          id: place['geonameId'],
-          name: place['toponymName'],
-        }
-      end
-    when 'county'
-      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
-        {
-          id: place['geonameId'],
-          name: place['toponymName'],
-        }
-      end
-    when 'postal_code'
-      if response['postalCodes']
-        response['postalCodes'].uniq { |place| place['postalCode'] }.map do |place|
+      if response['geonames'].present?
+        response['geonames'].map do |place|
           {
             id: place['geonameId'],
+            name: place['countryName'],
+            countryCode: place['countryCode']
+          }
+        end
+      else
+        []  # Return empty array if geonames array is nil or empty
+      end
+    when 'subdivision', 'county', 'area', 'place'
+      if response['geonames'].present?
+        response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
+          {
+            id: place['geonameId'],
+            name: place['toponymName'],
+          }
+        end
+      else
+        []  # Return empty array if geonames array is nil or empty
+      end
+    when 'postal_code'
+      if response['postalCodes'].present?
+        response['postalCodes'].uniq { |place| place['postalCode'] }.map do |place|
+          {
             postal_code: place['postalCode'],
           }
         end
       else
-        []  # Empty array if there are no postal codes in the response
-      end
-    when 'area'
-      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
-        {
-          id: place['geonameId'],
-          name: place['toponymName'],
-        }
-      end
-    when 'place'
-      response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
-        {
-          id: place['geonameId'],
-          name: place['toponymName'],
-        }
+        []  # Return empty array if postalCodes array is nil or empty
       end
     else
-      []
+      []  # Return empty array for unrecognized types
     end
   end
 end

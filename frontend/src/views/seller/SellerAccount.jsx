@@ -77,6 +77,11 @@ function SellerAccount() {
               size={isSmallScreen ? undefined : 'large'}
             />
           </Box>
+          <Box className='seller-address'>
+            <Typography variant={isSmallScreen ? 'caption' : undefined}>
+              {seller.full_address}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Box className='seller-account-sidebar'>

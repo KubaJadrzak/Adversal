@@ -6,7 +6,6 @@ import ImageDisplay from './ImageDisplay'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { addFavoriteProduct, deleteFavoriteProduct } from '../api/favoriteApi'
-
 import './Product.css'
 
 function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFavorite }) {
@@ -36,7 +35,7 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
     }
   }
 
-  if (!product || product.length === 0) return <div></div>
+  if (!product || !product.seller) return <div></div>
 
   return (
     <Box
@@ -53,7 +52,11 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
         />
       </Box>
       <Box className='product-details'>
-        <Typography variant='caption'>{product.seller.full_address}</Typography>
+        <Box>
+          <Typography variant='caption'>
+            {isSmallScreen ? product.seller.short_address : product.seller.full_address}
+          </Typography>
+        </Box>
         <Box className='product-title'>
           <Typography variant={isSmallScreen ? 'subtitle1' : 'h6'}>{product.title}</Typography>
         </Box>

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, TextField, Button, Autocomplete } from '@mui/material'
 import { signupUser } from '../../api/authApi'
+import { fetchAddresses } from '../../api/addressApi'
 import Adversal from '../../assets/adversal-yellow.png'
 import './Login.css'
-import axios from 'axios'
 
 function SignUp() {
   const navigate = useNavigate()
@@ -15,7 +15,6 @@ function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [country, setCountry] = useState(null)
   const [countryCode, setCountryCode] = useState('')
-  const [subdivisionId, setSubdivisionId] = useState('')
   const [place, setPlace] = useState('')
   const [places, setPlaces] = useState([])
   const [subdivision, setSubdivision] = useState(null)
@@ -30,34 +29,32 @@ function SignUp() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    fetchAddresses('country')
+    loadAddresses('country')
   }, [])
 
-  const fetchAddresses = async (type, query, id, country_code) => {
+  const loadAddresses = async (type, query, id, country_code) => {
     setLoading(true)
     try {
-      const response = await axios.get(`http://localhost:3000/addresses/search`, {
-        params: { type, query, id, country_code },
-      })
-      console.log(`Fetching ${type}:`, response.data)
+      const data = await fetchAddresses(type, query, id, country_code)
+      console.log(`Fetching ${type}:`, data)
       switch (type) {
         case 'country':
-          setCountries(response.data)
+          setCountries(data)
           break
         case 'subdivision':
-          setSubdivisions(response.data)
+          setSubdivisions(data)
           break
         case 'county':
-          setCounties(response.data)
+          setCounties(data)
           break
         case 'area':
-          setAreas(response.data)
+          setAreas(data)
           break
         case 'place':
-          setPlaces(response.data)
+          setPlaces(data)
           break
         case 'postal_code':
-          setPostalCodes(response.data)
+          setPostalCodes(data)
           break
         default:
           break
@@ -72,6 +69,11 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (!country) {
+      console.error('Country is required')
+      return
+    }
+
     const data = {
       user: {
         email,
@@ -79,14 +81,20 @@ function SignUp() {
         password,
         password_confirmation: confirmPassword,
         phone_number: phoneNumber,
-        address: {
-          country,
-          subdivision,
-          area,
-          postal_code: postalCode,
-        },
+        country_name: country.name,
+        country_geoname_id: country.id,
+        subdivision_name: subdivision ? subdivision.name : '',
+        subdivision_geoname_id: subdivision ? subdivision.id : null,
+        county_name: county ? county.name : '',
+        county_geoname_id: county ? county.id : null,
+        area_name: area ? area.name : '',
+        area_geoname_id: area ? area.id : null,
+        place_name: place ? place.name : '',
+        place_geoname_id: place ? place.id : null,
+        postal_code: postalCode ? postalCode : '',
       },
     }
+
     console.log(data)
     try {
       await signupUser(data)
@@ -149,8 +157,8 @@ function SignUp() {
               setCountryCode(value.countryCode)
               setSubdivisions([])
               setSubdivision(null)
-              fetchAddresses('subdivision', '', value.id)
-              fetchAddresses('postal_code', '', '', value.countryCode)
+              loadAddresses('subdivision', '', value.id)
+              loadAddresses('postal_code', '', '', value.countryCode)
             } else {
               setCountry(null)
               setCountryCode(null)
@@ -181,7 +189,7 @@ function SignUp() {
                 setSubdivision(value)
                 setCounties([])
                 setCounty(null)
-                fetchAddresses('county', '', value.id)
+                loadAddresses('county', '', value.id)
               } else {
                 setSubdivision(null)
                 setCounties([])
@@ -210,10 +218,10 @@ function SignUp() {
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(e, value) => {
               if (value) {
-                setCounty(value.name)
+                setCounty(value)
                 setAreas([])
                 setArea(null)
-                fetchAddresses('area', '', value.id)
+                loadAddresses('area', '', value.id)
               } else {
                 setCounty(null)
                 setAreas([])
@@ -241,10 +249,10 @@ function SignUp() {
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(e, value) => {
               if (value) {
-                setArea(value.name)
+                setArea(value)
                 setPlaces([])
                 setPlace(null)
-                fetchAddresses('place', '', value.id)
+                loadAddresses('place', '', value.id)
               } else {
                 setArea(null)
                 setPlaces([])
@@ -272,7 +280,7 @@ function SignUp() {
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(e, value) => {
               if (value) {
-                setPlace(value.name)
+                setPlace(value)
               } else {
                 setPlace(null)
               }
@@ -295,7 +303,8 @@ function SignUp() {
             className='login-form-element'
             options={postalCodes}
             getOptionLabel={(option) => option.postal_code}
-            onInputChange={(e, value) => fetchAddresses('postal_code', value, '', countryCode)}
+            isOptionEqualToValue={(option, value) => option.postalCode === value.postalCode}
+            onInputChange={(e, value) => loadAddresses('postal_code', value, '', countryCode)}
             onChange={(e, value) => {
               if (value) {
                 setPostalCode(value.postal_code)

@@ -53,4 +53,14 @@
   .profile-list {
     width: 320px;
   }
+
+  .profile-list-element-address {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-list-element-password {
+    display: flex;
+    flex-direction: column;
+  }
 }
