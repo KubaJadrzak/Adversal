@@ -75,10 +75,10 @@ function PasswordChangeDialog({ open, onClose, updateUser, loadData }) {
             helperText={error}
           />
           <Box className='dialog-actions'>
-            <Button onClick={onClose} variant='contained'>
+            <Button onClick={onClose} variant='outlined' color='secondary'>
               Cancel
             </Button>
-            <Button variant='outlined' color='secondary' type='submit'>
+            <Button variant='contained' type='submit'>
               Change Password
             </Button>
           </Box>

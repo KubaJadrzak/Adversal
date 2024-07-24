@@ -5,6 +5,7 @@ import { fetchCurrentUserFavorites } from '../../api/favoriteApi'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Box, Button, Divider } from '@mui/material'
 import PriceFilter from '../../components/PriceFilter'
+import LocationFilter from '../../components/LocationFilter'
 import Product from '../../components/Product'
 import Sidebar from '../../components/Sidebar'
 import './Products.css'
@@ -36,6 +37,12 @@ function Products() {
       const minPriceParam = searchParams.get('min_price')
       const maxPriceParam = searchParams.get('max_price')
       const query = searchParams.get('query')
+      const countryId = searchParams.get('country_id')
+      const subdivisionId = searchParams.get('subdivision_id')
+      const countyId = searchParams.get('county_id')
+      const areaId = searchParams.get('area_id')
+      const placeId = searchParams.get('place_id')
+      const postalCode = searchParams.get('postal_code')
       const params = new URLSearchParams()
 
       if (categoryId !== previousCategoryId) {
@@ -70,11 +77,46 @@ function Products() {
       params.set('page', page)
 
       const fetchedData = await fetchAllProducts(params)
-      if (fetchedData.products.length === 0 && page > 1) {
+      let filteredProducts = fetchedData.products
+
+      // Filter products based on location geoname IDs
+      if (countryId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.country_geoname_id === parseInt(countryId)
+        )
+      }
+      if (subdivisionId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.subdivision_geoname_id === parseInt(subdivisionId)
+        )
+      }
+      if (countyId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.county_geoname_id === parseInt(countyId)
+        )
+      }
+      if (areaId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.area_geoname_id === parseInt(areaId)
+        )
+      }
+      if (placeId) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.place_geoname_id === parseInt(placeId)
+        )
+      }
+      if (postalCode) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.seller.postal_code === postalCode
+        )
+      }
+
+      if (filteredProducts.length === 0 && page > 1) {
         navigate(`/?page=1`)
         return
       }
-      setProducts(fetchedData.products)
+
+      setProducts(filteredProducts)
       setPagination({
         currentPage: fetchedData.meta.current_page,
         totalPages: fetchedData.meta.total_pages,
@@ -121,7 +163,10 @@ function Products() {
             onAlignmentChange={handleAlignmentChange}
           />
           <Divider />
-          <PriceFilter />
+          <Box display='flex' flexDirection='row' gap={1}>
+            <PriceFilter />
+            <LocationFilter />
+          </Box>
         </Box>
       )}
 

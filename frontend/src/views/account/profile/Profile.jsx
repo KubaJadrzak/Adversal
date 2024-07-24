@@ -42,6 +42,7 @@ function Profile() {
     try {
       const data = await fetchUser(localStorage.getItem('id'))
       setUser({
+        id: data.id,
         name: data.name,
         email: data.email,
         phone_number: data.phone_number,
@@ -54,6 +55,7 @@ function Profile() {
           country: data.country_geoname_id,
           postal_code: data.postal_code,
         },
+        image: data.image,
       })
     } catch (error) {
       console.error('Failed to load user: ', error)

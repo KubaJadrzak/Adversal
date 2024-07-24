@@ -188,10 +188,6 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
 
   const handleSave = async (e) => {
     e.preventDefault()
-    if (!address) {
-      setError('Address cannot be empty')
-      return
-    }
 
     try {
       await updateUser(localStorage.getItem('id'), {
@@ -404,10 +400,8 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             <Autocomplete
               className='address-form-element'
               options={postalCodes}
-              value={postalCode}
-              getOptionLabel={(option) => {
-                return option.postal_code
-              }}
+              value={postalCode || null} // Use null instead of empty string
+              getOptionLabel={(option) => option.postal_code}
               isOptionEqualToValue={(option, value) => option.postal_code === value.postal_code}
               onInputChange={(e, value) => {
                 loadAddresses('postal_code', value, '', countryCode)
@@ -416,7 +410,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
                 if (value) {
                   setPostalCode(value)
                 } else {
-                  setPostalCode('')
+                  setPostalCode(null) // Set to null for consistency
                 }
               }}
               renderInput={(params) => (
@@ -433,10 +427,10 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
           )}
 
           <Box className='dialog-actions'>
-            <Button onClick={onClose} variant='contained'>
+            <Button onClick={onClose} variant='outlined' color='secondary'>
               Cancel
             </Button>
-            <Button variant='outlined' color='secondary' type='submit'>
+            <Button variant='contained' type='submit'>
               Save
             </Button>
           </Box>
