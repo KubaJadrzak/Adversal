@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, TextField, Button, Divider } from '@mui/material'
+import { Box, TextField, Button, Divider, Typography } from '@mui/material'
 import { loginUser } from '../../api/authApi'
 import useAlert from '../../components/alerts/useAlert'
 import Adversal from '../../assets/adversal-yellow.png'
@@ -88,6 +88,10 @@ function Login() {
       >
         Back to shop
       </Button>
+      <Typography>
+        This is a personal project, created for self-learning purposes. You can login using an
+        example account with email: <b>john.doe@example.com </b> and password: <b>password123</b>
+      </Typography>
     </Box>
   )
 }
