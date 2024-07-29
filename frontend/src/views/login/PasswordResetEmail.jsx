@@ -11,8 +11,8 @@ function PasswordResetEmail() {
     <Box className='login-container'>
       <img src={Adversal} alt='logo' className='login-logo' />
       <Typography className='login-alert'>
-        We've sent a password reset email to your address. Be sure to check your spam folder if you
-        don't see it right away!
+        We've sent a confirmation email to your email address. Be sure to check your spam folder if
+        you don't see it right away!
       </Typography>
       <Button
         className='login-form-button'
