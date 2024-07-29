@@ -61,7 +61,7 @@ class User < ApplicationRecord
     ].compact.reject(&:blank?)
   
     # Select the last 3 parts if the array has more than 3 elements
-    short_address_parts = address_parts.first(3)
+    short_address_parts = address_parts.first(2)
   
     short_address_parts.join(', ')
   end

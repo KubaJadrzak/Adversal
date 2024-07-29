@@ -16,7 +16,7 @@ const theme = createTheme({
     // Optionally define error, warning, info, etc.
   },
   typography: {
-    // You can customize typography here
+    color: '#000000',
   },
   components: {
     MuiTypography: {

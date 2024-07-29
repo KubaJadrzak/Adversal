@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  color: #000000 !important; /* Ensure text color */
 }
 
 a {
@@ -30,6 +31,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  color: #000000 !important; /* Ensure text color */
 }
 
 h1 {
