@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles'
-import { amber } from '@mui/material/colors'
 
 // Define your custom theme
 const theme = createTheme({
@@ -10,7 +9,11 @@ const theme = createTheme({
     secondary: {
       main: '#000000', // Black color
     },
-    // You can customize other colors like error, warning, info, etc.
+    text: {
+      primary: '#000000', // Primary text color (dark mode)
+      secondary: '#000000', // Secondary text color (light mode)
+    },
+    // Optionally define error, warning, info, etc.
   },
   typography: {
     // You can customize typography here

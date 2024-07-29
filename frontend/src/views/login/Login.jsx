@@ -48,6 +48,9 @@ function Login() {
           type='password'
           onChange={(e) => setPassword(e.target.value)}
         ></TextField>
+        <Button className='login-form-button' variant='contained' type='submit'>
+          Login
+        </Button>
         <Button
           className='login-form-button'
           variant='outlined'
@@ -59,23 +62,31 @@ function Login() {
         >
           Forgot password?
         </Button>
-        <Button className='login-form-button' variant='contained' type='submit'>
-          Login
+        <Button
+          className='login-form-button'
+          variant='outlined'
+          color='secondary'
+          onClick={() => {
+            navigate(`/login/signup`)
+          }}
+        >
+          Create an account
         </Button>
       </form>
       <Box className='login-form-divider'>
         <Divider />
         <Divider />
       </Box>
+
       <Button
         className='login-form-button'
         variant='outlined'
         color='secondary'
         onClick={() => {
-          navigate(`/login/signup`)
+          navigate(`/`)
         }}
       >
-        Create an account
+        Back to shop
       </Button>
     </Box>
   )
