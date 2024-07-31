@@ -44,6 +44,7 @@ const PriceFilter = () => {
     } else {
       params.delete('max_price')
     }
+    params.set('page', 1) // Reset page to 1
     const newSearch = params.toString() ? `?${params.toString()}` : ''
     navigate(`/${newSearch}`)
     handleClose()
@@ -53,6 +54,7 @@ const PriceFilter = () => {
     const params = new URLSearchParams(location.search)
     params.delete('min_price')
     params.delete('max_price')
+    params.set('page', 1) // Reset page to 1
     const newSearch = params.toString() ? `?${params.toString()}` : ''
     navigate(`/${newSearch}`)
     setMinPrice('')

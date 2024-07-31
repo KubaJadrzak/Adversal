@@ -163,12 +163,13 @@ function Products() {
             onAlignmentChange={handleAlignmentChange}
           />
           <Divider />
-          <Box display='flex' flexDirection='row' gap={1}>
-            <PriceFilter />
-            <LocationFilter />
-          </Box>
         </Box>
       )}
+
+      <Box className='products-filters'>
+        <PriceFilter />
+        <LocationFilter />
+      </Box>
 
       {products.length > 0 && (
         <Box className='products-elements'>

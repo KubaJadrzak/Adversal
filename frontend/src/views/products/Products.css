@@ -8,6 +8,13 @@
   flex: 1;
 }
 
+.products-filters {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 10px;
+}
+
 .products-sidebar {
   display: flex;
   flex-direction: column;

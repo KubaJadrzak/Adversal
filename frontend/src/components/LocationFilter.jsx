@@ -173,6 +173,7 @@ const LocationFilter = () => {
     } else {
       params.delete('place_id')
     }
+    params.set('page', 1) // Reset page to 1
     const newSearch = params.toString() ? `?${params.toString()}` : ''
     navigate(`/${newSearch}`)
     handleClose()
