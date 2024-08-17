@@ -11,7 +11,7 @@ class Ability
     can :read, User
     can :user_products, Product, status: 1
     can :user_reviews, Review
-    
+
     # Return if the user is not logged in
     return unless user.present?
 

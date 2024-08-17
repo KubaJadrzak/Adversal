@@ -7,7 +7,7 @@ import './Reviews.css'
 
 function Reviews() {
   const [userReviews, setUserReviews] = useState(null)
-  const [reviewType, setReviewType] = useState('written') // 'received' or 'written'
+  const [reviewType, setReviewType] = useState('written')
 
   useEffect(() => {
     const fetchReviews = async () => {

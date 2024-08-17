@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       :image,
       :phone_number,
       :country,
-      :county, 
+      :county,
       :postal_code,
       :place_geoname_id,
       :area_geoname_id,

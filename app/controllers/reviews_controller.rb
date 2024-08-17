@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :set_review, only: %i[show update destroy]
 
@@ -9,13 +11,13 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1
   # GET /reviews/1.json
-  def show
-  end
+  def show; end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+
     @review.reviewer = current_user
 
     if @review.save
@@ -54,8 +56,8 @@ class ReviewsController < ApplicationController
   def user_reviews
     user_id = params[:user_id]
     @reviews = Review.where(subject_id: user_id)
-
   end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

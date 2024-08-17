@@ -2,7 +2,7 @@
 
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[update destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   load_and_authorize_resource
 
   # GET /categories
@@ -13,14 +13,14 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.includes(:subcategories).where.not(subcategories: { id: nil }).find(params[:id])
   end
+
   # POST /categories
   def create
     @category = Category.new(category_params)
 
-    if @category.save
-    else
-      render json: @category.errors, status: :unprocessable_entity
-    end
+    return if @category.save
+
+    render json: @category.errors, status: :unprocessable_entity
   end
 
   # PATCH/PUT /categories/1

@@ -1,6 +1,5 @@
 import api from './apiClient'
 
-// Fetch all products with optional query parameters
 export async function fetchAllProducts(params) {
   try {
     const response = await api.get(`/products?${params}`)
@@ -10,7 +9,6 @@ export async function fetchAllProducts(params) {
   }
 }
 
-// Fetch products for a specific user
 export async function fetchUserProducts(userId, params) {
   try {
     const response = await api.get(`/products/user_products/${userId}?${params}`)
@@ -20,7 +18,6 @@ export async function fetchUserProducts(userId, params) {
   }
 }
 
-// Fetch products for the current user
 export async function fetchCurrentUserProducts(params) {
   try {
     const response = await api.get(`/products/current_user_products?${params}`)
@@ -30,7 +27,6 @@ export async function fetchCurrentUserProducts(params) {
   }
 }
 
-// Create a new product
 export async function createProduct(data) {
   try {
     const formData = new FormData()
@@ -54,7 +50,6 @@ export async function createProduct(data) {
   }
 }
 
-// Update an existing product
 export async function updateProduct(id, data) {
   try {
     const formData = new FormData()
@@ -79,7 +74,6 @@ export async function updateProduct(id, data) {
   }
 }
 
-// Delete an existing product
 export async function deleteProduct(id, params) {
   try {
     const response = await api.delete(`/products/${id}?${params}`)
@@ -93,7 +87,6 @@ export async function deleteProduct(id, params) {
   }
 }
 
-// Fetch a single product by ID
 export async function fetchProduct(id, params) {
   try {
     const response = await api.get(`/products/${id}?${params}`)
@@ -103,7 +96,6 @@ export async function fetchProduct(id, params) {
   }
 }
 
-// Delete an image from a product
 export async function deleteProductImage(id, imageIndex) {
   try {
     await api.delete(`/products/${id}/delete_image/${imageIndex}`)

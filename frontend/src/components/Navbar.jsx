@@ -137,7 +137,7 @@ function Navbar() {
                         onClick={() => {
                           setCurrentCategoryName(category.name)
                           navigate(`/?category=${category.id}`)
-                          setDrawerOpen(false) // Close the drawer here
+                          setDrawerOpen(false)
                         }}
                       >
                         <ListItemText primary={category.name} />

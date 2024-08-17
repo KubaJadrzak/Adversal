@@ -7,14 +7,14 @@ import './Catalog.css'
 
 function Catalog() {
   const [products, setProducts] = useState([])
-  const [filter, setFilter] = useState('LIVE') // State for filter
+  const [filter, setFilter] = useState('LIVE')
   const navigate = useNavigate()
 
   useEffect(() => {
     async function loadData() {
       try {
         const params = new URLSearchParams({
-          status: filter, // Add filter to the query parameters
+          status: filter,
         })
         const data = await fetchCurrentUserProducts(params)
         setProducts(data)
@@ -23,8 +23,7 @@ function Catalog() {
       }
     }
     loadData()
-  }, [filter]) // Re-fetch products when filter changes
-
+  }, [filter])
   if (!products) return <div></div>
 
   const onDeleteProduct = (id) => {

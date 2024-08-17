@@ -38,7 +38,6 @@ function EditReview() {
     }
   }
 
-  // If review.id is not defined or falsy, render nothing until data is loaded
   if (!review || !review.id) return null
 
   const data = {

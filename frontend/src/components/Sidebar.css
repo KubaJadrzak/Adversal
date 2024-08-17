@@ -19,16 +19,16 @@
 }
 
 .sidebar-toggle-button {
-  flex: 0 1 auto; /* Allow the button to take up as much space as its content */
+  flex: 0 1 auto;
   border: 1px solid #ccc;
 }
 
 .sidebar-account .sidebar-toggle-button {
-  flex: 1 1 20%; /* Each button takes up 25% of the container width */
+  flex: 1 1 20%;
 }
 
 @media only screen and (max-width: 500px) {
   .sidebar-account .sidebar-toggle-button {
-    flex: 1 1 40%; /* Each button takes up 40% of the container width */
+    flex: 1 1 40%;
   }
 }

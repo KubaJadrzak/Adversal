@@ -13,7 +13,7 @@ import {
 import useAlert from '../../components/alerts/useAlert'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './ReviewForm.css'
-import { deleteReview } from '../../api/reviewApi' // Import the deleteReview function
+import { deleteReview } from '../../api/reviewApi'
 
 function ReviewForm({ buttonMessage, data, handleSubmit }) {
   const [text, setText] = useState(data.text || '')

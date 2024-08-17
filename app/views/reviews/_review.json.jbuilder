@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 json.extract! review, :id, :text, :rating
-  
+
 # Format the created_at attribute to only include the date
 json.created_at review.created_at.strftime('%Y-%m-%d')
 

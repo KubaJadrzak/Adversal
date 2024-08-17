@@ -15,17 +15,14 @@ function SellerReviews({ sellerId }) {
       try {
         const reviews = await fetchUserReviews(sellerId)
 
-        // Sort reviews to show current user's review on top, if exists
         const sortedReviews = [...reviews].sort((a, b) => {
           if (a.reviewer.id == currentUserId) return -1
           if (b.reviewer.id == currentUserId) return 1
           return 0
         })
 
-        // Update state with sorted reviews
         setUserReviews(sortedReviews)
 
-        // Check if the current user is the seller or has already written a review
         const hasReviewed = reviews.some((review) => review.reviewer.id == currentUserId)
         setCanWriteReview(currentUserId != sellerId && !hasReviewed)
       } catch (error) {

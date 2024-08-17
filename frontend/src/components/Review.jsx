@@ -36,9 +36,7 @@ function Review({ review, reviewType, onDelete, currentUserId }) {
     try {
       await onDelete(review.id)
       handleClose()
-    } catch (error) {
-      // Handle error (e.g., show error message)
-    }
+    } catch (error) {}
   }
 
   return (

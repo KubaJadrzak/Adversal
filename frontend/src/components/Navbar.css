@@ -50,18 +50,18 @@
     display: flex;
     width: 48%;
     border: 1px solid #ccc;
-    transition: background-color 0.3s; /* Add transition for background color */
+    transition: background-color 0.3s;
     gap: 10px;
   }
 
   .navbar-bottom-categories-menu:hover {
-    background-color: #f0f0f0; /* Change to a light grey on hover */
+    background-color: #f0f0f0;
   }
 
   .navbar-bottom-categories-menu > * {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the icon */
+    justify-content: center;
   }
   .navbar-bottom-categories-menu-icon {
     width: 40px;

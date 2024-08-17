@@ -5,16 +5,15 @@ import { fetchAllCategories } from '../../api/categoryApi'
 import { updateProduct, fetchProduct, deleteProductImage } from '../../api/productApi'
 import ProductForm from './ProductForm'
 import './ProductForm.css'
-import useAlert from '../../components/alerts/useAlert' // Step 1
+import useAlert from '../../components/alerts/useAlert'
 
 function EditProduct() {
-  const { productId } = useParams() // Step 2: Get productId from URL
+  const { productId } = useParams()
   const [categories, setCategories] = useState([])
   const [product, setProduct] = useState({})
   const navigate = useNavigate()
-  const { setAlert } = useAlert() // Step 3
+  const { setAlert } = useAlert()
 
-  // Define loadData function here
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -24,11 +23,9 @@ function EditProduct() {
         setProduct(productData)
       } catch (error) {
         console.error('Failed to load: ', error)
-        // Handle error feedback to the user
       }
     }
 
-    // Call loadData function inside useEffect
     loadData()
   }, [productId])
 
@@ -51,22 +48,18 @@ function EditProduct() {
     }
 
     try {
-      // Delete each image in deletedImages array
       await Promise.all(
         deletedImages.map(async (imageIndex) => {
           try {
             await deleteProductImage(productId, imageIndex)
           } catch (error) {
             console.error(`Failed to delete image ${imageIndex}:`, error)
-            // Handle error if necessary
           }
         })
       )
 
-      // After deleting images, update the product data
       await updateProduct(productId, updatedData)
 
-      // After successful update, navigate to account page
       navigate(`/account?view=catalog`)
       setAlert('Product was successfully updated', 'success')
     } catch (error) {

@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import useAlert from '../../../components/alerts/useAlert'
 import { updateUser } from '../../../api/userApi'
-import { fetchAddresses } from '../../../api/addressApi' // Import the address API
+import { fetchAddresses } from '../../../api/addressApi'
 import './AddressEditDialog.css'
 
 function AddressEditDialog({ open, onClose, user, setUser }) {
@@ -37,12 +37,10 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
   useEffect(() => {
     const loadInitialData = async () => {
       try {
-        // Load countries if it hasn't been loaded before
         if (countries.length === 0) {
           const countryData = await fetchAddresses('country')
           setCountries(countryData)
 
-          // Set selected country if geonameIds has a selected country
           if (geonameIds.country && countryData.length > 0) {
             const selectedCountry = countryData.find((c) => c.id === geonameIds.country)
             if (selectedCountry) {
@@ -65,7 +63,6 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
                     setPostalCode(selectedPostalCode)
                   }
                 } else if (!geonameIds.country) {
-                  // Reset postal code if country is unset
                   setPostalCodes([])
                   setPostalCode(null)
                 }
@@ -74,12 +71,10 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
           }
         }
 
-        // Load subdivisions if geonameIds.country is set and subdivisions haven't been loaded
         if (geonameIds.country && subdivisions.length === 0) {
           const subdivisionData = await fetchAddresses('subdivision', '', geonameIds.country)
           setSubdivisions(subdivisionData)
 
-          // Set selected subdivision if geonameIds has a selected subdivision
           if (geonameIds.subdivision && subdivisionData.length > 0) {
             const selectedSubdivision = subdivisionData.find((s) => s.id === geonameIds.subdivision)
             if (selectedSubdivision) {
@@ -87,17 +82,14 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             }
           }
         } else if (!geonameIds.country) {
-          // Reset subdivisions if country is unset
           setSubdivisions([])
           setSubdivision(null)
         }
 
-        // Load counties if geonameIds.subdivision is set and counties haven't been loaded
         if (geonameIds.subdivision && counties.length === 0) {
           const countyData = await fetchAddresses('county', '', geonameIds.subdivision)
           setCounties(countyData)
 
-          // Set selected county if geonameIds has a selected county
           if (geonameIds.county && countyData.length > 0) {
             const selectedCounty = countyData.find((c) => c.id === geonameIds.county)
             if (selectedCounty) {
@@ -105,17 +97,14 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             }
           }
         } else if (!geonameIds.subdivision) {
-          // Reset counties if subdivision is unset
           setCounties([])
           setCounty(null)
         }
 
-        // Load areas if geonameIds.county is set and areas haven't been loaded
         if (geonameIds.county && areas.length === 0) {
           const areaData = await fetchAddresses('area', '', geonameIds.county)
           setAreas(areaData)
 
-          // Set selected area if geonameIds has a selected area
           if (geonameIds.area && areaData.length > 0) {
             const selectedArea = areaData.find((a) => a.id === geonameIds.area)
             if (selectedArea) {
@@ -123,17 +112,14 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             }
           }
         } else if (!geonameIds.county) {
-          // Reset areas if county is unset
           setAreas([])
           setArea(null)
         }
 
-        // Load places if geonameIds.area is set and places haven't been loaded
         if (geonameIds.area && places.length === 0) {
           const placeData = await fetchAddresses('place', '', geonameIds.area)
           setPlaces(placeData)
 
-          // Set selected place if geonameIds has a selected place
           if (geonameIds.place && placeData.length > 0) {
             const selectedPlace = placeData.find((p) => p.id === geonameIds.place)
             if (selectedPlace) {
@@ -141,7 +127,6 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             }
           }
         } else if (!geonameIds.area) {
-          // Reset places if area is unset
           setPlaces([])
           setPlace(null)
         }
@@ -151,7 +136,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
     }
 
     loadInitialData()
-  }, []) // Empty dependency array ensures this runs only once after initial render
+  }, [])
 
   const loadAddresses = async (type, query, id, country_code) => {
     setLoading(true)
@@ -229,7 +214,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
               if (value) {
                 setCountry(value)
                 setCountryCode(value.countryCode)
-                // Reset lower level address parts
+
                 setSubdivisions([])
                 setSubdivision(null)
                 setCounties([])
@@ -239,7 +224,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
                 setPlaces([])
                 setPlace(null)
                 setPostalCode(null)
-                // Load subdivisions for the selected country
+
                 loadAddresses('subdivision', '', value.id)
                 loadAddresses('postal_code', '', '', value.countryCode)
               } else {
@@ -276,12 +261,12 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
               onChange={(e, value) => {
                 if (value) {
                   setSubdivision(value)
-                  // Reset lower level address parts
+
                   setCounties([])
                   setCounty(null)
                   setAreas([])
                   setArea(null)
-                  // Load counties for the selected subdivision
+
                   loadAddresses('county', '', value.id)
                 } else {
                   setSubdivision(null)
@@ -313,10 +298,10 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
               onChange={(e, value) => {
                 if (value) {
                   setCounty(value)
-                  // Reset lower level address parts
+
                   setAreas([])
                   setArea(null)
-                  // Load areas for the selected county
+
                   loadAddresses('area', '', value.id)
                 } else {
                   setCounty(null)
@@ -346,10 +331,10 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
               onChange={(e, value) => {
                 if (value) {
                   setArea(value)
-                  // Reset lower level address parts
+
                   setPlaces([])
                   setPlace(null)
-                  // Load places for the selected area
+
                   loadAddresses('place', '', value.id)
                 } else {
                   setArea(null)
@@ -400,7 +385,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
             <Autocomplete
               className='address-form-element'
               options={postalCodes}
-              value={postalCode || null} // Use null instead of empty string
+              value={postalCode || null}
               getOptionLabel={(option) => option.postal_code}
               isOptionEqualToValue={(option, value) => option.postal_code === value.postal_code}
               onInputChange={(e, value) => {
@@ -410,7 +395,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
                 if (value) {
                   setPostalCode(value)
                 } else {
-                  setPostalCode(null) // Set to null for consistency
+                  setPostalCode(null)
                 }
               }}
               renderInput={(params) => (

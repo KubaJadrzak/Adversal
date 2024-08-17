@@ -57,6 +57,7 @@ group :development, :test do
   gem 'annotate'
   gem 'letter_opener'
 end
+gem 'rubocop-rails', require: false
 
 gem 'faker'
 

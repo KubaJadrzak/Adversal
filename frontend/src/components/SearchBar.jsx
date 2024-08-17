@@ -9,7 +9,6 @@ function SearchBar({ handleSubmit }) {
   const location = useLocation()
   const [query, setQuery] = useState('')
 
-  // Extract query parameter from URL on component mount
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search)
     const urlQuery = searchParams.get('query') || ''
@@ -29,7 +28,7 @@ function SearchBar({ handleSubmit }) {
       placeholder='Search...'
       variant='standard'
       autoComplete='off'
-      value={query} // Set value to display the query in the input field
+      value={query}
       onChange={(e) => setQuery(e.target.value)}
       onKeyDown={handleKeyDown}
       InputProps={{

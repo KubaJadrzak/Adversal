@@ -4,16 +4,16 @@ import { createTheme } from '@mui/material/styles'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#F3D250', // Customize primary color
+      main: '#F3D250',
     },
     secondary: {
-      main: '#000000', // Black color
+      main: '#000000',
     },
     text: {
-      primary: '#000000', // Primary text color (dark mode)
-      secondary: '#000000', // Secondary text color (light mode)
+      primary: '#000000',
+      secondary: '#000000',
     },
-    // Optionally define error, warning, info, etc.
+    //
   },
   typography: {
     color: '#000000',
@@ -22,7 +22,7 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          wordBreak: 'break-word', // Add word break
+          wordBreak: 'break-word',
         },
       },
     },
@@ -30,7 +30,7 @@ const theme = createTheme({
       defaultProps: {
         InputProps: {
           style: {
-            borderRadius: 0, // Set border radius to 0 for square edges
+            borderRadius: 0,
           },
         },
       },
@@ -38,14 +38,14 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 0, // Set border radius to 0 for square edges
+          borderRadius: 0,
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 0, // Set border radius to 0 for square edges
+          borderRadius: 0,
         },
       },
     },
@@ -73,7 +73,7 @@ const theme = createTheme({
             backgroundColor: '#F3D250',
             outline: 'none',
             '&:hover': {
-              backgroundColor: '#F3D250', // Darker color on hover when selected
+              backgroundColor: '#F3D250',
               filter: 'brightness(80%)',
             },
             '&:active': {
@@ -81,7 +81,7 @@ const theme = createTheme({
             },
           },
           '&:hover': {
-            backgroundColor: '#F3D250', // Slightly darker color on hover
+            backgroundColor: '#F3D250',
             filter: 'brightness(90%)',
           },
           '&:active': {
@@ -94,7 +94,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '&:hover': {
-            color: '#F3D250', // Change link color to primary color on hover
+            color: '#F3D250',
           },
         },
       },

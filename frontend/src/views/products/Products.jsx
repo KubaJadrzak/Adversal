@@ -79,7 +79,6 @@ function Products() {
       const fetchedData = await fetchAllProducts(params)
       let filteredProducts = fetchedData.products
 
-      // Filter products based on location geoname IDs
       if (countryId) {
         filteredProducts = filteredProducts.filter(
           (product) => product.seller.country_geoname_id === parseInt(countryId)

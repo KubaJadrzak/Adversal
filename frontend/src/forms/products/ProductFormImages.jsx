@@ -64,7 +64,6 @@ function ProductFormImages({ initialImages, newImages, setNewImages, setDeletedI
     })),
   ]
 
-  // Ensure that when we have less than 5 combinedImages, one null combinedImage will be displayed
   if (combinedImages.length < 6) {
     combinedImages.push({ image: null, previewImageURL: null })
   }

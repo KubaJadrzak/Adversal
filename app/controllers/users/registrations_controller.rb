@@ -10,12 +10,12 @@ module Users
     protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [
-        :name, :email, :phone_number, :password, :password_confirmation,
-        :country_name, :country_geoname_id, :subdivision_name, :subdivision_geoname_id,
-        :county_name, :county_geoname_id, :area_name, :area_geoname_id,
-        :place_name, :place_geoname_id, :postal_code
-      ])
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[
+                                          name email phone_number password password_confirmation
+                                          country_name country_geoname_id subdivision_name subdivision_geoname_id
+                                          county_name county_geoname_id area_name area_geoname_id
+                                          place_name place_geoname_id postal_code
+                                        ])
     end
 
     def configure_account_update_params

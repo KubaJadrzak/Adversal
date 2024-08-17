@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Default settings for JSON format and HTTPS protocol
   defaults format: :json, protocol: 'https' do
@@ -20,19 +22,18 @@ Rails.application.routes.draw do
       put '/change_password', to: 'users/passwords#change_password'
     end
 
-    resources :favorites, only: [:create, :destroy] do
+    resources :favorites, only: %i[create destroy] do
       collection do
         get 'current_user_favorites', to: 'favorites#current_user_favorites'
       end
     end
-  
+
     resources :reviews do
       collection do
         get 'current_user_reviews', to: 'reviews#current_user_reviews'
         get 'user_reviews/:user_id', to: 'reviews#user_reviews', as: :user_reviews
       end
     end
-  
 
     # Routes for managing users and deleting user images
     resources :users, only: %i[show edit update] do

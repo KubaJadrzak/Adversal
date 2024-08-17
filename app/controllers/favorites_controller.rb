@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FavoritesController < ApplicationController
-  before_action :set_favorite, only: %i[ show update ]
+  before_action :set_favorite, only: %i[show update]
   before_action :authenticate_user!
 
   # GET /favorites
@@ -10,8 +12,7 @@ class FavoritesController < ApplicationController
 
   # GET /favorites/1
   # GET /favorites/1.json
-  def show
-  end
+  def show; end
 
   # POST /favorites
   # POST /favorites.json
@@ -39,7 +40,7 @@ class FavoritesController < ApplicationController
   # DELETE /favorites/1.json
   def destroy
     @favorite = current_user.favorites.find_by(product_id: params[:id])
-  
+
     if @favorite.destroy
       render json: { success: true, message: 'Product removed from favorites' }
     else
@@ -48,20 +49,21 @@ class FavoritesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: { success: false, message: 'Favorite not found' }, status: :not_found
   end
-  
+
   # GET /favorites/current_user_favorites
   def current_user_favorites
     @favorites = current_user.favorite_products
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_favorite
-      @favorite = Favorite.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def favorite_params
-      params.require(:favorite).permit(:user_id, :product_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_favorite
+    @favorite = Favorite.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def favorite_params
+    params.require(:favorite).permit(:user_id, :product_id)
+  end
 end

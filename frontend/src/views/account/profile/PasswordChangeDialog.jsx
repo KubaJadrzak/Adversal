@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Dialog, DialogTitle, DialogContent, Box, Button, TextField } from '@mui/material'
 import { changePassword } from '../../../api/authApi'
 import useAlert from '../../../components/alerts/useAlert'
-import './PasswordChangeDialog.css' // Import CSS for custom styling
+import './PasswordChangeDialog.css'
 
 function PasswordChangeDialog({ open, onClose, updateUser, loadData }) {
   const { setAlert } = useAlert()
@@ -26,8 +26,8 @@ function PasswordChangeDialog({ open, onClose, updateUser, loadData }) {
         password_confirmation: newPasswordConfirmation,
       })
       setAlert('Password updated successfully!', 'success')
-      onClose() // Close the dialog after successful password change
-      loadData() // Refresh user data after password change
+      onClose()
+      loadData()
     } catch (error) {
       console.error('Error changing password:', error)
       setAlert('Failed to update password!', 'error')

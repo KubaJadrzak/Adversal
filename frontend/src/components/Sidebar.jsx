@@ -19,7 +19,7 @@ function Sidebar({ items, onAlignmentChange, alignment }) {
         exclusive
         className='sidebar-toggle-group'
         onChange={handleAlignment}
-        fullWidth={isAccountPage} // Conditionally set fullWidth based on isAccountPage
+        fullWidth={isAccountPage}
       >
         {items.map((item) => (
           <ToggleButton key={item.id} value={item.id} className='sidebar-toggle-button'>

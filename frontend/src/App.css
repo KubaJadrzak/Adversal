@@ -3,7 +3,7 @@
   min-width: 100vw;
   min-height: 100vh;
   background-color: #fdfdff;
-  color: #000000 !important; /* Ensure text color */
+  color: #000000 !important;
 }
 .app-content,
 .app-navbar {

@@ -19,7 +19,7 @@ import './ProductForm.css'
 
 function ProductForm({ buttonMessage, data, handleSubmit }) {
   const location = useLocation()
-  const isEditProduct = location.pathname.includes('edit') // Check if 'edit' is present in the URL
+  const isEditProduct = location.pathname.includes('edit')
   const { setAlert } = useAlert()
   const navigate = useNavigate()
   const [title, setTitle] = useState(data.title)
@@ -71,7 +71,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
             price,
             category_id: childCategoryId || parentCategoryId,
             description,
-            status, // Include status in form submission
+            status,
             newImages,
             deletedImages,
           })
@@ -102,7 +102,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
           select
           onChange={(e) => {
             setParentCategoryId(e.target.value)
-            setChildCategoryId('') // Reset child category when parent changes
+            setChildCategoryId('')
           }}
         >
           {data.categories.map((category) => (
@@ -161,7 +161,7 @@ function ProductForm({ buttonMessage, data, handleSubmit }) {
         <Button variant='contained' type='submit'>
           {buttonMessage}
         </Button>
-        {isEditProduct && ( // Conditionally render the "Delete Product" button
+        {isEditProduct && (
           <Button variant='outlined' color='error' onClick={() => setOpenDeleteDialog(true)}>
             Delete Product
           </Button>

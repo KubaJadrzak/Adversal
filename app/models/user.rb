@@ -29,7 +29,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :phone_number, presence: true
 
-
   def average_rating
     if received_reviews.exists?
       received_reviews.average(:rating).to_f
@@ -37,6 +36,7 @@ class User < ApplicationRecord
       0.0
     end
   end
+
   def full_address
     address_parts = [
       place_name,
@@ -46,10 +46,10 @@ class User < ApplicationRecord
       country_name,
       postal_code
     ].compact.reject(&:blank?)
-  
+
     address_parts.join(', ')
   end
-  
+
   def short_address
     address_parts = [
       place_name,
@@ -59,10 +59,10 @@ class User < ApplicationRecord
       country_name,
       postal_code
     ].compact.reject(&:blank?)
-  
+
     # Select the last 3 parts if the array has more than 3 elements
     short_address_parts = address_parts.first(2)
-  
+
     short_address_parts.join(', ')
   end
 end

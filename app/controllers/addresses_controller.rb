@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddressesController < ApplicationController
   require 'httparty'
 
@@ -9,7 +11,7 @@ class AddressesController < ApplicationController
 
     case type
     when 'country'
-      url = "http://api.geonames.org/countryInfoJSON?formatted=true&username=kubajadrzak"
+      url = 'http://api.geonames.org/countryInfoJSON?formatted=true&username=kubajadrzak'
     when 'subdivision'
       if id
         url = "http://api.geonames.org/childrenJSON?formatted=true&geonameId=#{id}&username=kubajadrzak"
@@ -80,7 +82,7 @@ class AddressesController < ApplicationController
         response['geonames'].uniq { |place| place['toponymName'] }.map do |place|
           {
             id: place['geonameId'],
-            name: place['toponymName'],
+            name: place['toponymName']
           }
         end
       else
@@ -90,14 +92,14 @@ class AddressesController < ApplicationController
       if response['postalCodes'].present?
         response['postalCodes'].uniq { |place| place['postalCode'] }.map do |place|
           {
-            postal_code: place['postalCode'],
+            postal_code: place['postalCode']
           }
         end
       else
         []  # Return empty array if postalCodes array is nil or empty
       end
     else
-      []  # Return empty array for unrecognized types
+      [] # Return empty array for unrecognized types
     end
   end
 end

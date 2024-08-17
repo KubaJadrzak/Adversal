@@ -2,12 +2,12 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy update_images delete_image]
-  before_action :authenticate_user!, only: %i[index update destroy update_images delete_image current_user_products], if: :authentication_required?
+  before_action :authenticate_user!, only: %i[index update destroy update_images delete_image current_user_products],
+                                     if: :authentication_required?
   load_and_authorize_resource
 
   # GET /products
   def index
-    # Initial filter to exclude products with status other than 1
     @products = Product.where(status: 1)
 
     if params[:category].present?
@@ -21,39 +21,30 @@ class ProductsController < ApplicationController
       @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
     end
 
-    if params[:min_price].present?
-      @products = @products.where('price >= ?', params[:min_price].to_f)
-    end
+    @products = @products.where('price >= ?', params[:min_price].to_f) if params[:min_price].present?
 
-    if params[:max_price].present?
-      @products = @products.where('price <= ?', params[:max_price].to_f)
-    end
+    @products = @products.where('price <= ?', params[:max_price].to_f) if params[:max_price].present?
 
     # Pagination
     @products = @products.page(params[:page]).per(20)
-
   end
 
   def current_user_products
     @products = Product.where(seller_id: current_user.id).where.not(status: 4)
 
-    if params[:status].present?
-      @products = @products.where(status: Product.statuses[params[:status].upcase])
-    end
+    return unless params[:status].present?
 
+    @products = @products.where(status: Product.statuses[params[:status].upcase])
   end
-
 
   # GET /user_products/:user_id
   def user_products
     user_id = params[:user_id]
     @products = Product.where(seller_id: user_id, status: 1)
 
-    if params[:query].present? && params[:query].is_a?(String)
-      @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
-    end
+    return unless params[:query].present? && params[:query].is_a?(String)
 
-
+    @products = @products.where('title ILIKE ?', "%#{params[:query]}%")
   end
 
   # GET /products/1
@@ -70,34 +61,34 @@ class ProductsController < ApplicationController
     end
   end
 
-# PATCH/PUT /products/1
-def update
-  @product = Product.find(params[:id])
+  # PATCH/PUT /products/1
+  def update
+    @product = Product.find(params[:id])
 
-  if product_params[:images].present?
-    new_images_count = product_params[:images].count
-    total_images_count = @product.images.size + new_images_count
+    if product_params[:images].present?
+      new_images_count = product_params[:images].count
+      total_images_count = @product.images.size + new_images_count
 
-    if total_images_count > 6
-      render json: { errors: "You can attach up to 6 images only." }, status: :unprocessable_entity
-      return
+      if total_images_count > 6
+        render json: { errors: 'You can attach up to 6 images only.' }, status: :unprocessable_entity
+        return
+      end
+
+      @product.images.attach(product_params[:images])
     end
 
-    @product.images.attach(product_params[:images])
+    if @product.update(product_params.except(:images))
+      render json: @product
+    else
+
+      render json: @product.errors, status: :unprocessable_entity
+    end
   end
-
-  if @product.update(product_params.except(:images))
-    render json: @product
-  else
-    render json: @product.errors, status: :unprocessable_entity
-  end
-end
-
-
 
   # DELETE /products/1
   def destroy
     if @product.update(status: 4)
+
       render json: { message: 'Product status changed to DELETED successfully' }, status: :ok
     else
       render json: @product.errors, status: :unprocessable_entity

@@ -39,10 +39,8 @@ const LocationFilter = () => {
     const category = params.get('category')
     const subcategory = params.get('subcategory')
 
-    // Reset location filter when category or subcategory changes
     resetLocationFilter()
 
-    // Prefill location filter with new parameters
     prefillLocationFilter()
   }, [location.search])
 
@@ -59,7 +57,7 @@ const LocationFilter = () => {
       const selectedCountry = countryData.find((c) => c.id === parseInt(countryId))
       if (selectedCountry) {
         setCountry(selectedCountry)
-        // Reset lower level address parts
+
         setSubdivisions([])
         setSubdivision(null)
         setCounties([])
@@ -68,7 +66,7 @@ const LocationFilter = () => {
         setArea(null)
         setPlaces([])
         setPlace(null)
-        // Load subdivisions for the selected country
+
         loadAddresses('subdivision', '', selectedCountry.id)
       }
     }
@@ -173,7 +171,7 @@ const LocationFilter = () => {
     } else {
       params.delete('place_id')
     }
-    params.set('page', 1) // Reset page to 1
+    params.set('page', 1)
     const newSearch = params.toString() ? `?${params.toString()}` : ''
     navigate(`/${newSearch}`)
     handleClose()
@@ -202,7 +200,6 @@ const LocationFilter = () => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
-  // Check if there are active filters in the URL
   const searchParams = new URLSearchParams(location.search)
   const isFilterActive =
     searchParams.has('country_id') ||
@@ -230,7 +227,7 @@ const LocationFilter = () => {
             border: isFilterActive
               ? `1px solid ${theme.palette.primary.main}`
               : `1px solid ${theme.palette.divider}`,
-            paddingRight: isFilterActive ? '30px' : 'default', // Conditionally apply paddingRight
+            paddingRight: isFilterActive ? '30px' : 'default',
           }}
         >
           LOCATION <FontAwesomeIcon icon={faChevronDown} style={{ marginLeft: 4 }} />
@@ -268,7 +265,7 @@ const LocationFilter = () => {
             onChange={(e, value) => {
               if (value) {
                 setCountry(value)
-                // Reset lower level address parts
+
                 setSubdivisions([])
                 setSubdivision(null)
                 setCounties([])
@@ -277,7 +274,7 @@ const LocationFilter = () => {
                 setArea(null)
                 setPlaces([])
                 setPlace(null)
-                // Load subdivisions for the selected country
+
                 loadAddresses('subdivision', '', value.id)
               } else {
                 setCountry(null)
