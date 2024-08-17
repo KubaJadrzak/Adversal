@@ -204,7 +204,7 @@ function AddressEditDialog({ open, onClose, user, setUser }) {
     <Dialog open={open} onClose={onClose} maxWidth='md' fullWidth>
       <DialogTitle>Edit Address</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSave}>
+        <form onSubmit={handleSave} className='address-form'>
           <Autocomplete
             className='address-form-element'
             options={countries}

@@ -1,20 +1,35 @@
+.address-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-form-element {
+  margin: 10px;
+  width: 100%;
+  align-self: center;
+}
+
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
 }
 
-.address-form-element {
-  margin: 10px;
-  width: 100%;
+.dialog-actions button {
+  min-width: 200px;
 }
 
 @media only screen and (max-width: 700px) {
   .dialog-actions {
-    display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
+
   .dialog-actions > * {
+    width: 100%;
+  }
+
+  .dialog-actions button {
     width: 100%;
   }
 }
