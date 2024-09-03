@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
     @products = @products.where('price <= ?', params[:max_price].to_f) if params[:max_price].present?
 
     # Pagination
-    @products = @products.page(params[:page]).per(20)
+    @products = @products.page(params[:page]).per(10)
   end
 
   def current_user_products
