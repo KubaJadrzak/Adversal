@@ -136,8 +136,8 @@ function Products() {
   const handleAlignmentChange = (newAlignment) => {
     setAlignment(newAlignment)
     const params = new URLSearchParams(location.search)
-    const categoryId = params.get('category')
     params.set('subcategory', newAlignment)
+    params.delete('page')
     navigate(`/?${params.toString()}`)
   }
 

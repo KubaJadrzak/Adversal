@@ -13,7 +13,7 @@ function Product({ product, navigate, isFavorite: initialIsFavorite, onRemoveFav
   const location = useLocation()
   const isFromAccount = location.pathname.includes('/account')
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite)
-  const theme = useTheme() // Access MUI theme
+  const theme = useTheme()
 
   const isSmallScreen = useMediaQuery('(max-width: 700px)')
 
