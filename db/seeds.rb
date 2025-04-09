@@ -1063,10 +1063,14 @@ products_data = [
 
 def create_images_attachments(model_instance, num_images)
   num_images.times do
-    image_url = Faker::LoremFlickr.image(size: '300x200', search_terms: ['product'])
-    image_file = URI.open(image_url)
-    filename = "#{SecureRandom.uuid}.png"
-    model_instance.images.attach(io: image_file, filename:)
+    begin
+      image_url = "https://picsum.photos/300/200"
+      image_file = URI.open(image_url)
+      filename = "#{SecureRandom.uuid}.jpg"
+      model_instance.images.attach(io: image_file, filename:)
+    rescue => e
+      puts " Could not attach image: #{e.message}"
+    end
   end
 end
 
