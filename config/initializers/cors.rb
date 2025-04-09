@@ -10,7 +10,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   if Rails.env.production?
     allow do
-      origins 'https://adversal.it', 'http://adversal.it', 'http://www.adversal.it', 'https://www.adversal.it'
+      origins 'https://adversal.pl', 'http://adversal.pl', 'http://www.adversal.pl', 'https://www.adversal.pl'
 
       resource '*',
                headers: :any,
